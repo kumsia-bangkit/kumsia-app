@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">KumsiaApp</string>
+    <string name="old_people_meeting">Old people meeting</string>
+    <string name="kumsia">KUMSIA</string>
+    <string name="app_logo">App logo</string>
+    <string name="briding_generations_building_friendships">Briding Generations, Building Friendships</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="back">Back</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="don_t_have_an_account_yet">Don\'t have an account yet?</string>
+    <string name="choose_your_role">Choose Your Role</string>
 </resources>
