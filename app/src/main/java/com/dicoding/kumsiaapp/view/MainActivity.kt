@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.dicoding.kumsiaapp.R
 import com.dicoding.kumsiaapp.databinding.ActivityMainBinding
 import com.dicoding.kumsiaapp.view.auth.LoginActivity
+import com.dicoding.kumsiaapp.view.auth.PreRegistrationActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -16,6 +17,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.signInButton.setOnClickListener {
             val intent = Intent(this@MainActivity, LoginActivity::class.java)
+            startActivity(intent)
+        }
+        binding.signUpButton.setOnClickListener {
+            val intent = Intent(this@MainActivity, PreRegistrationActivity::class.java)
             startActivity(intent)
         }
     }
