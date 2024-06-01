@@ -20,15 +20,142 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="78dp"
         android:fontFamily="sans-serif-black"
         android:text="@string/choose_your_role"
-        android:textSize="35sp"
+        android:textSize="46sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/individual_role_card"
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:cardCornerRadius="30dp"
+        app:cardBackgroundColor="@color/light_blue"
+        app:strokeColor="@color/dark_blue2"
+        app:strokeWidth="3dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:padding="12dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ic_individual_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_individual_role" />
+
+            <TextView
+                android:id="@+id/individual_role_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/individual_role_tile"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/ic_individual_role"
+                app:layout_constraintTop_toTopOf="@+id/ic_individual_role" />
+
+            <TextView
+                android:id="@+id/individual_role_desc"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="@string/individual_role_account"
+                android:textSize="16sp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="@+id/individual_role_title"
+                app:layout_constraintTop_toBottomOf="@id/individual_role_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/organization_role_card"
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/individual_role_card"
+        app:cardCornerRadius="30dp"
+        app:cardBackgroundColor="@color/light_yellow"
+        app:strokeColor="@color/gold"
+        app:strokeWidth="3dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:padding="12dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ic_organization_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_organization_role" />
+
+            <TextView
+                android:id="@+id/organization_role_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/organization_role_tile"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/ic_organization_role"
+                app:layout_constraintTop_toTopOf="@+id/ic_organization_role" />
+
+            <TextView
+                android:id="@+id/organization_role_desc"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="@string/organization_role_account"
+                android:textSize="16sp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="@+id/organization_role_title"
+                app:layout_constraintTop_toBottomOf="@id/organization_role_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/have_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/already_have_an_account"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/back_button" />
+
+    <TextView
+        android:id="@+id/register_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/sign_in"
+        android:textColor="#0277BD"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/have_account"
+        app:layout_constraintStart_toEndOf="@+id/have_account"
+        app:layout_constraintTop_toTopOf="@+id/have_account"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 

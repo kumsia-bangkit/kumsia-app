@@ -10,5 +10,10 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="don_t_have_an_account_yet">Don\'t have an account yet?</string>
+    <string name="already_have_an_account">Already have an account?</string>
     <string name="choose_your_role">Choose Your Role</string>
+    <string name="individual_role_account">Make new friends and connect with people through social events</string>
+    <string name="organization_role_account">Manage and create your social events to help people connect with each other</string>
+    <string name="individual_role_tile">Individual</string>
+    <string name="organization_role_tile">Organization</string>
 </resources>
