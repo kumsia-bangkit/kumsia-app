@@ -16,4 +16,10 @@
     <string name="organization_role_account">Manage and create your social events to help people connect with each other</string>
     <string name="individual_role_tile">Individual</string>
     <string name="organization_role_tile">Organization</string>
+    <string name="input_can_t_be_empty">Input can\'t be empty. Please check it again.</string>
+    <string name="enter_your_name_here">Enter your name here</string>
+    <string name="name">Name</string>
+    <string name="password_confirmation">Password Confirmation</string>
+    <string name="organization">Organization</string>
+    <string name="individual">Individual</string>
 </resources>
