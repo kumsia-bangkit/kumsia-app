@@ -13,6 +13,12 @@
         android:theme="@style/Theme.KumsiaApp"
         tools:targetApi="31">
         <activity
+            android:name=".view.organization.OrganizationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.individual.IndividualActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.auth.OrganizationRegisterActivity"
             android:exported="false" />
         <activity
