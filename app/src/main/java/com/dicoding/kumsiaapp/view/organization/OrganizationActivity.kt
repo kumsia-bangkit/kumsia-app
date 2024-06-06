@@ -25,6 +25,7 @@ class OrganizationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         binding.bottomNavigationView.setOnApplyWindowInsetsListener(null)
         binding.bottomNavigationView.setPadding(0,0,0,0)
         replaceFragment(HomeFragment())

@@ -27,4 +27,11 @@
     <string name="profile">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="organization_name">Organization Name</string>
+    <string name="upcoming_social_events">Upcoming Social Events</string>
+    <string name="event_photo">Event photo</string>
+    <string name="bincang_bincang_masak">Bincang-Bincang Masak</string>
+    <string name="date">6 Juni 2024</string>
+    <string name="detail">Detail</string>
 </resources>

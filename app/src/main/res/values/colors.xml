@@ -8,4 +8,6 @@
     <color name="light_blue">#7CD4FD</color>
     <color name="light_yellow">#FEC84B</color>
     <color name="gold">#8D6E28</color>
+    <color name="grey">#9DB2CE</color>
+    <color name="brown">#511C10</color>
 </resources>
