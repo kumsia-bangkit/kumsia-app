@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:fontFamily="sans-serif-black"
+        android:textColor="@color/black"
         android:text="@string/organization"
         android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +51,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-black"
+                android:textColor="@color/black"
                 android:text="@string/sign_up"
                 android:textSize="35sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -138,6 +140,8 @@
                 android:layout_marginTop="76dp"
                 android:text="@string/name"
                 android:textSize="16sp"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -148,6 +152,8 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="156dp"
                 android:text="@string/email"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -159,6 +165,8 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="236dp"
                 android:text="@string/password"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -205,6 +213,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="316dp"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/black"
                 android:text="@string/password_confirmation"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"

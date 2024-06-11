@@ -8,9 +8,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.dicoding.kumsiaapp.R
 import com.dicoding.kumsiaapp.databinding.ActivityOrganizationBinding
-import com.dicoding.kumsiaapp.view.organization.events.EventsFragment
-import com.dicoding.kumsiaapp.view.organization.home.HomeFragment
-import com.dicoding.kumsiaapp.view.organization.profile.ProfileFragment
+import com.dicoding.kumsiaapp.view.organization.event.OrganizationEventFragment
+import com.dicoding.kumsiaapp.view.organization.home.OrganizationHomeFragment
+import com.dicoding.kumsiaapp.view.organization.profile.OrganizationProfileFragment
 
 class OrganizationActivity : AppCompatActivity() {
 
@@ -28,13 +28,13 @@ class OrganizationActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setOnApplyWindowInsetsListener(null)
         binding.bottomNavigationView.setPadding(0,0,0,0)
-        replaceFragment(HomeFragment())
+        replaceFragment(OrganizationHomeFragment())
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.home -> replaceFragment(HomeFragment())
-                R.id.profile -> replaceFragment(ProfileFragment())
-                R.id.events -> replaceFragment(EventsFragment())
+                R.id.home -> replaceFragment(OrganizationHomeFragment())
+                R.id.profile -> replaceFragment(OrganizationProfileFragment())
+                R.id.events -> replaceFragment(OrganizationEventFragment())
                 else -> {}
             }
             true

@@ -1,4 +1,4 @@
-package com.dicoding.kumsiaapp.view.organization.utils
+package com.dicoding.kumsiaapp.utils
 
 import android.app.Activity
 import android.content.Intent
@@ -11,7 +11,9 @@ import com.bumptech.glide.Glide
 import com.dicoding.kumsiaapp.data.remote.response.Event
 import com.dicoding.kumsiaapp.databinding.ItemEventBinding
 
-class EventAdapter : androidx.recyclerview.widget.ListAdapter<Event, EventAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class EventAdapter : androidx.recyclerview.widget.ListAdapter<Event, EventAdapter.MyViewHolder>(
+    DIFF_CALLBACK
+) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)

@@ -1,26 +1,26 @@
-package com.dicoding.kumsiaapp.view.organization.home
+package com.dicoding.kumsiaapp.view.organization.event
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.kumsiaapp.R
 import com.dicoding.kumsiaapp.data.remote.response.Event
-import com.dicoding.kumsiaapp.databinding.FragmentHomeBinding
-import com.dicoding.kumsiaapp.view.organization.utils.EventAdapter
+import com.dicoding.kumsiaapp.databinding.FragmentOrganizationEventBinding
+import com.dicoding.kumsiaapp.utils.EventAdapter
 
-class HomeFragment : Fragment() {
+class OrganizationEventFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentOrganizationEventBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentOrganizationEventBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -41,5 +41,10 @@ class HomeFragment : Fragment() {
         val adapter = EventAdapter()
         adapter.submitList(listOfEvent)
         binding.rvEvents.adapter = adapter
+
+        binding.addEventButton.setOnClickListener {
+            val intent = Intent(requireActivity(), AddEventActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
