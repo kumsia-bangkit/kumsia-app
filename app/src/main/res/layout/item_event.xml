@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingBottom="28dp">
@@ -38,12 +39,30 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/event_status"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@android:color/holo_red_light"
+                android:clickable="false"
+                android:text="@string/canceled"
+                app:chipStrokeWidth="1dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:chipCornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="320dp"
-        android:layout_height="95dp"
+        android:layout_height="100dp"
         app:cardElevation="8dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -89,6 +108,29 @@
                 app:layout_constraintStart_toEndOf="@+id/iv_date"
                 app:layout_constraintTop_toTopOf="@+id/iv_date" />
 
+            <ImageView
+                android:id="@+id/iv_likes"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/like_counts"
+                android:src="@drawable/Ic_likes"
+                app:layout_constraintStart_toEndOf="@+id/event_title"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_item_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/like_counts"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_likes"
+                app:layout_constraintStart_toEndOf="@+id/iv_likes"
+                app:layout_constraintTop_toTopOf="@+id/iv_likes" />
+
             <com.google.android.material.chip.Chip
                 android:id="@+id/event_type"
                 android:layout_width="100dp"
@@ -109,18 +151,18 @@
                 android:layout_width="87dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="12dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/blue_button_style"
-                android:text="@string/detail"
                 android:paddingHorizontal="0dp"
                 android:paddingVertical="0dp"
+                android:text="@string/detail"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:backgroundTint="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.564" />
+                tools:ignore="TouchTargetSizeCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

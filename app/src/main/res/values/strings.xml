@@ -124,6 +124,8 @@
     <string name="hobbies_and_interests">Hobbies and Interests</string>
     <string name="add_city">+ Add City</string>
     <string name="submit">Submit</string>
+    <string name="like_counts">505</string>
+    <string name="canceled">Canceled</string>
 
     <string-array name="interests_array">
         <item>Food</item>
