@@ -43,4 +43,9 @@
     <style name="Theme.BottomNavigationView.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/orange</item>
     </style>
+
+    <style name="CustomChipChoice" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@drawable/background_color_chip_state</item>
+        <item name="android:textColor">@drawable/text_color_chip_state</item>
+    </style>
 </resources>

@@ -13,6 +13,12 @@
         android:theme="@style/Theme.KumsiaApp"
         tools:targetApi="31">
         <activity
+            android:name=".view.organization.event.OrganizationDetailEventActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.organization.event.AddEventPreferencesActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.organization.event.AddEventActivity"
             android:exported="false" />
         <activity
