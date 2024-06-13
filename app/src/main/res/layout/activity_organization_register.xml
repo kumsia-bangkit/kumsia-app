@@ -71,7 +71,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ed_register_confirm_password"
+                app:layout_constraintTop_toBottomOf="@+id/ed_register_email"
                 tools:ignore="DuplicateSpeakableTextCheck" />
 
             <ProgressBar
@@ -84,7 +84,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.409"
+                app:layout_constraintVertical_bias="0.443"
                 tools:visibility="visible" />
 
             <TextView
@@ -121,7 +121,7 @@
                 android:autofillHints="name"
                 android:background="@drawable/edit_text_style"
                 android:backgroundTint="@null"
-                android:drawableStart="@drawable/ic_name_icon"
+                android:drawableStart="@drawable/ic_name_for_form"
                 android:drawablePadding="12dp"
                 android:hint="@string/enter_your_name_here"
                 android:inputType="text"
@@ -136,23 +136,56 @@
                 android:id="@+id/name_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/black"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="76dp"
                 android:text="@string/name"
                 android:textSize="16sp"
-                android:fontFamily="sans-serif-black"
-                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/username_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="160dp"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/username"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/ed_register_username"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:autofillHints="name"
+                android:background="@drawable/edit_text_style"
+                android:backgroundTint="@null"
+                android:drawableStart="@drawable/ic_name_icon"
+                android:drawablePadding="12dp"
+                android:hint="@string/enter_your_username_here"
+                android:inputType="text"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/username_title" />
 
             <TextView
                 android:id="@+id/email_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="156dp"
-                android:text="@string/email"
+                android:layout_marginTop="328dp"
                 android:fontFamily="sans-serif-black"
+                android:text="@string/email"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -163,9 +196,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="236dp"
-                android:text="@string/password"
+                android:layout_marginTop="244dp"
                 android:fontFamily="sans-serif-black"
+                android:text="@string/password"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -188,37 +221,6 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/password_title"
                 app:layout_constraintTop_toBottomOf="@+id/password_title" />
-
-            <com.dicoding.kumsiaapp.view.custom.PasswordEditText
-                android:id="@+id/ed_register_confirm_password"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:background="@drawable/edit_text_style"
-                android:backgroundTint="@null"
-                android:drawableStart="@drawable/ic_baseline_lock_24"
-                android:drawablePadding="12dp"
-                android:inputType="textPassword"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/password_confirmation_title"
-                app:layout_constraintTop_toBottomOf="@+id/password_confirmation_title" />
-
-            <TextView
-                android:id="@+id/password_confirmation_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="316dp"
-                android:fontFamily="sans-serif-black"
-                android:textColor="@color/black"
-                android:text="@string/password_confirmation"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <com.dicoding.kumsiaapp.view.custom.EmailEditText
                 android:id="@+id/ed_register_email"
