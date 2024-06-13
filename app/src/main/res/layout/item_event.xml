@@ -37,7 +37,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="1.0" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/event_status"
@@ -81,6 +81,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-black"
+                android:textColor="@color/black"
                 android:text="@string/bincang_bincang_masak"
                 android:textAlignment="textStart"
                 android:textSize="18sp"
@@ -112,23 +113,23 @@
                 android:id="@+id/iv_likes"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="32dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="4dp"
                 android:contentDescription="@string/like_counts"
-                android:src="@drawable/Ic_likes"
-                app:layout_constraintStart_toEndOf="@+id/event_title"
+                android:src="@drawable/ic_likes"
+                app:layout_constraintEnd_toStartOf="@+id/tv_item_likes"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_item_likes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginEnd="24dp"
                 android:text="@string/like_counts"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_likes"
-                app:layout_constraintStart_toEndOf="@+id/iv_likes"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/iv_likes" />
 
             <com.google.android.material.chip.Chip

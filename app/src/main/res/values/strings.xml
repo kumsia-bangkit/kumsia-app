@@ -126,6 +126,27 @@
     <string name="submit">Submit</string>
     <string name="like_counts">505</string>
     <string name="canceled">Canceled</string>
+    <string name="username">Username</string>
+    <string name="patijompo_rawabelong">patijompo.rawabelong</string>
+    <string name="date_time_event">6 June 2024, 10:00</string>
+    <string name="organized_by">Organized by:</string>
+    <string name="pati_jompo_rawabelong">Pati Jompo Rawabelong</string>
+    <string name="capacity_title">Capacity:</string>
+    <string name="capacity_value">50</string>
+    <string name="location_value">Jl. Pegangsaan Timur No. 56, Jakarta</string>
+    <string name="attendee_criteria_value">Love to cook and hang out with new friends</string>
+    <string name="whatsapp_group_link">WhatsApp Group Link</string>
+    <string name="none">-</string>
+    <string name="religion_title">Religion:</string>
+    <string name="gender_title">Gender:</string>
+    <string name="interests_value">Food, Cooking</string>
+    <string name="interests_title">Hobbies and Interests:</string>
+    <string name="city_title">City:</string>
+    <string name="comments">Comments</string>
+    <string name="view_comments">View Comments</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 
     <string-array name="interests_array">
         <item>Food</item>

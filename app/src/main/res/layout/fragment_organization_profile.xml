@@ -74,83 +74,61 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/email_title"
+                android:id="@+id/username_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="28dp"
                 android:fontFamily="sans-serif-black"
-                android:text="@string/email"
+                android:text="@string/username"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/name" />
 
             <TextView
-                android:id="@+id/email"
+                android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/blabla_gmail_com"
+                android:text="@string/patijompo_rawabelong"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/email_title"
-                app:layout_constraintTop_toBottomOf="@+id/email_title" />
+                app:layout_constraintStart_toStartOf="@+id/username_title"
+                app:layout_constraintTop_toBottomOf="@+id/username_title" />
 
             <TextView
-                android:id="@+id/date_title"
+                android:id="@+id/email_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-black"
-                android:text="@string/established_date"
+                android:text="@string/email"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/email"
-                app:layout_constraintTop_toBottomOf="@+id/email" />
+                app:layout_constraintStart_toStartOf="@+id/username"
+                app:layout_constraintTop_toBottomOf="@+id/username" />
 
             <TextView
-                android:id="@+id/date"
+                android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/date"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/date_title"
-                app:layout_constraintTop_toBottomOf="@+id/date_title" />
-
-            <TextView
-                android:id="@+id/type_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/type"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/date"
-                app:layout_constraintTop_toBottomOf="@+id/date" />
-
-            <TextView
-                android:id="@+id/type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/panti_jompo"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/type_title"
-                app:layout_constraintTop_toBottomOf="@+id/type_title" />
+                app:layout_constraintStart_toStartOf="@+id/email_title"
+                app:layout_constraintTop_toBottomOf="@+id/email_title" />
 
             <TextView
                 android:id="@+id/contact_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-black"
                 android:text="@string/contact"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/type"
-                app:layout_constraintTop_toBottomOf="@+id/type" />
+                app:layout_constraintStart_toStartOf="@+id/email"
+                app:layout_constraintTop_toBottomOf="@+id/email" />
 
             <TextView
                 android:id="@+id/contact"

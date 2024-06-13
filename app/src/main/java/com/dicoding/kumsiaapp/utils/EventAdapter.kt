@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.kumsiaapp.data.remote.response.Event
 import com.dicoding.kumsiaapp.databinding.ItemEventBinding
+import com.dicoding.kumsiaapp.view.organization.event.OrganizationDetailEventActivity
 
 class EventAdapter : androidx.recyclerview.widget.ListAdapter<Event, EventAdapter.MyViewHolder>(
     DIFF_CALLBACK
@@ -30,6 +31,11 @@ class EventAdapter : androidx.recyclerview.widget.ListAdapter<Event, EventAdapte
             binding.tvItemDate.text = event.date
             binding.eventTitle.text = event.name
             binding.eventType.text = event.type
+
+            binding.detailButton.setOnClickListener {
+                val intent = Intent(binding.root.context, OrganizationDetailEventActivity::class.java)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 
