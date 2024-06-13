@@ -147,6 +147,9 @@
     <string name="update">Update</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="enter_your_comment">Enter your comment...</string>
+    <string name="user_name">Marianne Sheridan</string>
+    <string name="time">11 Jun, 11:15</string>
 
     <string-array name="interests_array">
         <item>Food</item>
