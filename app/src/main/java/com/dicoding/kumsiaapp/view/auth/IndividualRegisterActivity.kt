@@ -10,13 +10,19 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.text.TextWatcher
+import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.dicoding.kumsiaapp.R
+import com.dicoding.kumsiaapp.data.remote.request.IndividualRegisterDTO
+import com.dicoding.kumsiaapp.data.remote.request.OrganizationRegisterDTO
 import com.dicoding.kumsiaapp.databinding.ActivityIndividualRegisterBinding
+import com.dicoding.kumsiaapp.viewmodel.AuthViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -26,7 +32,10 @@ class IndividualRegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityIndividualRegisterBinding
     private lateinit var dateOfBirth: String
-    private lateinit var gender: String
+    private val authViewModel: AuthViewModel by lazy {
+        ViewModelProvider(this)[AuthViewModel::class.java]
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityIndividualRegisterBinding.inflate(layoutInflater)
@@ -47,6 +56,57 @@ class IndividualRegisterActivity : AppCompatActivity() {
 
         binding.genderSpinner.setOnClickListener {
             showGenderDialog()
+        }
+
+        binding.signUpButton.setOnClickListener {
+            val nameField = binding.edRegisterName.text.toString().trim()
+            val usernameField = binding.edRegisterUsername.text.toString().trim()
+            val emailField = binding.edRegisterEmail.text.toString().trim()
+            val passwordField = binding.edRegisterPassword.text.toString().trim()
+            val dobField = binding.edDob.text.toString().trim()
+            val genderField = binding.genderSpinner.text.toString().trim()
+
+            if (usernameField.isEmpty() || nameField.isEmpty() || emailField.isEmpty() || passwordField.isEmpty() || dobField.isEmpty() || genderField.isEmpty()) {
+                binding.errorMessage.let {
+                    it.text = resources.getString(R.string.input_cant_be_empty)
+                    it.visibility = View.VISIBLE
+                }
+            } else if (binding.edRegisterEmail.error != null || binding.edRegisterPassword.error != null) {
+                binding.errorMessage.let {
+                    it.text = resources.getString(R.string.input_is_invalid)
+                    it.visibility = View.VISIBLE
+                }
+            } else {
+                binding.errorMessage.visibility = View.GONE
+                val registerDTO = IndividualRegisterDTO(
+                    usernameField,
+                    emailField,
+                    passwordField,
+                    nameField,
+                    dateOfBirth,
+                    genderField
+                )
+                authViewModel.registerForIndividual(registerDTO)
+
+                authViewModel.isLoading.observe(this) {
+                    showLoading(it)
+                }
+
+                authViewModel.registerMessage.observe(this) {
+                    it.getContentIfNotHandled()?.let { message ->
+                        if (message == "Account is successfully registered") {
+                            showToast(message)
+
+                            val intent = Intent(this@IndividualRegisterActivity, LoginActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            startActivity(intent)
+                        } else {
+                            showToast(message)
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -115,8 +175,15 @@ class IndividualRegisterActivity : AppCompatActivity() {
         listView.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
                 binding.genderSpinner.text = adapter.getItem(position).toString()
-                gender = adapter.getItem(position).toString()
                 dialog.dismiss()
             }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

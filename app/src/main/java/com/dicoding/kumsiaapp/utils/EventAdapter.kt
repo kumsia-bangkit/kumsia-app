@@ -1,13 +1,10 @@
 package com.dicoding.kumsiaapp.utils
 
-import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.dicoding.kumsiaapp.data.remote.response.Event
 import com.dicoding.kumsiaapp.databinding.ItemEventBinding
 import com.dicoding.kumsiaapp.view.organization.event.OrganizationDetailEventActivity

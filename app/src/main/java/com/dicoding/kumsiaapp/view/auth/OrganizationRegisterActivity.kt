@@ -29,10 +29,6 @@ class OrganizationRegisterActivity : AppCompatActivity() {
         }
 
         binding.signUpButton.setOnClickListener {
-            // 1. Check if all input is not empty
-            // 2. Check if the email and password format is valid
-            // 3. Submit
-
             val nameField = binding.edRegisterName.text.toString().trim()
             val usernameField = binding.edRegisterUsername.text.toString().trim()
             val emailField = binding.edRegisterEmail.text.toString().trim()
