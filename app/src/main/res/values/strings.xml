@@ -157,6 +157,8 @@
     <string name="choose_gender">Choose gender</string>
     <string name="choose_the_gender">Choose the gender</string>
     <string name="search_the_gender">Search the gender</string>
+    <string name="input_is_invalid">Input is invalid. Please check it again.</string>
+    <string name="input_cant_be_empty">Input can\'t be empty. Please check it again.</string>
 
     <string-array name="interests_array">
         <item>Food</item>
