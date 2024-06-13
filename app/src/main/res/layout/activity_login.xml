@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="@+id/password_title"
-        app:layout_constraintTop_toBottomOf="@+id/ed_login_email" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_login_username" />
 
     <TextView
         android:id="@+id/password_title"
@@ -77,8 +77,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.dicoding.kumsiaapp.view.custom.EmailEditText
-        android:id="@+id/ed_login_email"
+    <EditText
+        android:id="@+id/ed_login_username"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
@@ -86,25 +86,27 @@
         android:layout_marginEnd="24dp"
         android:background="@drawable/edit_text_style"
         android:backgroundTint="@null"
-        android:drawableStart="@drawable/baseline_alternate_email_24"
+        android:drawableStart="@drawable/ic_name_icon"
         android:drawablePadding="12dp"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
+        android:hint="@string/enter_the_username"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/email_title"
-        app:layout_constraintTop_toBottomOf="@+id/email_title" />
+        app:layout_constraintStart_toStartOf="@+id/username_title"
+        app:layout_constraintTop_toBottomOf="@+id/username_title"
+        tools:ignore="Autofill,LabelFor" />
 
     <TextView
-        android:id="@+id/email_title"
+        android:id="@+id/username_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="224dp"
         android:fontFamily="sans-serif-black"
         android:textColor="@color/black"
-        android:text="@string/email"
+        android:text="@string/username"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

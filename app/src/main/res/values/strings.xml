@@ -150,6 +150,13 @@
     <string name="enter_your_comment">Enter your comment...</string>
     <string name="user_name">Marianne Sheridan</string>
     <string name="time">11 Jun, 11:15</string>
+    <string name="enter_the_username">Enter the username</string>
+    <string name="enter_your_username_here">Enter your username here</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="choose_date_of_birth">Choose date of birth</string>
+    <string name="choose_gender">Choose gender</string>
+    <string name="choose_the_gender">Choose the gender</string>
+    <string name="search_the_gender">Search the gender</string>
 
     <string-array name="interests_array">
         <item>Food</item>
