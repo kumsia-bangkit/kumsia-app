@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/home"
+        android:id="@+id/home"
+        android:icon="@drawable/baseline_home_24">
+    </item>
 
+    <item android:title="@string/events"
+        android:id="@+id/events"
+        android:icon="@drawable/baseline_event_24">
+    </item>
+
+    <item android:title="@string/chat"
+        android:id="@+id/chat"
+        android:icon="@drawable/baseline_chat_24">
+    </item>
+
+    <item android:title="@string/profile"
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_user_icon">
+    </item>
 </menu>
