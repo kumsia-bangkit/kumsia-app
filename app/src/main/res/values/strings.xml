@@ -32,6 +32,9 @@
     <string name="individual_id">jane.doe</string>
     <string name="upcoming_event">Upcoming Event</string>
     <string name="my_friends">My Friends</string>
+    <string name="friend_req">Friend Requests</string>
+    <string name="reject_friend_request">Reject Friend Request</string>
+    <string name="accept_friend_request">Accept Friend Request</string>
     <string name="organization_name">Organization Name</string>
     <string name="upcoming_social_events">Upcoming Social Events</string>
     <string name="event_photo">Event photo</string>

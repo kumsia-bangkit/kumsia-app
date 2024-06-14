@@ -28,6 +28,9 @@
             android:name=".view.individual.IndividualActivity"
             android:exported="true" />
         <activity
+            android:name=".view.individual.home.IndividualFriendRequest"
+            android:exported="false" />
+        <activity
             android:name=".view.auth.OrganizationRegisterActivity"
             android:exported="false" />
         <activity
