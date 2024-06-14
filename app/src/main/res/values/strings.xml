@@ -168,6 +168,8 @@
     <string name="choose_religion">Choose religion</string>
     <string name="guardian_contact">Guardian Contact (Optional)</string>
     <string name="enter_your_guardian_contact_number">Enter your guardian contact number</string>
+    <string name="choose_preferences">Choose Preferences</string>
+    <string name="update_event">Update Event</string>
 
     <string-array name="interests_array">
         <item>Food</item>
