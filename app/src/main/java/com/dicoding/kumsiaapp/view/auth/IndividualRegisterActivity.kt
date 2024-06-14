@@ -20,8 +20,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.kumsiaapp.R
 import com.dicoding.kumsiaapp.data.remote.request.IndividualRegisterDTO
-import com.dicoding.kumsiaapp.data.remote.request.OrganizationRegisterDTO
 import com.dicoding.kumsiaapp.databinding.ActivityIndividualRegisterBinding
+import com.dicoding.kumsiaapp.view.individual.IndividualActivity
 import com.dicoding.kumsiaapp.viewmodel.AuthViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -56,6 +56,13 @@ class IndividualRegisterActivity : AppCompatActivity() {
 
         binding.genderSpinner.setOnClickListener {
             showGenderDialog()
+        }
+
+        binding.signInLink.setOnClickListener {
+            val intent = Intent(this@IndividualRegisterActivity, IndividualActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
         }
 
         binding.signUpButton.setOnClickListener {

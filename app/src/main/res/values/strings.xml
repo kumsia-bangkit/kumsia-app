@@ -159,6 +159,10 @@
     <string name="search_the_gender">Search the gender</string>
     <string name="input_is_invalid">Input is invalid. Please check it again.</string>
     <string name="input_cant_be_empty">Input can\'t be empty. Please check it again.</string>
+    <string name="friends">Friends</string>
+    <string name="complete_your_data">Complete Your Data</string>
+    <string name="skip">Skip</string>
+    <string name="profile_picture">Profile Picture</string>
 
     <string-array name="interests_array">
         <item>Food</item>
