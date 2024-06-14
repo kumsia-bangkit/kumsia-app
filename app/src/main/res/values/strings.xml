@@ -165,6 +165,9 @@
     <string name="profile_picture">Profile Picture</string>
     <string name="enter_your_contact_number">Enter your contact number</string>
     <string name="save">Save</string>
+    <string name="choose_religion">Choose religion</string>
+    <string name="guardian_contact">Guardian Contact (Optional)</string>
+    <string name="enter_your_guardian_contact_number">Enter your guardian contact number</string>
 
     <string-array name="interests_array">
         <item>Food</item>
