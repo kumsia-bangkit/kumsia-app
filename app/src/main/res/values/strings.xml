@@ -170,6 +170,9 @@
     <string name="enter_your_guardian_contact_number">Enter your guardian contact number</string>
     <string name="choose_preferences">Choose Preferences</string>
     <string name="update_event">Update Event</string>
+    <string name="friends_recommendation">Friends Recommendation</string>
+    <string name="find_your_new_friends_today">Find your new friends today!</string>
+    <string name="age_value">%1$d years old</string>
 
     <string-array name="interests_array">
         <item>Food</item>

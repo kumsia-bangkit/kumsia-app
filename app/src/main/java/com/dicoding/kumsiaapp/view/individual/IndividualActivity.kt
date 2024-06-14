@@ -30,7 +30,7 @@ class IndividualActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setOnApplyWindowInsetsListener(null)
         binding.bottomNavigationView.setPadding(0,0,0,0)
-        replaceFragment(OrganizationHomeFragment())
+        replaceFragment(IndividualHomeFragment())
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -47,7 +47,7 @@ class IndividualActivity : AppCompatActivity() {
 
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
+            .replace(R.id.fragmentContainerIndividual, fragment)
             .commit()
     }
 }
