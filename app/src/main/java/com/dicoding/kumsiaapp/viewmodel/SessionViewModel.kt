@@ -12,29 +12,21 @@ class SessionViewModel(private val pref: UserPreferences) : ViewModel() {
         return pref.getUserToken().asLiveData()
     }
 
-    fun saveUserToken(token: String) {
-        viewModelScope.launch {
-            pref.saveUserToken(token)
-        }
-    }
-
     fun getUserName(): LiveData<String?> {
         return pref.getUserName().asLiveData()
     }
 
-    fun saveUserName(name: String) {
-        viewModelScope.launch {
-            pref.saveUserName(name)
-        }
+    fun getUserRole(): LiveData<String?> {
+        return pref.getUserRole().asLiveData()
     }
 
-    fun getUserId(): LiveData<String?> {
-        return pref.getUserId().asLiveData()
+    fun getIsNewUser(isNewUser: Boolean): LiveData<Boolean?> {
+        return pref.getIsNewUser().asLiveData()
     }
 
-    fun saveUserId(id: String) {
+    fun saveSession(token: String, name: String, role: String, isNewUser: Boolean) {
         viewModelScope.launch {
-            pref.saveUserId(id)
+            pref.saveSession(token, name, role, isNewUser)
         }
     }
 

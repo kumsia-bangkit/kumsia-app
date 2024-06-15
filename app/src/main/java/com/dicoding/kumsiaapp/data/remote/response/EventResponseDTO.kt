@@ -5,7 +5,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 @Parcelize
-data class EventDTO(
+data class EventResponseDTO(
 
 	@field:SerializedName("attendee_criteria")
 	val attendeeCriteria: String? = null,

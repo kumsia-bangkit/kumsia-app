@@ -1,31 +1,21 @@
-package com.dicoding.kumsiaapp.view.individual.postregistration
+package com.dicoding.kumsiaapp.view.individual
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dicoding.kumsiaapp.R
-import com.dicoding.kumsiaapp.databinding.ActivityCompleteIndividualDataBinding
 
-class CompleteIndividualDataActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityCompleteIndividualDataBinding
+class UserDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCompleteIndividualDataBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setContentView(binding.root)
+        setContentView(R.layout.activity_user_detail)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-        }
-
-        binding.skipButton.setOnClickListener {
-            val intent = Intent(this, ChoosePreferenceActivity::class.java)
-            startActivity(intent)
         }
     }
 }

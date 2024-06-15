@@ -1,6 +1,7 @@
 package com.dicoding.kumsiaapp.view.individual.postregistration
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dicoding.kumsiaapp.R
 import com.dicoding.kumsiaapp.databinding.ActivityChoosePreferenceBinding
+import com.dicoding.kumsiaapp.view.individual.IndividualActivity
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -32,6 +34,13 @@ class ChoosePreferenceActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        binding.skipButton.setOnClickListener {
+            val intent = Intent(this, IndividualActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
         }
 
         binding.addCityChip.setOnClickListener {

@@ -178,6 +178,7 @@
     <string name="my_event_history">My Event History</string>
     <string name="joined_event">Joined</string>
     <string name="liked_event">Liked</string>
+    <string name="successfully_logged_in">Successfully logged in!</string>
 
     <string-array name="interests_array">
         <item>Food</item>

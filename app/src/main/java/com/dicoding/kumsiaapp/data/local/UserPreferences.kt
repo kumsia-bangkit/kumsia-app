@@ -3,6 +3,7 @@ package com.dicoding.kumsiaapp.data.local
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -17,33 +18,30 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
         }
     }
 
-    fun getUserId(): kotlinx.coroutines.flow.Flow<String?> {
-        return dataStore.data.map { preferences ->
-            preferences[USER_ID_KEY]
-        }
-    }
-
     fun getUserName(): kotlinx.coroutines.flow.Flow<String?> {
         return dataStore.data.map { preferences ->
-            preferences[USER_NAME_KEY]
+            preferences[NAME_KEY]
         }
     }
 
-    suspend fun saveUserToken(token: String) {
+    fun getUserRole(): kotlinx.coroutines.flow.Flow<String?> {
+        return dataStore.data.map { preferences ->
+            preferences[ROLE_KEY]
+        }
+    }
+
+    fun getIsNewUser(): kotlinx.coroutines.flow.Flow<Boolean?> {
+        return dataStore.data.map { preferences ->
+            preferences[IS_NEW_USER_KEY]
+        }
+    }
+
+    suspend fun saveSession(token: String, name: String, role: String, isNewUser: Boolean) {
         dataStore.edit { preferences ->
             preferences[TOKEN_KEY] = token
-        }
-    }
-
-    suspend fun saveUserId(id: String) {
-        dataStore.edit { preferences ->
-            preferences[USER_ID_KEY] = id
-        }
-    }
-
-    suspend fun saveUserName(name: String) {
-        dataStore.edit { preferences ->
-            preferences[USER_NAME_KEY] = name
+            preferences[NAME_KEY] = name
+            preferences[ROLE_KEY] = role
+            preferences[IS_NEW_USER_KEY] = isNewUser
         }
     }
 
@@ -66,7 +64,8 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
         }
 
         private val TOKEN_KEY = stringPreferencesKey("token")
-        private val USER_ID_KEY = stringPreferencesKey("userId")
-        private val USER_NAME_KEY = stringPreferencesKey("username")
+        private val NAME_KEY = stringPreferencesKey("name")
+        private val ROLE_KEY = stringPreferencesKey("role")
+        private val IS_NEW_USER_KEY = booleanPreferencesKey("is_new_user")
     }
 }
