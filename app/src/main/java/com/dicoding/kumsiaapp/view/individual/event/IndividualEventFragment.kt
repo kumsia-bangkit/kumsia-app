@@ -27,20 +27,6 @@ class IndividualEventFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val listOfEvent = mutableListOf(
-            Event("Bincang-Bincang Masak", "12 Oktober 2023", "Memasak"),
-            Event("Catur Bersama", "12 Oktober 2023", "Olahraga"),
-            Event("Bincang-Bincang Masak", "12 Oktober 2023", "Memasak"),
-            Event("Catur Bersama", "12 Oktober 2023", "Olahraga"),
-        )
-
-        val layoutManager = LinearLayoutManager(requireActivity())
-        binding.rvEvents.layoutManager = layoutManager
-
-        val adapter = EventAdapter()
-        adapter.submitList(listOfEvent)
-        binding.rvEvents.adapter = adapter
-
         binding.myEventsIcon.setOnClickListener {
             val intent = Intent(requireActivity(), EventHistoryActivity::class.java)
             startActivity(intent)

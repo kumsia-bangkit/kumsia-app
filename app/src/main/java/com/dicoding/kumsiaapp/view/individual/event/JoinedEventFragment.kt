@@ -24,21 +24,6 @@ class JoinedEventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val listOfEvent = mutableListOf(
-            Event("Bincang-Bincang Masak", "12 Oktober 2023", "Memasak"),
-            Event("Catur Bersama", "12 Oktober 2023", "Olahraga"),
-            Event("Bincang-Bincang Masak", "12 Oktober 2023", "Memasak"),
-            Event("Catur Bersama", "12 Oktober 2023", "Olahraga"),
-        )
-
-        val layoutManager = LinearLayoutManager(requireActivity())
-        binding.rvJoinedEvents.layoutManager = layoutManager
-
-        val adapter = EventAdapter()
-        adapter.submitList(listOfEvent)
-        binding.rvJoinedEvents.adapter = adapter
-
     }
 
 }

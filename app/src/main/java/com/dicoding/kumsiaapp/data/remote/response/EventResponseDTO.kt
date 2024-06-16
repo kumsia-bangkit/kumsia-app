@@ -7,8 +7,24 @@ import com.google.gson.annotations.SerializedName
 @Parcelize
 data class EventResponseDTO(
 
+	@field:SerializedName("events")
+	val events: List<EventsItem?>? = null
+) : Parcelable
+
+@Parcelize
+data class EventsItem(
+
+	@field:SerializedName("preference_id")
+	val preferenceId: String? = null,
+
 	@field:SerializedName("attendee_criteria")
 	val attendeeCriteria: String? = null,
+
+	@field:SerializedName("like_count")
+	val likeCount: Int? = null,
+
+	@field:SerializedName("last_edited")
+	val lastEdited: String? = null,
 
 	@field:SerializedName("religion_preference")
 	val religionPreference: List<String?>? = null,
@@ -37,15 +53,27 @@ data class EventResponseDTO(
 	@field:SerializedName("hobby_preference")
 	val hobbyPreference: List<String?>? = null,
 
+	@field:SerializedName("profie_picture")
+	val profilePicture: String? = null,
+
 	@field:SerializedName("event_start")
 	val eventStart: String? = null,
 
-	@field:SerializedName("contact")
-	val contact: String? = null,
+	@field:SerializedName("event_id")
+	val eventId: String? = null,
+
+	@field:SerializedName("contact_varchar")
+	val contactVarchar: String? = null,
+
+	@field:SerializedName("organization_id")
+	val organizationId: String? = null,
 
 	@field:SerializedName("name")
 	val name: String? = null,
 
 	@field:SerializedName("location")
-	val location: String? = null
+	val location: String? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
 ) : Parcelable

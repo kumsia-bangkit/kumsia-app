@@ -26,17 +26,6 @@ class LikedEventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val listOfEvent = mutableListOf(
-            Event("Bincang-Bincang Masak", "12 Oktober 2023", "Memasak"),
-        )
-
-        val layoutManager = LinearLayoutManager(requireActivity())
-        binding.rvLikedEvents.layoutManager = layoutManager
-
-        val adapter = EventAdapter()
-        adapter.submitList(listOfEvent)
-        binding.rvLikedEvents.adapter = adapter
     }
 
 }

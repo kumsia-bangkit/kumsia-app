@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.dicoding.kumsiaapp.data.remote.request.IndividualRegisterDTO
 import com.dicoding.kumsiaapp.data.remote.request.OrganizationRegisterDTO
 import com.dicoding.kumsiaapp.data.remote.response.LoginResponseDTO
+import com.dicoding.kumsiaapp.data.remote.response.OrganizationDTO
+import com.dicoding.kumsiaapp.data.remote.response.UserDTO
 import com.dicoding.kumsiaapp.data.remote.retrofit.ApiConfig
 import com.dicoding.kumsiaapp.utils.EventLiveData
 import com.google.gson.JsonObject
@@ -22,6 +24,12 @@ class AuthViewModel: ViewModel() {
 
     private val _loginResponse = MutableLiveData<EventLiveData<Any>>()
     val loginResponse : LiveData<EventLiveData<Any>> = _loginResponse
+
+    private val _userData = MutableLiveData<EventLiveData<UserDTO>>()
+    val userData : LiveData<EventLiveData<UserDTO>> = _userData
+
+    private val _organizationData = MutableLiveData<EventLiveData<OrganizationDTO>>()
+    val organizationData : LiveData<EventLiveData<OrganizationDTO>> = _organizationData
 
     fun registerForOrganization(registerDTO: OrganizationRegisterDTO) {
         _isLoading.value = true
@@ -87,6 +95,40 @@ class AuthViewModel: ViewModel() {
                 }
             }
             override fun onFailure(call: Call<LoginResponseDTO>, t: Throwable) {
+                _isLoading.value = false
+            }
+        })
+    }
+
+    fun getUserData(token: String) {
+        val client = ApiConfig.getApiService().getLoggedInUser(token)
+        client.enqueue(object : retrofit2.Callback<UserDTO> {
+            override fun onResponse(
+                call: Call<UserDTO>,
+                response: Response<UserDTO>
+            ) {
+                if (response.isSuccessful) {
+                    _userData.value = EventLiveData(response.body()!!)
+                }
+            }
+            override fun onFailure(call: Call<UserDTO>, t: Throwable) {
+                _isLoading.value = false
+            }
+        })
+    }
+
+    fun getOrganizationData(token: String) {
+        val client = ApiConfig.getApiService().getLoggedInOrganization(token)
+        client.enqueue(object : retrofit2.Callback<OrganizationDTO> {
+            override fun onResponse(
+                call: Call<OrganizationDTO>,
+                response: Response<OrganizationDTO>
+            ) {
+                if (response.isSuccessful) {
+                    _organizationData.value = EventLiveData(response.body()!!)
+                }
+            }
+            override fun onFailure(call: Call<OrganizationDTO>, t: Throwable) {
                 _isLoading.value = false
             }
         })
