@@ -40,7 +40,6 @@ class OrganizationHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val pref = UserPreferences.getInstance(requireContext().dataStore)
         val sessionViewModel = ViewModelProvider(requireActivity(), SessionViewModelFactory(pref))[SessionViewModel::class.java]
 
@@ -63,10 +62,6 @@ class OrganizationHomeFragment : Fragment() {
             }
         }
 
-        eventViewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
-
         eventViewModel.eventData.observe(viewLifecycleOwner) {
             if (it != null && it.events?.isNotEmpty()!!) {
                 showEmptyMessage(false)
@@ -74,6 +69,11 @@ class OrganizationHomeFragment : Fragment() {
             } else {
                 showEmptyMessage(true)
             }
+        }
+
+        eventViewModel.isLoading.observe(viewLifecycleOwner) {
+            showEmptyMessage(!it)
+            showLoading(it)
         }
 
         if (!profilePicture.isNullOrEmpty()) {

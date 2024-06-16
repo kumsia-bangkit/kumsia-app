@@ -180,6 +180,7 @@
     <string name="liked_event">Liked</string>
     <string name="successfully_logged_in">Successfully logged in!</string>
     <string name="no_events_created">No Events Created</string>
+    <string name="no_drafts">No Drafts</string>
 
     <string-array name="interests_array">
         <item>Food</item>
