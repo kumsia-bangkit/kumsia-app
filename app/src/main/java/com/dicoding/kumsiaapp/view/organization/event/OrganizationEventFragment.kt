@@ -73,13 +73,14 @@ class OrganizationEventFragment : Fragment() {
         binding.noDraftMessage.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
-    }
-
     private fun provideEvents(data: List<EventsItem?>) {
         val newData = data.filter {
             it?.status == "Draft"
+        }
+            .reversed()
+
+        if (newData.isEmpty()) {
+            showEmptyMessage(true)
         }
 
         val layoutManager = LinearLayoutManager(requireActivity())
@@ -87,6 +88,7 @@ class OrganizationEventFragment : Fragment() {
 
         val adapter = EventAdapter()
         adapter.submitList(newData)
+        adapter.notifyItemInserted(adapter.itemCount - 1)
         binding.rvEvents.adapter = adapter
     }
 }

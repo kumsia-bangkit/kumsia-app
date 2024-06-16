@@ -1,9 +1,11 @@
 package com.dicoding.kumsiaapp.view.organization.event
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,19 +14,46 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.dicoding.kumsiaapp.R
+import com.dicoding.kumsiaapp.data.local.UserPreferences
+import com.dicoding.kumsiaapp.data.local.dataStore
+import com.dicoding.kumsiaapp.data.remote.request.EventRequestDTO
 import com.dicoding.kumsiaapp.databinding.ActivityAddEventPreferencesBinding
+import com.dicoding.kumsiaapp.utils.reduceFileImage
+import com.dicoding.kumsiaapp.utils.uriToFile
+import com.dicoding.kumsiaapp.view.organization.OrganizationActivity
+import com.dicoding.kumsiaapp.viewmodel.EventViewModel
+import com.dicoding.kumsiaapp.viewmodel.SessionViewModel
+import com.dicoding.kumsiaapp.viewmodel.SessionViewModelFactory
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.gson.Gson
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class AddEventPreferencesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddEventPreferencesBinding
+    private val eventViewModel: EventViewModel by lazy {
+        ViewModelProvider(this)[EventViewModel::class.java]
+    }
+    private lateinit var token: String
 
+    private val listOfGender = mutableListOf<String>()
+    private val listOfReligion = mutableListOf<String>()
+    private val listOfInterests = mutableListOf<String>()
+    private val listOfCity = mutableListOf<String>()
+
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEventPreferencesBinding.inflate(layoutInflater)
@@ -34,6 +63,32 @@ class AddEventPreferencesActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        val pref = UserPreferences.getInstance(application.dataStore)
+        val sessionViewModel = ViewModelProvider(this, SessionViewModelFactory(pref))[SessionViewModel::class.java]
+
+        sessionViewModel.getUserToken().observe(this) {
+            token = it!!
+        }
+
+        eventViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+
+        eventViewModel.isSuccess.observe(this) {
+            it.getContentIfNotHandled()?.let { success ->
+                if (success) {
+                    showToast("New event draft is successfully created!")
+                    val intent = Intent(this, OrganizationActivity::class.java)
+                    intent.putExtra(OrganizationActivity.FRAGMENT_POSITION, 1)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                } else {
+                    showToast("Failed to create new event draft!")
+                }
+            }
         }
 
         binding.backButton.setOnClickListener {
@@ -47,6 +102,55 @@ class AddEventPreferencesActivity : AppCompatActivity() {
         addGenderChips()
         addReligionChips()
         addInterestsChips()
+
+        binding.eventGenderGroup.setOnCheckedStateChangeListener{ chipGroup, checkedIds ->
+            listOfGender.clear()
+            checkedIds.forEach {
+                val chip = chipGroup.findViewById<Chip>(it)
+                listOfGender.add(chip.text.toString())
+            }
+        }
+
+        binding.eventReligionGroup.setOnCheckedStateChangeListener { chipGroup, checkedIds ->
+            listOfReligion.clear()
+            checkedIds.forEach {
+                val chip = chipGroup.findViewById<Chip>(it)
+                listOfReligion.add(chip.text.toString())
+            }
+        }
+
+        binding.eventInterestGroup.setOnCheckedStateChangeListener { chipGroup, checkedIds ->
+            listOfInterests.clear()
+            checkedIds.forEach {
+                val chip = chipGroup.findViewById<Chip>(it)
+                listOfInterests.add(chip.text.toString())
+            }
+        }
+
+        binding.submitButton.setOnClickListener {
+            val eventData = intent.getParcelableExtra<EventRequestDTO>(AddEventActivity.EVENT_DATA)
+            val imageUri = intent.getParcelableExtra<Uri>(AddEventActivity.IMAGE_FILE)
+
+            val imageFile = uriToFile(imageUri!!, this).reduceFileImage()
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                "file",
+                imageFile.name,
+                requestImageFile
+            )
+
+            eventData?.genderPreference = listOfGender
+            eventData?.religionPreference = listOfReligion
+            eventData?.hobbyPreference = listOfInterests
+            eventData?.cityPreference = listOfCity
+
+            // Convert event data into json format
+            val gson = Gson()
+            val jsonData = gson.toJson(eventData)
+            val requestBody = jsonData.toRequestBody("text/plain".toMediaType())
+
+            eventViewModel.addNewEvent(token, imageMultipart, requestBody)
+        }
     }
 
     private fun addGenderChips() {
@@ -130,7 +234,7 @@ class AddEventPreferencesActivity : AppCompatActivity() {
         val adapter: ArrayAdapter<Any?> = ArrayAdapter<Any?>(
             this,
             android.R.layout.simple_list_item_1,
-            resources.getStringArray(R.array.courses_array)
+            resources.getStringArray(R.array.city_array)
         )
 
 
@@ -167,8 +271,8 @@ class AddEventPreferencesActivity : AppCompatActivity() {
         chip.text = chipText
         chip.id = View.generateViewId()
         chip.isClickable = false
-        chip.isCheckable = true
         chip.isChecked = true
+        chip.isCheckable = true
         chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
         chip.layoutParams = ChipGroup.LayoutParams(
             ChipGroup.LayoutParams.WRAP_CONTENT,
@@ -177,9 +281,19 @@ class AddEventPreferencesActivity : AppCompatActivity() {
         chip.isCloseIconVisible = true
         chip.setCloseIconResource(R.drawable.baseline_close_24)
         chip.setOnCloseIconClickListener {
+            listOfCity.remove(chipText)
             chipGroup.removeView(chip)
         }
 
+        listOfCity.add(chipText)
         chipGroup.addView(chip, 0)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

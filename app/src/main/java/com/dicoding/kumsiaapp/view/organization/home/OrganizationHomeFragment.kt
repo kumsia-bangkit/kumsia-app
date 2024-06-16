@@ -89,13 +89,13 @@ class OrganizationHomeFragment : Fragment() {
         binding.noEventMessage.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
-    }
-
     private fun provideEvents(data: List<EventsItem?>) {
         val newData = data.filter {
             it?.status != "Draft"
+        }
+
+        if (newData.isEmpty()) {
+            showEmptyMessage(true)
         }
 
         val layoutManager = LinearLayoutManager(requireActivity())

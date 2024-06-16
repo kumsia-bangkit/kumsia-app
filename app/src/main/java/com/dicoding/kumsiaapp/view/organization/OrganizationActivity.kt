@@ -26,9 +26,29 @@ class OrganizationActivity : AppCompatActivity() {
             insets
         }
 
+        val intentData = intent?.extras?.getInt(FRAGMENT_POSITION, 0)
+        if (intentData != null) {
+            when (intentData) {
+                0 -> {
+                    binding.bottomNavigationView.selectedItemId = R.id.home
+                    replaceFragment(OrganizationHomeFragment())
+                }
+
+                1 -> {
+                    binding.bottomNavigationView.selectedItemId = R.id.events
+                    replaceFragment(OrganizationEventFragment())
+                }
+                2 -> {
+                    binding.bottomNavigationView.selectedItemId = R.id.profile
+                    replaceFragment(OrganizationProfileFragment())
+                }
+            }
+        } else {
+            replaceFragment(OrganizationHomeFragment())
+        }
+
         binding.bottomNavigationView.setOnApplyWindowInsetsListener(null)
         binding.bottomNavigationView.setPadding(0,0,0,0)
-        replaceFragment(OrganizationHomeFragment())
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -45,5 +65,9 @@ class OrganizationActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
             .commit()
+    }
+
+    companion object {
+        const val FRAGMENT_POSITION = "fragment_position"
     }
 }

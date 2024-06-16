@@ -133,7 +133,7 @@ class ChoosePreferenceActivity : AppCompatActivity() {
         val adapter: ArrayAdapter<Any?> = ArrayAdapter<Any?>(
             this,
             android.R.layout.simple_list_item_1,
-            resources.getStringArray(R.array.courses_array)
+            resources.getStringArray(R.array.city_array)
         )
 
 
