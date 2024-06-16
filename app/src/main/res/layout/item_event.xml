@@ -136,6 +136,7 @@
                 android:id="@+id/event_type"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
+                app:chipStrokeColor="@color/black"
                 android:clickable="false"
                 android:text="@string/app_name"
                 android:textAlignment="center"

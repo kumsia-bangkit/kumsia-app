@@ -152,13 +152,12 @@
                     android:id="@+id/event_type"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
-                    android:backgroundTint="@color/grey"
-                    android:clickable="false"
                     app:chipStrokeColor="@color/black"
-                    android:text="@string/offline"
+                    android:clickable="false"
+                    android:text="@string/app_name"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
                     app:chipCornerRadius="20dp"
                     app:layout_constraintEnd_toEndOf="@+id/tv_item_date"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -317,12 +316,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-black"
                     android:text="@string/event_preferences"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/guideline8" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_contact" />
 
                 <View
                     android:id="@+id/view"
@@ -434,12 +434,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-black"
                     android:text="@string/comments"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/guideline9" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_city_title" />
 
                 <View
                     android:id="@+id/view_comments"
@@ -474,98 +475,78 @@
                     android:layout_width="110dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="32dp"
                     android:background="@drawable/blue_button_style"
                     android:text="@string/submit"
                     android:textColor="@color/white"
                     app:backgroundTint="@android:color/holo_green_dark"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/guideline11"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_event_comments"
                     tools:ignore="DuplicateSpeakableTextCheck" />
-
 
                 <Button
                     android:id="@+id/update_button"
                     android:layout_width="110dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/blue_button_style"
                     android:text="@string/update"
                     android:textColor="@color/white"
                     app:backgroundTint="@null"
+                    app:layout_constraintBottom_toBottomOf="@+id/submit_button"
                     app:layout_constraintEnd_toStartOf="@+id/delete_button"
                     app:layout_constraintStart_toEndOf="@+id/submit_button"
-                    app:layout_constraintTop_toTopOf="@+id/guideline11"
+                    app:layout_constraintTop_toTopOf="@+id/submit_button"
                     tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <Button
                     android:id="@+id/delete_button"
                     android:layout_width="110dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/blue_button_style"
                     android:text="@string/delete"
                     android:textColor="@color/white"
                     app:backgroundTint="@android:color/holo_red_dark"
+                    app:layout_constraintBottom_toBottomOf="@+id/update_button"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/guideline11"
+                    app:layout_constraintTop_toTopOf="@+id/update_button"
                     tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <Button
                     android:id="@+id/update_submitted_button"
+                    android:visibility="gone"
                     android:layout_width="110dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="80dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/blue_button_style"
                     android:text="@string/update"
                     android:textColor="@color/white"
                     app:backgroundTint="@null"
                     app:layout_constraintEnd_toStartOf="@+id/cancel_button"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/guideline11"
-                    tools:ignore="DuplicateSpeakableTextCheck"
-                    android:visibility="gone"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_event_comments"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <Button
                     android:id="@+id/cancel_button"
+                    android:visibility="gone"
                     android:layout_width="110dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="80dp"
                     android:background="@drawable/blue_button_style"
                     android:text="@string/cancel"
                     android:textColor="@color/white"
                     app:backgroundTint="@android:color/holo_red_dark"
+                    app:layout_constraintBottom_toBottomOf="@+id/update_submitted_button"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/guideline11"
-                    tools:ignore="DuplicateSpeakableTextCheck"
-                    android:visibility="gone"/>
+                    app:layout_constraintTop_toTopOf="@+id/update_submitted_button"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="552dp" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="723dp" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_begin="769dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

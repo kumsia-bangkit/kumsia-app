@@ -84,4 +84,7 @@
             android:exported="false" />
     </application>
 
+    <queries>
+        <package android:name="com.whatsapp" />
+    </queries>
 </manifest>
