@@ -1,11 +1,14 @@
 package com.dicoding.kumsiaapp.view.individual.profile
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.dicoding.kumsiaapp.R
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +31,7 @@ class IndividualProfileFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -35,7 +39,17 @@ class IndividualProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_individual_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_individual_profile, container, false)
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val editButton = view.findViewById<Button>(R.id.edit_button)
+        editButton.setOnClickListener() {
+            val intent = Intent(activity, IndividualProfileEditActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     companion object {

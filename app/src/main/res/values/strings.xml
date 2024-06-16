@@ -20,6 +20,7 @@
     <string name="enter_your_name_here">Enter your name here</string>
     <string name="name">Name</string>
     <string name="password_confirmation">Password Confirmation</string>
+    <string name="old_password_confirmation">Old Password for Saving Changes</string>
     <string name="organization">Organization</string>
     <string name="individual">Individual</string>
     <string name="home">Home</string>
@@ -36,6 +37,7 @@
     <string name="social_event_drafts">Social Event Drafts</string>
     <string name="sign_out">Sign Out</string>
     <string name="edit_button">Edit</string>
+    <string name="edit_profile">Edit Profile</string>
     <string name="blabla_gmail_com">blabla@gmail.com</string>
     <string name="established_date">Established Date</string>
     <string name="type">Type</string>
