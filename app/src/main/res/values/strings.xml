@@ -35,6 +35,7 @@
     <string name="detail">Detail</string>
     <string name="social_event_drafts">Social Event Drafts</string>
     <string name="sign_out">Sign Out</string>
+    <string name="edit_button">Edit</string>
     <string name="blabla_gmail_com">blabla@gmail.com</string>
     <string name="established_date">Established Date</string>
     <string name="type">Type</string>
@@ -160,12 +161,16 @@
     <string name="input_is_invalid">Input is invalid. Please check it again.</string>
     <string name="input_cant_be_empty">Input can\'t be empty. Please check it again.</string>
     <string name="friends">Friends</string>
+    <string name="sum_friends">7</string>
+    <string name="friend_icon">Friend Icon</string>
     <string name="complete_your_data">Complete Your Data</string>
     <string name="skip">Skip</string>
     <string name="profile_picture">Profile Picture</string>
     <string name="enter_your_contact_number">Enter your contact number</string>
     <string name="save">Save</string>
     <string name="choose_religion">Choose religion</string>
+    <string name="personal_contact_title">Personal Contact</string>
+    <string name="guardian_contact_title">Guardian Contact</string>
     <string name="guardian_contact">Guardian Contact (Optional)</string>
     <string name="enter_your_guardian_contact_number">Enter your guardian contact number</string>
     <string name="choose_preferences">Choose Preferences</string>
