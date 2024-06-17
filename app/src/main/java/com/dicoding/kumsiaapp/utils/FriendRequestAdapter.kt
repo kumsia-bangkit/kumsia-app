@@ -15,8 +15,8 @@ class FriendRequestAdapter : androidx.recyclerview.widget.ListAdapter<FriendList
         return MyViewHolder(binding)
     }
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val story = getItem(position)
-        holder.bind(story)
+        val friend = getItem(position)
+        holder.bind(friend)
     }
 
     class MyViewHolder(private val binding: ItemFriendReqBinding) :

@@ -11,15 +11,22 @@ import com.dicoding.kumsiaapp.databinding.ItemFriendBinding
 class FriendListAdapter : androidx.recyclerview.widget.ListAdapter<FriendList, FriendListAdapter.MyViewHolder>(
     DIFF_CALLBACK
 ) {
+    private var onItemClickListener: OnItemClickListener? = null
 
+    fun setOnItemClickListener(listener: OnItemClickListener?) {
+        onItemClickListener = listener
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemFriendBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val story = getItem(position)
-        holder.bind(story)
+        val friend = getItem(position)
+        holder.bind(friend)
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.onItemClick(friend, position)
+        }
     }
 
     class MyViewHolder(private val binding: ItemFriendBinding) :
@@ -28,6 +35,10 @@ class FriendListAdapter : androidx.recyclerview.widget.ListAdapter<FriendList, F
             binding.individualName.text = friendList.name
             binding.individualUsername.text = friendList.username
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(friend: FriendList, position: Int)
     }
 
     companion object {

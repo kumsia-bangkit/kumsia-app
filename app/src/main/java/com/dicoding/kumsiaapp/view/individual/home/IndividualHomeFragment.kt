@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.kumsiaapp.data.remote.response.FriendList
 import com.dicoding.kumsiaapp.databinding.FragmentIndividualHomeBinding
 import com.dicoding.kumsiaapp.utils.FriendListAdapter
+import com.dicoding.kumsiaapp.view.individual.UserDetailActivity
 
-class IndividualHomeFragment : Fragment() {
+class IndividualHomeFragment : Fragment(), FriendListAdapter.OnItemClickListener {
 
     private var _binding: FragmentIndividualHomeBinding? = null
     private val binding get() = _binding!!
@@ -44,9 +45,20 @@ class IndividualHomeFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvFriends.layoutManager = layoutManager
-
         val adapter = FriendListAdapter()
+        adapter.setOnItemClickListener(this)
         adapter.submitList(listOfFriend)
         binding.rvFriends.adapter = adapter
+
+
+    }
+
+    override fun onItemClick(friend: FriendList, position: Int) {
+        val intent = Intent(requireContext(), UserDetailActivity::class.java)
+        intent.putExtra("passName", friend.name)
+        intent.putExtra("passUsername", friend.username)
+        //Flag as friend
+        intent.putExtra("isFriend", 1)
+        startActivity(intent)
     }
 }

@@ -35,11 +35,14 @@
     <string name="detail">Detail</string>
     <string name="social_event_drafts">Social Event Drafts</string>
     <string name="sign_out">Sign Out</string>
+    <string name="make_friend_request">Make Friend Request</string>
     <string name="blabla_gmail_com">blabla@gmail.com</string>
     <string name="established_date">Established Date</string>
     <string name="type">Type</string>
     <string name="panti_jompo">Panti Jompo</string>
     <string name="contact">Contact</string>
+    <string name="personal_contact_title">Personal Contact</string>
+    <string name="guardian_contact_title">Guardian Contact</string>
     <string name="contact_number">0812345679803</string>
     <string name="random_description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim eget ipsum varius sodales nec sit amet sapien. Nulla consectetur ipsum sapien, a pellentesque quam aliquam sit amet. Praesent nec aliquet purus. Sed nec bibendum dui, at elementum nulla. In dui lorem, convallis eu faucibus nec, tincidunt eu justo. Integer consectetur quam nibh, non suscipit nunc posuere ac. Maecenas eu neque id tortor porttitor faucibus eget vitae lacus. </string>
     <string name="description">Description</string>

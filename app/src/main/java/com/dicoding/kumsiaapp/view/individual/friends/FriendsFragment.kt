@@ -1,17 +1,20 @@
 package com.dicoding.kumsiaapp.view.individual.friends
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import com.dicoding.kumsiaapp.data.remote.response.FriendList
 import com.dicoding.kumsiaapp.data.remote.response.FriendsRec
 import com.dicoding.kumsiaapp.databinding.FragmentFriendsBinding
 import com.dicoding.kumsiaapp.utils.FriendsRecAdapter
 import com.dicoding.kumsiaapp.utils.GridSpacingItemDecoration
+import com.dicoding.kumsiaapp.view.individual.UserDetailActivity
 
-class FriendsFragment : Fragment() {
+class FriendsFragment : Fragment(), FriendsRecAdapter.OnItemClickListener {
 
     private lateinit var binding: FragmentFriendsBinding
 
@@ -47,8 +50,17 @@ class FriendsFragment : Fragment() {
         binding.rvFriendsRec.addItemDecoration(GridSpacingItemDecoration(2, 40, true))
 
         val adapter = FriendsRecAdapter()
+        adapter.setOnItemClickListener(this)
         adapter.submitList(listOfFriends)
         binding.rvFriendsRec.adapter = adapter
+    }
+
+    override fun onItemClick(friend: FriendsRec, position: Int) {
+        val intent = Intent(requireContext(), UserDetailActivity::class.java)
+        intent.putExtra("passName", friend.name)
+        //Flag as friend
+        intent.putExtra("isFriend", 0)
+        startActivity(intent)
     }
 
 }
