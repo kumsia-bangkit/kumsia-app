@@ -18,7 +18,10 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -54,5 +57,20 @@ interface ApiService {
         @Part photoFile: MultipartBody.Part,
         @Part("event") eventData: RequestBody
     ) : Call<EventsItem>
+
+    @Multipart
+    @PUT("events/org/update/{event_id}")
+    fun updateEvent(
+        @Path("event_id") eventId: String,
+        @Header("access-token") token: String,
+        @Part("event") eventData: RequestBody,
+        @Part photoFile: MultipartBody.Part?
+    ) : Call<EventsItem>
+
+    // Comments
+    @GET("comment/all")
+    fun getComments(
+        @Query("event_id") eventId: String
+    ): Call<UserDTO>
 
 }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -26,6 +27,8 @@ import com.dicoding.kumsiaapp.viewmodel.SessionViewModelFactory
 class OrganizationDetailEventActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOrganizationDetailEventBinding
+    private var eventData: EventsItem? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -45,11 +48,16 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
             }
         }
 
-        val eventData = intent.getParcelableExtra<EventsItem>(EVENT_DATA)
-        setEventData(eventData)
+        handleIntentData(intent)
 
         binding.backButton.setOnClickListener {
             finish()
+        }
+
+        binding.updateButton.setOnClickListener {
+            val intent = Intent(this, UpdateEventActivity::class.java)
+            intent.putExtra(UpdateEventActivity.EVENT_DATA, eventData)
+            startActivity(intent)
         }
 
         binding.cancelButton.setOnClickListener {
@@ -65,10 +73,56 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
             val alert = builder.create()
             alert.show()
         }
+
+        binding.deleteButton.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Are you sure you want to delete this event?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { _, _ ->
+                    // Call API untuk delete event
+                }
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+            val alert = builder.create()
+            alert.show()
+        }
+
+        binding.submitButton.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Are you sure you want to open this event?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { _, _ ->
+                    // Call API untuk submit event
+                }
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+            val alert = builder.create()
+            alert.show()
+        }
+
+        binding.seeCommentsButton.setOnClickListener {
+            val intent = Intent(this, EventCommentActivity::class.java)
+            intent.putExtra(EventCommentActivity.ORGANIZATION_ID, eventData?.eventId)
+            startActivity(intent)
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIntentData(intent)
+    }
+
+    private fun handleIntentData(intent: Intent) {
+        eventData = intent.getParcelableExtra<EventsItem>(EVENT_DATA)
+        setEventData(eventData)
     }
 
     private fun setEventData(data: EventsItem?) {
         Glide.with(this).load(data?.profilePicture).into(binding.eventImage)
+        binding.likeButton.visibility = View.GONE
         binding.eventTitle.text = data?.name
         binding.tvItemDate.text = DateFormatter.formatDate(data?.eventStart!!)
         binding.eventType.text = data.type
@@ -111,6 +165,28 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
             }
         } else {
             binding.tvContact.text = data.contactVarchar
+        }
+
+        if (data.status == "Draft") {
+            binding.updateButton.visibility = View.VISIBLE
+            binding.deleteButton.visibility = View.VISIBLE
+            binding.submitButton.visibility = View.VISIBLE
+
+            binding.cancelButton.visibility = View.GONE
+            binding.updateSubmittedButton.visibility = View.GONE
+        } else if (data.status == "Open") {
+            binding.updateButton.visibility = View.GONE
+            binding.deleteButton.visibility = View.GONE
+            binding.submitButton.visibility = View.GONE
+
+            binding.cancelButton.visibility = View.VISIBLE
+            binding.updateSubmittedButton.visibility = View.VISIBLE
+        } else {
+            binding.updateButton.visibility = View.GONE
+            binding.deleteButton.visibility = View.GONE
+            binding.submitButton.visibility = View.GONE
+            binding.cancelButton.visibility = View.GONE
+            binding.updateSubmittedButton.visibility = View.GONE
         }
     }
 

@@ -1,28 +1,61 @@
 package com.dicoding.kumsiaapp.view.organization.event
 
+import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.dicoding.kumsiaapp.R
+import com.dicoding.kumsiaapp.data.local.UserPreferences
+import com.dicoding.kumsiaapp.data.local.dataStore
+import com.dicoding.kumsiaapp.data.remote.request.EventRequestDTO
+import com.dicoding.kumsiaapp.data.remote.response.EventsItem
 import com.dicoding.kumsiaapp.databinding.ActivityUpdateEventPreferencesBinding
+import com.dicoding.kumsiaapp.utils.reduceFileImage
+import com.dicoding.kumsiaapp.utils.uriToFile
+import com.dicoding.kumsiaapp.view.organization.OrganizationActivity
+import com.dicoding.kumsiaapp.viewmodel.EventViewModel
+import com.dicoding.kumsiaapp.viewmodel.SessionViewModel
+import com.dicoding.kumsiaapp.viewmodel.SessionViewModelFactory
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.gson.Gson
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class UpdateEventPreferencesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUpdateEventPreferencesBinding
+    private val eventViewModel: EventViewModel by lazy {
+        ViewModelProvider(this)[EventViewModel::class.java]
+    }
+    private lateinit var token: String
+
+    private val listOfGender = mutableListOf<String>()
+    private val listOfReligion = mutableListOf<String>()
+    private val listOfInterests = mutableListOf<String>()
+    private val listOfCity = mutableListOf<String>()
+
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUpdateEventPreferencesBinding.inflate(layoutInflater)
@@ -34,6 +67,13 @@ class UpdateEventPreferencesActivity : AppCompatActivity() {
             insets
         }
 
+        val pref = UserPreferences.getInstance(application.dataStore)
+        val sessionViewModel = ViewModelProvider(this, SessionViewModelFactory(pref))[SessionViewModel::class.java]
+
+        sessionViewModel.getUserToken().observe(this) {
+            token = it!!
+        }
+
         binding.backButton.setOnClickListener {
             finish()
         }
@@ -42,12 +82,104 @@ class UpdateEventPreferencesActivity : AppCompatActivity() {
             addCityDialog()
         }
 
-        addGenderChips()
-        addReligionChips()
-        addInterestsChips()
+        eventViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+
+        eventViewModel.eventItemData.observe(this) {
+            it.getContentIfNotHandled()?.let { data ->
+                showToast("Event draft is successfully updated!")
+                val intent = Intent(this, OrganizationDetailEventActivity::class.java)
+                intent.putExtra(OrganizationDetailEventActivity.EVENT_DATA, data)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                startActivity(intent)
+                finish()
+            } ?: run {
+                showToast("Failed to update event draft!")
+            }
+        }
+
+        binding.eventGenderGroup.setOnCheckedStateChangeListener{ chipGroup, checkedIds ->
+            listOfGender.clear()
+            checkedIds.forEach {
+                val chip = chipGroup.findViewById<Chip>(it)
+                listOfGender.add(chip.text.toString())
+            }
+        }
+
+        binding.eventReligionGroup.setOnCheckedStateChangeListener { chipGroup, checkedIds ->
+            listOfReligion.clear()
+            checkedIds.forEach {
+                val chip = chipGroup.findViewById<Chip>(it)
+                listOfReligion.add(chip.text.toString())
+            }
+        }
+
+        binding.eventInterestGroup.setOnCheckedStateChangeListener { chipGroup, checkedIds ->
+            listOfInterests.clear()
+            checkedIds.forEach {
+                val chip = chipGroup.findViewById<Chip>(it)
+                listOfInterests.add(chip.text.toString())
+            }
+        }
+
+        val previousEventData = intent.getParcelableExtra<EventsItem>(UpdateEventActivity.PREVIOUS_DATA)
+        setPreferencesData(previousEventData)
+
+        binding.saveButton.setOnClickListener {
+            val eventData = intent.getParcelableExtra<EventRequestDTO>(UpdateEventActivity.EVENT_DATA)
+            val imageUri = intent.getParcelableExtra<Uri>(UpdateEventActivity.IMAGE_FILE)
+            val imageMultipart: MultipartBody.Part?
+
+            eventData?.genderPreference = listOfGender
+            eventData?.religionPreference = listOfReligion
+            eventData?.hobbyPreference = listOfInterests
+            eventData?.cityPreference = listOfCity
+
+            // Convert event data into json format
+            val gson = Gson()
+            val jsonData = gson.toJson(eventData)
+            val requestBody = jsonData.toRequestBody("text/plain".toMediaType())
+
+            if (imageUri == null) {
+                eventViewModel.updateEvent(token, previousEventData?.eventId!!, null, requestBody)
+            } else {
+                val imageFile = uriToFile(imageUri, this).reduceFileImage()
+                val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+                imageMultipart = MultipartBody.Part.createFormData(
+                    "file",
+                    imageFile.name,
+                    requestImageFile
+                )
+                eventViewModel.updateEvent(token, previousEventData?.eventId!!, imageMultipart, requestBody)
+            }
+
+        }
     }
 
-    private fun addGenderChips() {
+    private fun setPreferencesData(previousEventData: EventsItem?) {
+        previousEventData?.genderPreference?.forEach {
+            listOfGender.add(it!!)
+        }
+
+        previousEventData?.religionPreference?.forEach {
+            listOfReligion.add(it!!)
+        }
+
+        previousEventData?.hobbyPreference?.forEach {
+            listOfInterests.add(it!!)
+        }
+
+        previousEventData?.cityPreference?.forEach {
+            addNewChip(it!!)
+        }
+
+        addGenderChips(previousEventData?.genderPreference)
+        addReligionChips(previousEventData?.religionPreference)
+        addInterestsChips(previousEventData?.hobbyPreference)
+    }
+
+    private fun addGenderChips(list: List<String?>?) {
         val interestsArray = resources.getStringArray(R.array.gender_array)
         val interestsList = interestsArray.toList()
         val chipGroup = binding.eventGenderGroup
@@ -65,11 +197,12 @@ class UpdateEventPreferencesActivity : AppCompatActivity() {
                 ChipGroup.LayoutParams.WRAP_CONTENT
             )
 
+            chip.isChecked = list?.contains(interest)!!
             chipGroup.addView(chip)
         }
     }
 
-    private fun addReligionChips() {
+    private fun addReligionChips(list: List<String?>?) {
         val interestsArray = resources.getStringArray(R.array.religion_array)
         val interestsList = interestsArray.toList()
         val chipGroup = binding.eventReligionGroup
@@ -87,11 +220,12 @@ class UpdateEventPreferencesActivity : AppCompatActivity() {
                 ChipGroup.LayoutParams.WRAP_CONTENT
             )
 
+            chip.isChecked = list?.contains(interest)!!
             chipGroup.addView(chip)
         }
     }
 
-    private fun addInterestsChips() {
+    private fun addInterestsChips(list: List<String?>?) {
         val interestsArray = resources.getStringArray(R.array.interests_array)
         val interestsList = interestsArray.toList()
         val chipGroup = binding.eventInterestGroup
@@ -109,6 +243,7 @@ class UpdateEventPreferencesActivity : AppCompatActivity() {
                 ChipGroup.LayoutParams.WRAP_CONTENT
             )
 
+            chip.isChecked = list?.contains(interest)!!
             chipGroup.addView(chip)
         }
     }
@@ -175,9 +310,19 @@ class UpdateEventPreferencesActivity : AppCompatActivity() {
         chip.isCloseIconVisible = true
         chip.setCloseIconResource(R.drawable.baseline_close_24)
         chip.setOnCloseIconClickListener {
+            listOfCity.remove(chipText)
             chipGroup.removeView(chip)
         }
 
+        listOfCity.add(chipText)
         chipGroup.addView(chip, 0)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

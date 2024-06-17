@@ -23,6 +23,9 @@ class EventViewModel: ViewModel() {
     private val _eventData = MutableLiveData<EventResponseDTO>()
     val eventData: LiveData<EventResponseDTO> = _eventData
 
+    private val _eventItemData = MutableLiveData<EventLiveData<EventsItem?>>()
+    val eventItemData: LiveData<EventLiveData<EventsItem?>> = _eventItemData
+
     fun getAllEvents(token: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getAllOrganizationEvents(token)
@@ -56,6 +59,33 @@ class EventViewModel: ViewModel() {
             override fun onFailure(call: Call<EventsItem>, t: Throwable) {
                 _isLoading.value = false
                 _isSuccess.value = EventLiveData(false)
+            }
+        })
+    }
+
+    fun updateEvent(token: String, eventId: String, photo: MultipartBody.Part?, eventData: RequestBody) {
+        _isLoading.value = true
+
+        val client: Call<EventsItem> = if (photo == null) {
+            ApiConfig.getApiService().updateEvent(eventId, token, eventData, null)
+        } else {
+            ApiConfig.getApiService().updateEvent(eventId, token, eventData, photo)
+        }
+
+        client.enqueue(object : retrofit2.Callback<EventsItem> {
+            override fun onResponse(
+                call: Call<EventsItem>,
+                response: Response<EventsItem>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _eventItemData.value = EventLiveData(response.body())
+                } else {
+                    _eventItemData.value = EventLiveData(null)
+                }
+            }
+            override fun onFailure(call: Call<EventsItem>, t: Throwable) {
+                _isLoading.value = false
             }
         })
     }

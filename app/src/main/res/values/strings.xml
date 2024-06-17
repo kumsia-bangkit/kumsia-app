@@ -187,6 +187,7 @@
     <string name="reject_friend_request">Reject friend request</string>
     <string name="accept_friend_request">Accept friend request</string>
     <string name="friend_requests">Friend Requests</string>
+    <string name="no_comments_yet">No comments yet</string>
 
     <string-array name="interests_array">
         <item>Food</item>

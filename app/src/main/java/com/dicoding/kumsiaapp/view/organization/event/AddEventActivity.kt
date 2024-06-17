@@ -63,25 +63,9 @@ class AddEventActivity : AppCompatActivity() {
 
         binding.radioGroup.setOnCheckedChangeListener {_, checkedId ->
             if (checkedId == binding.online.id) {
-                eventType = "Online"
-                binding.offline.isChecked = false
-                binding.edLocation.visibility = View.GONE
-                binding.locationTitle.visibility = View.GONE
-                binding.citySpinner.visibility = View.GONE
-                binding.citySpinner.visibility = View.GONE
-                binding.cityTitle.visibility = View.GONE
-                binding.edEventLink.visibility = View.VISIBLE
-                binding.eventLinkTitle.visibility = View.VISIBLE
+                setRadioButton("Online")
             } else {
-                eventType = "Offline"
-                binding.online.isChecked = false
-                binding.edLocation.visibility = View.VISIBLE
-                binding.locationTitle.visibility = View.VISIBLE
-                binding.citySpinner.visibility = View.VISIBLE
-                binding.citySpinner.visibility = View.VISIBLE
-                binding.cityTitle.visibility = View.VISIBLE
-                binding.edEventLink.visibility = View.GONE
-                binding.eventLinkTitle.visibility = View.GONE
+                setRadioButton("Offline")
             }
         }
 
@@ -242,6 +226,30 @@ class AddEventActivity : AppCompatActivity() {
                 eventDateAndTime = isoDateFormat.format(Date(timestamp))
             }, startHour, startMinute, android.text.format.DateFormat.is24HourFormat(this)).show()
         }, startYear, startMonth, startDay).show()
+    }
+
+    private fun setRadioButton(type: String?) {
+        if (type == "Online") {
+            eventType = "Online"
+            binding.online.isChecked = true
+            binding.offline.isChecked = false
+            binding.edLocation.visibility = View.GONE
+            binding.locationTitle.visibility = View.GONE
+            binding.citySpinner.visibility = View.GONE
+            binding.cityTitle.visibility = View.GONE
+            binding.edEventLink.visibility = View.VISIBLE
+            binding.eventLinkTitle.visibility = View.VISIBLE
+        } else {
+            eventType = "Offline"
+            binding.offline.isChecked = true
+            binding.online.isChecked = false
+            binding.edLocation.visibility = View.VISIBLE
+            binding.locationTitle.visibility = View.VISIBLE
+            binding.citySpinner.visibility = View.VISIBLE
+            binding.cityTitle.visibility = View.VISIBLE
+            binding.edEventLink.visibility = View.GONE
+            binding.eventLinkTitle.visibility = View.GONE
+        }
     }
 
     private fun showToast(message: String) {

@@ -337,25 +337,23 @@
                     android:id="@+id/tv_religion_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-black"
                     android:text="@string/religion_title"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_gender_title"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_gender_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_gender_preferences" />
 
                 <TextView
                     android:id="@+id/tv_religion_preferences"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:text="@string/none"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_religion_title"
-                    app:layout_constraintStart_toEndOf="@+id/tv_religion_title"
-                    app:layout_constraintTop_toTopOf="@+id/tv_religion_title" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_religion_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_religion_title" />
 
                 <TextView
                     android:id="@+id/tv_gender_title"
@@ -373,61 +371,55 @@
                     android:id="@+id/tv_gender_preferences"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:text="@string/none"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_gender_title"
-                    app:layout_constraintStart_toEndOf="@+id/tv_gender_title"
-                    app:layout_constraintTop_toTopOf="@+id/tv_gender_title" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_gender_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_gender_title" />
 
                 <TextView
                     android:id="@+id/tv_interests_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-black"
                     android:text="@string/interests_title"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_religion_title"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_religion_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_religion_preferences" />
 
                 <TextView
                     android:id="@+id/tv_interests_preferences"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:text="@string/interests_value"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_interests_title"
-                    app:layout_constraintStart_toEndOf="@+id/tv_interests_title"
-                    app:layout_constraintTop_toTopOf="@+id/tv_interests_title" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_interests_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_interests_title" />
 
                 <TextView
                     android:id="@+id/tv_city_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-black"
                     android:text="@string/city_title"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_interests_title"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_interests_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_interests_preferences" />
 
                 <TextView
                     android:id="@+id/tv_city_preferences"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:text="@string/none"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_city_title"
-                    app:layout_constraintStart_toEndOf="@+id/tv_city_title"
-                    app:layout_constraintTop_toTopOf="@+id/tv_city_title" />
+                    app:layout_constraintStart_toStartOf="@+id/tv_city_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_city_title" />
 
                 <TextView
                     android:id="@+id/tv_event_comments"
@@ -440,7 +432,7 @@
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_city_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_city_preferences" />
 
                 <View
                     android:id="@+id/view_comments"
