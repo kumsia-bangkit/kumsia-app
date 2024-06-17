@@ -129,4 +129,22 @@ class EventViewModel: ViewModel() {
             }
         })
     }
+
+    fun cancelEvent(token: String, eventId: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().cancelEvent(eventId, token)
+        client.enqueue(object : retrofit2.Callback<JsonObject> {
+            override fun onResponse(
+                call: Call<JsonObject>,
+                response: Response<JsonObject>
+            ) {
+                _isLoading.value = false
+                _isSuccess.value = EventLiveData(response.isSuccessful)
+            }
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                _isLoading.value = false
+                _isSuccess.value = EventLiveData(false)
+            }
+        })
+    }
 }

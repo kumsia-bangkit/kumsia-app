@@ -81,6 +81,24 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
                 .setTitle("Confirm Cancel")
                 .setCancelable(false)
                 .setPositiveButton("Yes") { _, _ ->
+                    eventViewModel.cancelEvent(token, eventData?.eventId!!)
+
+                    eventViewModel.isSuccess.observe(this) {
+                        it.getContentIfNotHandled()?.let { success ->
+                            if (success) {
+                                showToast("Event is successfully cancelled!")
+
+                                val intent = Intent(this, OrganizationActivity::class.java)
+                                intent.putExtra(OrganizationActivity.FRAGMENT_POSITION, 0)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                showToast("Failed to cancel event!")
+                            }
+                        }
+                    }
                 }
                 .setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()

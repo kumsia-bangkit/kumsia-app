@@ -94,6 +94,15 @@ class OrganizationHomeFragment : Fragment() {
             it?.status != "Draft"
         }
 
+        val sortedEvents = newData.sortedBy {
+            when (it?.status) {
+                "Open" -> 0
+                "Closed" -> 1
+                "Cancelled" -> 2
+                else -> 3
+            }
+        }
+
         if (newData.isEmpty()) {
             showEmptyMessage(true)
         }
@@ -102,7 +111,7 @@ class OrganizationHomeFragment : Fragment() {
         binding.rvEvents.layoutManager = layoutManager
 
         val adapter = EventAdapter()
-        adapter.submitList(newData)
+        adapter.submitList(sortedEvents)
         binding.rvEvents.adapter = adapter
     }
 }

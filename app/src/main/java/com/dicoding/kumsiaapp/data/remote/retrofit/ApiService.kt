@@ -80,6 +80,12 @@ interface ApiService {
         @Header("access-token") token: String
     ) : Call<JsonObject>
 
+    @PUT("events/org/cancel")
+    fun cancelEvent(
+        @Query("event_id") eventId: String,
+        @Header("access-token") token: String
+    ) : Call<JsonObject>
+
     // Comments
     @GET("comment/all")
     fun getComments(
