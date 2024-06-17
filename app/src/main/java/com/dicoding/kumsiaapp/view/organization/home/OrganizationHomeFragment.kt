@@ -27,7 +27,6 @@ class OrganizationHomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val eventViewModel: EventViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by activityViewModels()
-    private var profilePicture: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +56,7 @@ class OrganizationHomeFragment : Fragment() {
         authViewModel.organizationData.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { data ->
                 if (data.user?.profilePicture != null) {
-                    profilePicture = data.user.profilePicture
+                    Glide.with(requireActivity()).load(data.user.profilePicture).into(binding.profileImage)
                 }
             }
         }
@@ -74,10 +73,6 @@ class OrganizationHomeFragment : Fragment() {
         eventViewModel.isLoading.observe(viewLifecycleOwner) {
             showEmptyMessage(!it)
             showLoading(it)
-        }
-
-        if (!profilePicture.isNullOrEmpty()) {
-            Glide.with(requireActivity()).load(profilePicture).into(binding.profileImage)
         }
     }
 

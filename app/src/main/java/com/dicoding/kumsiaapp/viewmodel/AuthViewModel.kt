@@ -118,12 +118,14 @@ class AuthViewModel: ViewModel() {
     }
 
     fun getOrganizationData(token: String) {
+        _isLoading.value = true
         val client = ApiConfig.getApiService().getLoggedInOrganization(token)
         client.enqueue(object : retrofit2.Callback<OrganizationDTO> {
             override fun onResponse(
                 call: Call<OrganizationDTO>,
                 response: Response<OrganizationDTO>
             ) {
+                _isLoading.value = false
                 if (response.isSuccessful) {
                     _organizationData.value = EventLiveData(response.body()!!)
                 }
