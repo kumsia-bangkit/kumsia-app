@@ -12,6 +12,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -66,6 +67,12 @@ interface ApiService {
         @Part("event") eventData: RequestBody,
         @Part photoFile: MultipartBody.Part?
     ) : Call<EventsItem>
+
+    @DELETE("events/org/delete")
+    fun deleteEvent(
+        @Query("event_id") eventId: String,
+        @Header("access-token") token: String
+    ) : Call<JsonObject>
 
     // Comments
     @GET("comment/all")

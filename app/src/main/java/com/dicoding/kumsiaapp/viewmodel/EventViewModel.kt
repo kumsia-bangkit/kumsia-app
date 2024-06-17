@@ -7,6 +7,7 @@ import com.dicoding.kumsiaapp.data.remote.response.EventResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventsItem
 import com.dicoding.kumsiaapp.data.remote.retrofit.ApiConfig
 import com.dicoding.kumsiaapp.utils.EventLiveData
+import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -19,6 +20,9 @@ class EventViewModel: ViewModel() {
 
     private val _isSuccess = MutableLiveData<EventLiveData<Boolean>>()
     val isSuccess: LiveData<EventLiveData<Boolean>> = _isSuccess
+
+    private val _isDeleteSuccess = MutableLiveData<EventLiveData<Boolean>>()
+    val isDeleteSuccess: LiveData<EventLiveData<Boolean>> = _isDeleteSuccess
 
     private val _eventData = MutableLiveData<EventResponseDTO>()
     val eventData: LiveData<EventResponseDTO> = _eventData
@@ -86,6 +90,24 @@ class EventViewModel: ViewModel() {
             }
             override fun onFailure(call: Call<EventsItem>, t: Throwable) {
                 _isLoading.value = false
+            }
+        })
+    }
+
+    fun deleteEvent(token: String, eventId: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().deleteEvent(eventId, token)
+        client.enqueue(object : retrofit2.Callback<JsonObject> {
+            override fun onResponse(
+                call: Call<JsonObject>,
+                response: Response<JsonObject>
+            ) {
+                _isLoading.value = false
+                _isDeleteSuccess.value = EventLiveData(response.isSuccessful)
+            }
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                _isLoading.value = false
+                _isDeleteSuccess.value = EventLiveData(false)
             }
         })
     }

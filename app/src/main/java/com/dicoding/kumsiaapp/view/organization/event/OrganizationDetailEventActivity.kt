@@ -20,6 +20,8 @@ import com.dicoding.kumsiaapp.data.local.dataStore
 import com.dicoding.kumsiaapp.data.remote.response.EventsItem
 import com.dicoding.kumsiaapp.databinding.ActivityOrganizationDetailEventBinding
 import com.dicoding.kumsiaapp.utils.DateFormatter
+import com.dicoding.kumsiaapp.view.organization.OrganizationActivity
+import com.dicoding.kumsiaapp.viewmodel.EventViewModel
 import com.dicoding.kumsiaapp.viewmodel.SessionViewModel
 import com.dicoding.kumsiaapp.viewmodel.SessionViewModelFactory
 
@@ -27,7 +29,11 @@ import com.dicoding.kumsiaapp.viewmodel.SessionViewModelFactory
 class OrganizationDetailEventActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOrganizationDetailEventBinding
+    private val eventViewModel: EventViewModel by lazy {
+        ViewModelProvider(this)[EventViewModel::class.java]
+    }
     private var eventData: EventsItem? = null
+    private lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +54,10 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
             }
         }
 
+        sessionViewModel.getUserToken().observe(this) {
+            token = it!!
+        }
+
         handleIntentData(intent)
 
         binding.backButton.setOnClickListener {
@@ -63,9 +73,9 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
         binding.cancelButton.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setMessage("Are you sure you want to cancel this event?")
+                .setTitle("Confirm Cancel")
                 .setCancelable(false)
                 .setPositiveButton("Yes") { _, _ ->
-                    // Call API untuk cancel event
                 }
                 .setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
@@ -77,9 +87,26 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
         binding.deleteButton.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setMessage("Are you sure you want to delete this event?")
+                .setTitle("Confirm Delete")
                 .setCancelable(false)
                 .setPositiveButton("Yes") { _, _ ->
-                    // Call API untuk delete event
+                    eventViewModel.deleteEvent(token, eventData?.eventId!!)
+                    eventViewModel.isDeleteSuccess.observe(this) {
+                        it.getContentIfNotHandled()?.let { success ->
+                            if (success) {
+                                showToast("Event is successfully deleted!")
+
+                                val intent = Intent(this, OrganizationActivity::class.java)
+                                intent.putExtra(OrganizationActivity.FRAGMENT_POSITION, 1)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                showToast("Failed to delete event!")
+                            }
+                        }
+                    }
                 }
                 .setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
@@ -91,9 +118,9 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
         binding.submitButton.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setMessage("Are you sure you want to open this event?")
+                .setTitle("Confirm Submit")
                 .setCancelable(false)
                 .setPositiveButton("Yes") { _, _ ->
-                    // Call API untuk submit event
                 }
                 .setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
@@ -167,26 +194,30 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
             binding.tvContact.text = data.contactVarchar
         }
 
-        if (data.status == "Draft") {
-            binding.updateButton.visibility = View.VISIBLE
-            binding.deleteButton.visibility = View.VISIBLE
-            binding.submitButton.visibility = View.VISIBLE
+        when (data.status) {
+            "Draft" -> {
+                binding.updateButton.visibility = View.VISIBLE
+                binding.deleteButton.visibility = View.VISIBLE
+                binding.submitButton.visibility = View.VISIBLE
 
-            binding.cancelButton.visibility = View.GONE
-            binding.updateSubmittedButton.visibility = View.GONE
-        } else if (data.status == "Open") {
-            binding.updateButton.visibility = View.GONE
-            binding.deleteButton.visibility = View.GONE
-            binding.submitButton.visibility = View.GONE
+                binding.cancelButton.visibility = View.GONE
+                binding.updateSubmittedButton.visibility = View.GONE
+            }
+            "Open" -> {
+                binding.updateButton.visibility = View.GONE
+                binding.deleteButton.visibility = View.GONE
+                binding.submitButton.visibility = View.GONE
 
-            binding.cancelButton.visibility = View.VISIBLE
-            binding.updateSubmittedButton.visibility = View.VISIBLE
-        } else {
-            binding.updateButton.visibility = View.GONE
-            binding.deleteButton.visibility = View.GONE
-            binding.submitButton.visibility = View.GONE
-            binding.cancelButton.visibility = View.GONE
-            binding.updateSubmittedButton.visibility = View.GONE
+                binding.cancelButton.visibility = View.VISIBLE
+                binding.updateSubmittedButton.visibility = View.VISIBLE
+            }
+            else -> {
+                binding.updateButton.visibility = View.GONE
+                binding.deleteButton.visibility = View.GONE
+                binding.submitButton.visibility = View.GONE
+                binding.cancelButton.visibility = View.GONE
+                binding.updateSubmittedButton.visibility = View.GONE
+            }
         }
     }
 
@@ -207,6 +238,10 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
     private fun isWhatsAppLink(link: String): Boolean {
         val regex = "^https://chat\\.whatsapp\\.com/.+$"
         return link.matches(regex.toRegex())
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
