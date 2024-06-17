@@ -3,6 +3,7 @@ package com.dicoding.kumsiaapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dicoding.kumsiaapp.data.remote.response.CommentResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventsItem
 import com.dicoding.kumsiaapp.data.remote.retrofit.ApiConfig
@@ -29,6 +30,9 @@ class EventViewModel: ViewModel() {
 
     private val _eventItemData = MutableLiveData<EventLiveData<EventsItem?>>()
     val eventItemData: LiveData<EventLiveData<EventsItem?>> = _eventItemData
+
+    private val _commentData = MutableLiveData<CommentResponseDTO>()
+    val commentData: LiveData<CommentResponseDTO> = _commentData
 
     fun getAllEvents(token: String) {
         _isLoading.value = true
@@ -144,6 +148,25 @@ class EventViewModel: ViewModel() {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 _isLoading.value = false
                 _isSuccess.value = EventLiveData(false)
+            }
+        })
+    }
+
+    fun getAllComments(eventId: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getAllComments(eventId)
+        client.enqueue(object : retrofit2.Callback<CommentResponseDTO> {
+            override fun onResponse(
+                call: Call<CommentResponseDTO>,
+                response: Response<CommentResponseDTO>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _commentData.value = response.body()
+                }
+            }
+            override fun onFailure(call: Call<CommentResponseDTO>, t: Throwable) {
+                _isLoading.value = false
             }
         })
     }

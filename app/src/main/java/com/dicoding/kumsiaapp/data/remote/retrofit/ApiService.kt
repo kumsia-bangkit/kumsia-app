@@ -2,6 +2,7 @@ package com.dicoding.kumsiaapp.data.remote.retrofit
 
 import com.dicoding.kumsiaapp.data.remote.request.IndividualRegisterDTO
 import com.dicoding.kumsiaapp.data.remote.request.OrganizationRegisterDTO
+import com.dicoding.kumsiaapp.data.remote.response.CommentResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventsItem
 import com.dicoding.kumsiaapp.data.remote.response.LoginResponseDTO
@@ -88,8 +89,8 @@ interface ApiService {
 
     // Comments
     @GET("comment/all")
-    fun getComments(
+    fun getAllComments(
         @Query("event_id") eventId: String
-    ): Call<UserDTO>
+    ): Call<CommentResponseDTO>
 
 }

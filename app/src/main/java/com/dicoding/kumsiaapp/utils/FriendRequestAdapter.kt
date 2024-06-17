@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.dicoding.kumsiaapp.data.remote.response.FriendList
 import com.dicoding.kumsiaapp.databinding.ItemFriendReqBinding
 
-class FriendReqAdapter : androidx.recyclerview.widget.ListAdapter<FriendList, FriendReqAdapter.MyViewHolder>(
+class FriendRequestAdapter : androidx.recyclerview.widget.ListAdapter<FriendList, FriendRequestAdapter.MyViewHolder>(
     DIFF_CALLBACK
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
