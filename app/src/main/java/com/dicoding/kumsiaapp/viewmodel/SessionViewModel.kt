@@ -20,7 +20,7 @@ class SessionViewModel(private val pref: UserPreferences) : ViewModel() {
         return pref.getUserRole().asLiveData()
     }
 
-    fun getIsNewUser(isNewUser: Boolean): LiveData<Boolean?> {
+    fun getIsNewUser(): LiveData<Boolean?> {
         return pref.getIsNewUser().asLiveData()
     }
 

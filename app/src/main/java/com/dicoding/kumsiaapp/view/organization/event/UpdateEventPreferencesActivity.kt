@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
@@ -29,7 +28,6 @@ import com.dicoding.kumsiaapp.data.remote.response.EventsItem
 import com.dicoding.kumsiaapp.databinding.ActivityUpdateEventPreferencesBinding
 import com.dicoding.kumsiaapp.utils.reduceFileImage
 import com.dicoding.kumsiaapp.utils.uriToFile
-import com.dicoding.kumsiaapp.view.organization.OrganizationActivity
 import com.dicoding.kumsiaapp.viewmodel.EventViewModel
 import com.dicoding.kumsiaapp.viewmodel.SessionViewModel
 import com.dicoding.kumsiaapp.viewmodel.SessionViewModelFactory
@@ -37,7 +35,6 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -49,7 +46,6 @@ class UpdateEventPreferencesActivity : AppCompatActivity() {
         ViewModelProvider(this)[EventViewModel::class.java]
     }
     private lateinit var token: String
-
     private val listOfGender = mutableListOf<String>()
     private val listOfReligion = mutableListOf<String>()
     private val listOfInterests = mutableListOf<String>()

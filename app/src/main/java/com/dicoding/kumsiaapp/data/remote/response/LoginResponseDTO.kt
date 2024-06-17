@@ -7,3 +7,8 @@ data class LoginResponseDTO(
 	val accessToken: String? = null
 )
 
+data class TokenResponseDTO(
+	@field:SerializedName("access_token")
+	val accessToken: String? = null
+)
+

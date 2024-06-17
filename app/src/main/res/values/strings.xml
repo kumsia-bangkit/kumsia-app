@@ -189,6 +189,7 @@
     <string name="friend_requests">Friend Requests</string>
     <string name="no_comments_yet">No comments yet</string>
     <string name="open">Open</string>
+    <string name="note_complete_data">Note: These data have to be filled and can only be filled once.</string>
 
     <string-array name="interests_array">
         <item>Food</item>

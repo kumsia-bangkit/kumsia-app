@@ -248,6 +248,7 @@
                     android:id="@+id/tv_location"
                     android:layout_width="320dp"
                     android:layout_height="wrap_content"
+                    android:textIsSelectable="true"
                     android:text="@string/location_value"
                     android:textColor="@color/black"
                     android:textSize="16sp"
