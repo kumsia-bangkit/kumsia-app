@@ -10,4 +10,5 @@
     <color name="gold">#8D6E28</color>
     <color name="grey">#9DB2CE</color>
     <color name="brown">#511C10</color>
+    <color name="non_editable_background">#E0E0E0</color>
 </resources>

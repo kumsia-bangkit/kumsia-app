@@ -75,6 +75,12 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.updateSubmittedButton.setOnClickListener {
+            val intent = Intent(this, UpdateSubmittedEventActivity::class.java)
+            intent.putExtra(UpdateEventActivity.EVENT_DATA, eventData)
+            startActivity(intent)
+        }
+
         binding.cancelButton.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setMessage("Are you sure you want to cancel this event?")

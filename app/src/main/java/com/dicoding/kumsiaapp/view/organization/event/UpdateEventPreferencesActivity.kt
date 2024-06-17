@@ -74,14 +74,6 @@ class UpdateEventPreferencesActivity : AppCompatActivity() {
             token = it!!
         }
 
-        binding.backButton.setOnClickListener {
-            finish()
-        }
-
-        binding.addCityChip.setOnClickListener {
-            addCityDialog()
-        }
-
         eventViewModel.isLoading.observe(this) {
             showLoading(it)
         }
@@ -97,6 +89,14 @@ class UpdateEventPreferencesActivity : AppCompatActivity() {
             } ?: run {
                 showToast("Failed to update event draft!")
             }
+        }
+
+        binding.backButton.setOnClickListener {
+            finish()
+        }
+
+        binding.addCityChip.setOnClickListener {
+            addCityDialog()
         }
 
         binding.eventGenderGroup.setOnCheckedStateChangeListener{ chipGroup, checkedIds ->
