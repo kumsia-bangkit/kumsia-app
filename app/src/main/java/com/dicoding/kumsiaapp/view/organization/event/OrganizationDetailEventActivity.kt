@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.dicoding.kumsiaapp.R
 import com.dicoding.kumsiaapp.data.local.UserPreferences
 import com.dicoding.kumsiaapp.data.local.dataStore
@@ -58,6 +59,10 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
             token = it!!
         }
 
+        eventViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+
         handleIntentData(intent)
 
         binding.backButton.setOnClickListener {
@@ -91,6 +96,7 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
                 .setCancelable(false)
                 .setPositiveButton("Yes") { _, _ ->
                     eventViewModel.deleteEvent(token, eventData?.eventId!!)
+
                     eventViewModel.isDeleteSuccess.observe(this) {
                         it.getContentIfNotHandled()?.let { success ->
                             if (success) {
@@ -117,10 +123,28 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
 
         binding.submitButton.setOnClickListener {
             val builder = AlertDialog.Builder(this)
-            builder.setMessage("Are you sure you want to open this event?")
+            builder.setMessage("Are you sure you want to submit this event?")
                 .setTitle("Confirm Submit")
                 .setCancelable(false)
                 .setPositiveButton("Yes") { _, _ ->
+                    eventViewModel.submitEvent(token, eventData?.eventId!!)
+
+                    eventViewModel.isSuccess.observe(this) {
+                        it.getContentIfNotHandled()?.let { success ->
+                            if (success) {
+                                showToast("Event is successfully submitted!")
+
+                                val intent = Intent(this, OrganizationActivity::class.java)
+                                intent.putExtra(OrganizationActivity.FRAGMENT_POSITION, 0)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                showToast("Failed to submit event!")
+                            }
+                        }
+                    }
                 }
                 .setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
@@ -148,7 +172,12 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
     }
 
     private fun setEventData(data: EventsItem?) {
-        Glide.with(this).load(data?.profilePicture).into(binding.eventImage)
+        Glide.with(this)
+            .load(data?.profilePicture)
+            .apply(
+                RequestOptions.placeholderOf(R.drawable.people_event).error(R.drawable.people_event)
+            )
+            .into(binding.eventImage)
         binding.likeButton.visibility = View.GONE
         binding.eventTitle.text = data?.name
         binding.tvItemDate.text = DateFormatter.formatDate(data?.eventStart!!)
@@ -238,6 +267,10 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
     private fun isWhatsAppLink(link: String): Boolean {
         val regex = "^https://chat\\.whatsapp\\.com/.+$"
         return link.matches(regex.toRegex())
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showToast(message: String) {

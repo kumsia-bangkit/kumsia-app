@@ -30,6 +30,15 @@ class EventAdapter : androidx.recyclerview.widget.ListAdapter<EventsItem, EventA
     class MyViewHolder(private val binding: ItemEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(event: EventsItem) {
+            binding.eventStatus.text = event.status
+            if (event.status == "Open") {
+                binding.eventStatus.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, android.R.color.holo_green_dark))
+            } else if (event.status == "Closed" || event.status == "Cancelled") {
+                binding.eventStatus.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, android.R.color.holo_red_dark))
+            } else {
+                binding.eventStatus.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.grey))
+            }
+
             binding.tvItemDate.text = DateFormatter.formatDate(event.eventStart!!)
             binding.eventTitle.text = event.name
             binding.eventType.text = event.type

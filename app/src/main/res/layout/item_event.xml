@@ -45,17 +45,16 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:backgroundTint="@android:color/holo_red_light"
                 android:clickable="false"
                 android:text="@string/canceled"
                 app:chipStrokeWidth="1dp"
+                app:chipStrokeColor="@color/black"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:chipCornerRadius="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:visibility="gone"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
