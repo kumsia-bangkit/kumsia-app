@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.kumsiaapp.data.remote.response.CommentResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventResponseDTO
+import com.dicoding.kumsiaapp.data.remote.response.EventUserResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventsItem
 import com.dicoding.kumsiaapp.data.remote.retrofit.ApiConfig
 import com.dicoding.kumsiaapp.utils.EventLiveData
@@ -27,6 +28,9 @@ class EventViewModel: ViewModel() {
 
     private val _eventData = MutableLiveData<EventResponseDTO>()
     val eventData: LiveData<EventResponseDTO> = _eventData
+
+    private val _eventUserData = MutableLiveData<EventUserResponseDTO>()
+    val eventUserData: LiveData<EventUserResponseDTO> = _eventUserData
 
     private val _eventItemData = MutableLiveData<EventLiveData<EventsItem?>>()
     val eventItemData: LiveData<EventLiveData<EventsItem?>> = _eventItemData
@@ -73,13 +77,7 @@ class EventViewModel: ViewModel() {
 
     fun updateEvent(token: String, eventId: String, photo: MultipartBody.Part?, eventData: RequestBody) {
         _isLoading.value = true
-
-        val client: Call<EventsItem> = if (photo == null) {
-            ApiConfig.getApiService().updateEvent(eventId, token, eventData, null)
-        } else {
-            ApiConfig.getApiService().updateEvent(eventId, token, eventData, photo)
-        }
-
+        val client = ApiConfig.getApiService().updateEvent(eventId, token, eventData, photo)
         client.enqueue(object : retrofit2.Callback<EventsItem> {
             override fun onResponse(
                 call: Call<EventsItem>,
@@ -148,6 +146,25 @@ class EventViewModel: ViewModel() {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 _isLoading.value = false
                 _isSuccess.value = EventLiveData(false)
+            }
+        })
+    }
+
+    fun getAllUserJoinedEvents(token: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getAllUserJoinedEvents(token)
+        client.enqueue(object : retrofit2.Callback<EventUserResponseDTO> {
+            override fun onResponse(
+                call: Call<EventUserResponseDTO>,
+                response: Response<EventUserResponseDTO>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _eventUserData.value = response.body()
+                }
+            }
+            override fun onFailure(call: Call<EventUserResponseDTO>, t: Throwable) {
+                _isLoading.value = false
             }
         })
     }

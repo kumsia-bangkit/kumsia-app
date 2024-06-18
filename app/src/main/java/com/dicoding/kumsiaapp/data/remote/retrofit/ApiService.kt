@@ -4,7 +4,9 @@ import com.dicoding.kumsiaapp.data.remote.request.IndividualRegisterDTO
 import com.dicoding.kumsiaapp.data.remote.request.OrganizationRegisterDTO
 import com.dicoding.kumsiaapp.data.remote.response.CommentResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventResponseDTO
+import com.dicoding.kumsiaapp.data.remote.response.EventUserResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventsItem
+import com.dicoding.kumsiaapp.data.remote.response.FriendsListResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.LoginResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.OrganizationDTO
 import com.dicoding.kumsiaapp.data.remote.response.TokenResponseDTO
@@ -57,6 +59,14 @@ interface ApiService {
         @Part photoFile: MultipartBody.Part?
     ): Call<TokenResponseDTO>
 
+    @Multipart
+    @PATCH("profile/user/update")
+    fun updateUserData(
+        @Header("access-token") token: String,
+        @Part("request") userData: RequestBody,
+        @Part photoFile: MultipartBody.Part?
+    ): Call<TokenResponseDTO>
+
     // Events (Organization)
     @GET("events/org/all")
     fun getAllOrganizationEvents(
@@ -98,10 +108,27 @@ interface ApiService {
         @Header("access-token") token: String
     ) : Call<JsonObject>
 
+    // Events (User)
+    @GET("events/user/all")
+    fun getAllEventsForUser(
+        @Header(value = "access-token") token: String
+    ): Call<EventUserResponseDTO>
+
+    @GET("events/user/joined")
+    fun getAllUserJoinedEvents(
+        @Header(value = "access-token") token: String
+    ): Call<EventUserResponseDTO>
+
     // Comments
     @GET("comment/all")
     fun getAllComments(
         @Query("event_id") eventId: String
     ): Call<CommentResponseDTO>
+
+    // Friends
+    @GET("friends/")
+    fun getAllFriends(
+        @Header(value = "access-token") token: String
+    ): Call<FriendsListResponseDTO>
 
 }

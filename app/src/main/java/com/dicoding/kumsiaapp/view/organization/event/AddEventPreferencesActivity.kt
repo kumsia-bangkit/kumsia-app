@@ -98,7 +98,6 @@ class AddEventPreferencesActivity : AppCompatActivity() {
         binding.addCityChip.setOnClickListener {
             addCityDialog()
         }
-
         addGenderChips()
         addReligionChips()
         addInterestsChips()

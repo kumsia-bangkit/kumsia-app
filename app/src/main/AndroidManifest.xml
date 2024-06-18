@@ -20,6 +20,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".view.individual.home.ViewAllFriendsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.individual.event.UserDetailEventActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.organization.event.UpdateSubmittedEventActivity"
             android:exported="false" />
         <activity

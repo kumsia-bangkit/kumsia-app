@@ -5,11 +5,11 @@ import com.auth0.android.jwt.JWT
 
 object JwtDecoder {
     fun decode(token: String): JWT {
-        var jwt = JWT(token)
+        val jwt = JWT(token)
 
         for (item in jwt.claims.keys) {
             println(item)
-            println(jwt.getClaim(item).asBoolean())
+            println(jwt.getClaim(item).asString())
         }
 
         return jwt

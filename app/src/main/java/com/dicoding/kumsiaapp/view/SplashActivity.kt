@@ -66,7 +66,7 @@ class SplashActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     }
-                } else if (role == "user") {
+                } else {
                     if (isNewUser!!) {
                         val intent = Intent(
                             this@SplashActivity,

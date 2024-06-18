@@ -112,7 +112,7 @@
                     android:backgroundTint="@null"
                     android:drawablePadding="12dp"
                     android:hint="@string/enter_your_contact_number"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     app:layout_constraintEnd_toEndOf="parent"

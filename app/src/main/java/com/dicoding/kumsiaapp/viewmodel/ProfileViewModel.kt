@@ -39,4 +39,25 @@ class ProfileViewModel: ViewModel() {
             }
         })
     }
+
+    fun updateUserProfile(token: String, orgData: RequestBody, photo: MultipartBody.Part?) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().updateUserData(token, orgData, photo)
+        client.enqueue(object : retrofit2.Callback<TokenResponseDTO> {
+            override fun onResponse(
+                call: Call<TokenResponseDTO>,
+                response: Response<TokenResponseDTO>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _tokenData.value = EventLiveData(response.body())
+                } else {
+                    _tokenData.value = EventLiveData(null)
+                }
+            }
+            override fun onFailure(call: Call<TokenResponseDTO>, t: Throwable) {
+                _isLoading.value = false
+            }
+        })
+    }
 }

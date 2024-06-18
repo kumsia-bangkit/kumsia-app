@@ -5,14 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.dicoding.kumsiaapp.data.local.UserPreferences
 import com.dicoding.kumsiaapp.data.local.dataStore
-import com.dicoding.kumsiaapp.data.remote.response.Event
 import com.dicoding.kumsiaapp.data.remote.response.EventsItem
 import com.dicoding.kumsiaapp.databinding.FragmentOrganizationHomeBinding
 import com.dicoding.kumsiaapp.utils.EventAdapter

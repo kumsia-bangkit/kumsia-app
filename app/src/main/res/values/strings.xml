@@ -190,6 +190,10 @@
     <string name="no_comments_yet">No comments yet</string>
     <string name="open">Open</string>
     <string name="note_complete_data">Note: These data have to be filled and can only be filled once.</string>
+    <string name="save_and_next">Save and Next</string>
+    <string name="no_upcoming_event">No Upcoming Event</string>
+    <string name="view_all">View All</string>
+    <string name="no_friends">No Friends</string>
 
     <string-array name="interests_array">
         <item>Food</item>
