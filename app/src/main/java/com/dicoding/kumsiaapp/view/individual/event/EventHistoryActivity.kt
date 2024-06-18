@@ -1,5 +1,6 @@
 package com.dicoding.kumsiaapp.view.individual.event
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.StringRes
@@ -10,8 +11,10 @@ import com.dicoding.kumsiaapp.R
 import com.dicoding.kumsiaapp.data.remote.response.Event
 import com.dicoding.kumsiaapp.databinding.ActivityEventHistoryBinding
 import com.dicoding.kumsiaapp.utils.EventPagerAdapter
+import com.dicoding.kumsiaapp.view.individual.IndividualActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+
 
 class EventHistoryActivity : AppCompatActivity() {
 
@@ -34,6 +37,29 @@ class EventHistoryActivity : AppCompatActivity() {
         ) { tab: TabLayout.Tab, position: Int ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
+
+        binding.backButton.setOnClickListener {
+            val intent = Intent(
+                this@EventHistoryActivity,
+                IndividualActivity::class.java
+            )
+            intent.putExtra(IndividualActivity.FRAGMENT_POSITION, 2)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(
+            this@EventHistoryActivity,
+            IndividualActivity::class.java
+        )
+        intent.putExtra(IndividualActivity.FRAGMENT_POSITION, 2)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
+        finish()
     }
 
     companion object {

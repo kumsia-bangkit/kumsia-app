@@ -6,6 +6,7 @@ import com.dicoding.kumsiaapp.data.remote.response.CommentResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventUserResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventsItem
+import com.dicoding.kumsiaapp.data.remote.response.EventsItemUser
 import com.dicoding.kumsiaapp.data.remote.response.FriendsListResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.LoginResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.OrganizationDTO
@@ -132,6 +133,18 @@ interface ApiService {
     fun getAllUserJoinedEvents(
         @Header(value = "access-token") token: String
     ): Call<EventUserResponseDTO>
+
+    @POST("events/user/join")
+    fun joinEvent(
+        @Query("event_id") eventId: String,
+        @Header(value = "access-token") token: String
+    ): Call<EventsItemUser>
+
+    @DELETE("events/user/unjoin")
+    fun unjoinEvent(
+        @Query("event_id") eventId: String,
+        @Header(value = "access-token") token: String
+    ): Call<EventsItemUser>
 
     // Comments
     @GET("comment/all")

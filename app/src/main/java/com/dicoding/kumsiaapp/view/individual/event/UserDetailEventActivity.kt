@@ -4,10 +4,10 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -71,12 +71,54 @@ class UserDetailEventActivity : AppCompatActivity() {
             }
         }
 
+        eventViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+
         binding.backButton.setOnClickListener {
             finish()
         }
 
         binding.joinButton.setOnClickListener {
+            // If user has joined the event
+            if (eventData?.joined!!) {
+                val builder = AlertDialog.Builder(this)
+                builder.setMessage("Are you sure you want to unjoin this event?")
+                    .setTitle("Confirm unjoin")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes") { _, _ ->
+                        eventViewModel.unjoinEvent(token, eventData?.eventId!!)
 
+                        eventViewModel.joinEventItemData.observe(this) {
+                            it.getContentIfNotHandled()?.let { _ ->
+                                showToast("Successfully unjoined the event")
+
+                                val intent = Intent(this, EventHistoryActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
+                    }
+                    .setNegativeButton("No") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                val alert = builder.create()
+                alert.show()
+            } else {
+                eventViewModel.joinEvent(token, eventData?.eventId!!)
+
+                eventViewModel.joinEventItemData.observe(this) {
+                    it.getContentIfNotHandled()?.let { _ ->
+                        showToast("Successfully joined the event")
+
+                        val intent = Intent(this, EventHistoryActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+            }
         }
 
         binding.seeCommentsButton.setOnClickListener {
@@ -164,6 +206,10 @@ class UserDetailEventActivity : AppCompatActivity() {
                 tvContactTitle.visibility = View.INVISIBLE
             }
         }
+
+        if (data.status == "Closed" || data.status == "Cancelled" || data.capacity == 0) {
+            binding.joinButton.visibility = View.GONE
+        }
     }
     private fun stringOfPreferences(data: List<String?>?): String {
         val preferences = StringBuilder()
@@ -185,6 +231,14 @@ class UserDetailEventActivity : AppCompatActivity() {
     private fun showOrganizationNameLoading(isLoading: Boolean) {
         binding.progressBarOrgName.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
 
     private fun isWhatsAppLink(link: String): Boolean {
         val regex = "^https://chat\\.whatsapp\\.com/.+$"

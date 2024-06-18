@@ -12,7 +12,7 @@ import com.dicoding.kumsiaapp.view.individual.event.IndividualEventFragment
 import com.dicoding.kumsiaapp.view.individual.friends.FriendsFragment
 import com.dicoding.kumsiaapp.view.individual.home.IndividualHomeFragment
 import com.dicoding.kumsiaapp.view.individual.profile.IndividualProfileFragment
-import com.dicoding.kumsiaapp.view.organization.home.OrganizationHomeFragment
+import com.dicoding.kumsiaapp.view.organization.OrganizationActivity
 
 class IndividualActivity : AppCompatActivity() {
 
@@ -28,9 +28,33 @@ class IndividualActivity : AppCompatActivity() {
             insets
         }
 
+        val intentData = intent?.extras?.getInt(OrganizationActivity.FRAGMENT_POSITION, 0)
+        if (intentData != null) {
+            when(intentData) {
+                0 -> {
+                    binding.bottomNavigationView.selectedItemId = R.id.home
+                    replaceFragment(IndividualHomeFragment())
+                }
+
+                1 -> {
+                    binding.bottomNavigationView.selectedItemId = R.id.friends
+                    replaceFragment(FriendsFragment())
+                }
+                2 -> {
+                    binding.bottomNavigationView.selectedItemId = R.id.events
+                    replaceFragment(IndividualEventFragment())
+                }
+                3 -> {
+                    binding.bottomNavigationView.selectedItemId = R.id.profile
+                    replaceFragment(IndividualProfileFragment())
+                }
+            }
+        } else {
+            replaceFragment(IndividualHomeFragment())
+        }
+
         binding.bottomNavigationView.setOnApplyWindowInsetsListener(null)
         binding.bottomNavigationView.setPadding(0,0,0,0)
-        replaceFragment(IndividualHomeFragment())
 
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -49,5 +73,9 @@ class IndividualActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerIndividual, fragment)
             .commit()
+    }
+
+    companion object {
+        const val FRAGMENT_POSITION = "fragment_position"
     }
 }

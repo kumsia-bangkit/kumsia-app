@@ -7,6 +7,7 @@ import com.dicoding.kumsiaapp.data.remote.response.CommentResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventUserResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventsItem
+import com.dicoding.kumsiaapp.data.remote.response.EventsItemUser
 import com.dicoding.kumsiaapp.data.remote.retrofit.ApiConfig
 import com.dicoding.kumsiaapp.utils.EventLiveData
 import com.google.gson.JsonObject
@@ -29,14 +30,17 @@ class EventViewModel: ViewModel() {
     private val _eventData = MutableLiveData<EventResponseDTO>()
     val eventData: LiveData<EventResponseDTO> = _eventData
 
+    private val _eventItemData = MutableLiveData<EventLiveData<EventsItem?>>()
+    val eventItemData: LiveData<EventLiveData<EventsItem?>> = _eventItemData
+
     private val _eventUserData = MutableLiveData<EventUserResponseDTO>()
     val eventUserData: LiveData<EventUserResponseDTO> = _eventUserData
 
-    private val _joinedEventUserData = MutableLiveData<EventUserResponseDTO>()
-    val joinedEventUserData: LiveData<EventUserResponseDTO> = _joinedEventUserData
+    private val _joinedEventUserData = MutableLiveData<EventLiveData<EventUserResponseDTO?>>()
+    val joinedEventUserData: LiveData<EventLiveData<EventUserResponseDTO?>> = _joinedEventUserData
 
-    private val _eventItemData = MutableLiveData<EventLiveData<EventsItem?>>()
-    val eventItemData: LiveData<EventLiveData<EventsItem?>> = _eventItemData
+    private val _joinEventItemData = MutableLiveData<EventLiveData<EventsItemUser?>>()
+    val joinEventItemData: LiveData<EventLiveData<EventsItemUser?>> = _joinEventItemData
 
     private val _commentData = MutableLiveData<CommentResponseDTO>()
     val commentData: LiveData<CommentResponseDTO> = _commentData
@@ -153,6 +157,42 @@ class EventViewModel: ViewModel() {
         })
     }
 
+    fun joinEvent(token: String, eventId: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().joinEvent(eventId, token)
+        client.enqueue(object : retrofit2.Callback<EventsItemUser> {
+            override fun onResponse(
+                call: Call<EventsItemUser>,
+                response: Response<EventsItemUser>
+            ) {
+                _isLoading.value = false
+                _joinEventItemData.value = EventLiveData(response.body())
+            }
+            override fun onFailure(call: Call<EventsItemUser>, t: Throwable) {
+                _isLoading.value = false
+                _joinEventItemData.value = EventLiveData(null)
+            }
+        })
+    }
+
+    fun unjoinEvent(token: String, eventId: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().unjoinEvent(eventId, token)
+        client.enqueue(object : retrofit2.Callback<EventsItemUser> {
+            override fun onResponse(
+                call: Call<EventsItemUser>,
+                response: Response<EventsItemUser>
+            ) {
+                _isLoading.value = false
+                _joinEventItemData.value = EventLiveData(response.body())
+            }
+            override fun onFailure(call: Call<EventsItemUser>, t: Throwable) {
+                _isLoading.value = false
+                _joinEventItemData.value = EventLiveData(null)
+            }
+        })
+    }
+
     fun getAllEventsForUser(token: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getAllEventsForUser(token)
@@ -182,7 +222,7 @@ class EventViewModel: ViewModel() {
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _joinedEventUserData.value = response.body()
+                    _joinedEventUserData.value = EventLiveData(response.body())
                 }
             }
             override fun onFailure(call: Call<EventUserResponseDTO>, t: Throwable) {

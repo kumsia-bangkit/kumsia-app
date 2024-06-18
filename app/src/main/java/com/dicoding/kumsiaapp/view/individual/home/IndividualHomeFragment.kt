@@ -1,29 +1,22 @@
 package com.dicoding.kumsiaapp.view.individual.home
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.dicoding.kumsiaapp.R
 import com.dicoding.kumsiaapp.data.local.UserPreferences
 import com.dicoding.kumsiaapp.data.local.dataStore
 import com.dicoding.kumsiaapp.data.remote.response.EventsItemUser
-import com.dicoding.kumsiaapp.data.remote.response.FriendList
 import com.dicoding.kumsiaapp.data.remote.response.FriendsItem
 import com.dicoding.kumsiaapp.databinding.FragmentIndividualHomeBinding
-import com.dicoding.kumsiaapp.utils.DateFormatter
 import com.dicoding.kumsiaapp.utils.EventUserAdapter
 import com.dicoding.kumsiaapp.utils.FriendListAdapter
-import com.dicoding.kumsiaapp.view.individual.event.UserDetailEventActivity
 import com.dicoding.kumsiaapp.viewmodel.AuthViewModel
 import com.dicoding.kumsiaapp.viewmodel.EventViewModel
 import com.dicoding.kumsiaapp.viewmodel.FriendsViewModel
@@ -50,6 +43,7 @@ class IndividualHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val pref = UserPreferences.getInstance(requireContext().dataStore)
         val sessionViewModel = ViewModelProvider(requireActivity(), SessionViewModelFactory(pref))[SessionViewModel::class.java]
 
@@ -80,11 +74,13 @@ class IndividualHomeFragment : Fragment() {
         }
 
         eventViewModel.joinedEventUserData.observe(viewLifecycleOwner) {
-            if (it != null && it.events?.isNotEmpty()!!) {
-                showEmptyEventMessage(false)
-                provideEvents(it.events)
-            } else {
-                showEmptyEventMessage(true)
+            it.getContentIfNotHandled()?.let { data ->
+                if (data.events?.isNotEmpty()!!) {
+                    showEmptyEventMessage(false)
+                    provideEvents(data.events)
+                } else {
+                    showEmptyEventMessage(true)
+                }
             }
         }
 
@@ -123,6 +119,7 @@ class IndividualHomeFragment : Fragment() {
 
         val adapter = EventUserAdapter()
         adapter.submitList(Collections.singletonList(newData.first()))
+        adapter.notifyItemRemoved(0)
         binding.rvEvents.adapter = adapter
     }
 
@@ -138,6 +135,7 @@ class IndividualHomeFragment : Fragment() {
     }
 
     private fun showEventLoading(isLoading: Boolean) {
+        binding.rvEvents.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
         binding.progressBarEvent.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
@@ -146,6 +144,7 @@ class IndividualHomeFragment : Fragment() {
     }
 
     private fun showFriendsLoading(isLoading: Boolean) {
+        binding.rvFriends.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
         binding.progressBarFriends.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
