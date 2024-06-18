@@ -1,5 +1,6 @@
 package com.dicoding.kumsiaapp.data.remote.retrofit
 
+import com.dicoding.kumsiaapp.data.remote.request.CommentRequestDTO
 import com.dicoding.kumsiaapp.data.remote.request.IndividualRegisterDTO
 import com.dicoding.kumsiaapp.data.remote.request.OrganizationRegisterDTO
 import com.dicoding.kumsiaapp.data.remote.response.CommentResponseDTO
@@ -151,6 +152,12 @@ interface ApiService {
     fun getAllComments(
         @Query("event_id") eventId: String
     ): Call<CommentResponseDTO>
+
+    @POST("comment/create")
+    fun createComment(
+        @Header(value = "access-token") token: String,
+        @Body commentDTO : CommentRequestDTO
+    ): Call<JsonObject>
 
     // Friends
     @GET("friends/")

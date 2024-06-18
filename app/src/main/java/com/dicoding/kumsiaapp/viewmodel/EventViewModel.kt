@@ -3,6 +3,7 @@ package com.dicoding.kumsiaapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dicoding.kumsiaapp.data.remote.request.CommentRequestDTO
 import com.dicoding.kumsiaapp.data.remote.response.CommentResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventUserResponseDTO
@@ -246,6 +247,28 @@ class EventViewModel: ViewModel() {
             }
             override fun onFailure(call: Call<CommentResponseDTO>, t: Throwable) {
                 _isLoading.value = false
+            }
+        })
+    }
+
+    fun createComment(token: String, commentDTO: CommentRequestDTO) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().createComment(token, commentDTO)
+        client.enqueue(object : retrofit2.Callback<JsonObject> {
+            override fun onResponse(
+                call: Call<JsonObject>,
+                response: Response<JsonObject>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _isSuccess.value = EventLiveData(response.isSuccessful)
+                } else {
+                    _isSuccess.value = EventLiveData(false)
+                }
+            }
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                _isLoading.value = false
+                _isSuccess.value = EventLiveData(false)
             }
         })
     }

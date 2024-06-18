@@ -57,7 +57,7 @@ class EventHistoryActivity : AppCompatActivity() {
             IndividualActivity::class.java
         )
         intent.putExtra(IndividualActivity.FRAGMENT_POSITION, 2)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         finish()
     }

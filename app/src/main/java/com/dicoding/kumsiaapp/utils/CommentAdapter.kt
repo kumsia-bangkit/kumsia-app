@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.kumsiaapp.data.remote.response.CommentsItem
-import com.dicoding.kumsiaapp.data.remote.response.FriendList
 import com.dicoding.kumsiaapp.databinding.ItemCommentBinding
-import com.dicoding.kumsiaapp.databinding.ItemFriendReqBinding
 
 class CommentAdapter : androidx.recyclerview.widget.ListAdapter<CommentsItem, CommentAdapter.MyViewHolder>(
     DIFF_CALLBACK

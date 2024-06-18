@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 data class CommentResponseDTO(
 
 	@field:SerializedName("comments")
-	val comments: List<CommentsItem?>? = null
+	var comments: List<CommentsItem?>? = null
 ) : Parcelable
 
 @Parcelize
