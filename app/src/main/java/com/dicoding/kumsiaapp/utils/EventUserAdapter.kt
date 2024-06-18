@@ -31,12 +31,16 @@ class EventUserAdapter : androidx.recyclerview.widget.ListAdapter<EventsItemUser
         RecyclerView.ViewHolder(binding.root) {
         fun bind(event: EventsItemUser) {
             binding.eventStatus.text = event.status
-            if (event.status == "Open") {
-                binding.eventStatus.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, android.R.color.holo_green_dark))
-            } else if (event.status == "Closed" || event.status == "Cancelled") {
-                binding.eventStatus.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, android.R.color.holo_red_dark))
-            } else {
-                binding.eventStatus.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.grey))
+            when (event.status) {
+                "Open" -> {
+                    binding.eventStatus.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, android.R.color.holo_green_dark))
+                }
+                "Closed", "Cancelled" -> {
+                    binding.eventStatus.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, android.R.color.holo_red_dark))
+                }
+                else -> {
+                    binding.eventStatus.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.grey))
+                }
             }
 
             binding.tvItemDate.text = DateFormatter.formatDate(event.eventStart!!)

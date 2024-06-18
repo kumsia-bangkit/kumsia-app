@@ -37,6 +37,7 @@ class UserDetailEventActivity : AppCompatActivity() {
         ViewModelProvider(this)[ProfileViewModel::class.java]
     }
     private var eventData: EventsItemUser? = null
+    private var isLiked: Boolean = false
     private lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,6 +78,31 @@ class UserDetailEventActivity : AppCompatActivity() {
 
         binding.backButton.setOnClickListener {
             finish()
+        }
+
+        binding.likeButton.setOnClickListener {
+            if (isLiked) {
+                eventViewModel.unlikeEvent(token, eventData?.eventId!!)
+            } else {
+                eventViewModel.likeEvent(token, eventData?.eventId!!)
+            }
+
+            eventViewModel.isSuccess.observe(this) {
+                it.getContentIfNotHandled()?.let { success ->
+                   if (success and isLiked) {
+                       showToast("Event is successfully unliked!")
+                       binding.likeButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_liked))
+                       isLiked = false
+                   } else if (success and !isLiked) {
+                       showToast("Event is successfully liked!")
+                       binding.likeButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_liked))
+                       isLiked = true
+                   } else {
+                       showToast("Failed to like the event")
+                   }
+
+                }
+            }
         }
 
         binding.joinButton.setOnClickListener {
@@ -167,6 +193,13 @@ class UserDetailEventActivity : AppCompatActivity() {
             binding.tvLocationTitle.text = resources.getString(R.string.meeting_link)
             binding.tvLocation.text = data.link
         }
+
+        if (eventData?.liked!!) {
+            binding.likeButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_liked))
+        } else {
+            binding.likeButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_liked))
+        }
+        isLiked = eventData?.liked!!
 
         binding.tvCapacityValue.text = data.capacity.toString()
         binding.tvDescription.text = data.description

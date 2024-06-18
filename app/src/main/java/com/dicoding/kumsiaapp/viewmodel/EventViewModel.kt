@@ -272,4 +272,50 @@ class EventViewModel: ViewModel() {
             }
         })
     }
+
+    fun likeEvent(token: String, eventId: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().likeEvent(eventId, token)
+        client.enqueue(object : retrofit2.Callback<JsonObject> {
+            override fun onResponse(
+                call: Call<JsonObject>,
+                response: Response<JsonObject>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _isSuccess.value = EventLiveData(response.isSuccessful)
+                } else {
+                    _isSuccess.value = EventLiveData(false)
+                }
+            }
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                _isLoading.value = false
+                _isSuccess.value = EventLiveData(false)
+            }
+        })
+    }
+
+    fun unlikeEvent(token: String, eventId: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().unlikeEvent(eventId, token)
+        client.enqueue(object : retrofit2.Callback<JsonObject> {
+            override fun onResponse(
+                call: Call<JsonObject>,
+                response: Response<JsonObject>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _isSuccess.value = EventLiveData(response.isSuccessful)
+                } else {
+                    _isSuccess.value = EventLiveData(false)
+                }
+            }
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                _isLoading.value = false
+                _isSuccess.value = EventLiveData(false)
+            }
+        })
+    }
+
+
 }

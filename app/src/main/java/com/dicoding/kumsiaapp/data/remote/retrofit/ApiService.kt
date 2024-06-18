@@ -165,4 +165,17 @@ interface ApiService {
         @Header(value = "access-token") token: String
     ): Call<FriendsListResponseDTO>
 
+    // Like Event
+    @POST("like/create")
+    fun likeEvent(
+        @Query("event_id") eventId: String,
+        @Header(value = "access-token") token: String
+    ): Call<JsonObject>
+
+    @DELETE("like/delete")
+    fun unlikeEvent(
+        @Query("event_id") eventId: String,
+        @Header(value = "access-token") token: String
+    ): Call<JsonObject>
+
 }
