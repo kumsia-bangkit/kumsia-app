@@ -150,6 +150,25 @@ class EventViewModel: ViewModel() {
         })
     }
 
+    fun getAllEventsForUser(token: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getAllEventsForUser(token)
+        client.enqueue(object : retrofit2.Callback<EventUserResponseDTO> {
+            override fun onResponse(
+                call: Call<EventUserResponseDTO>,
+                response: Response<EventUserResponseDTO>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _eventUserData.value = response.body()
+                }
+            }
+            override fun onFailure(call: Call<EventUserResponseDTO>, t: Throwable) {
+                _isLoading.value = false
+            }
+        })
+    }
+
     fun getAllUserJoinedEvents(token: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getAllUserJoinedEvents(token)

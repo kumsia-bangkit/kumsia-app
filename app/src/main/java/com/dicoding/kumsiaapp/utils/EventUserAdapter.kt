@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.kumsiaapp.R
-import com.dicoding.kumsiaapp.data.remote.response.EventsItem
+import com.dicoding.kumsiaapp.data.remote.response.EventsItemUser
 import com.dicoding.kumsiaapp.databinding.ItemEventBinding
-import com.dicoding.kumsiaapp.view.organization.event.OrganizationDetailEventActivity
+import com.dicoding.kumsiaapp.view.individual.event.UserDetailEventActivity
 
-class EventAdapter : androidx.recyclerview.widget.ListAdapter<EventsItem, EventAdapter.MyViewHolder>(
+class EventUserAdapter : androidx.recyclerview.widget.ListAdapter<EventsItemUser, EventUserAdapter.MyViewHolder>(
     DIFF_CALLBACK
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -29,7 +29,7 @@ class EventAdapter : androidx.recyclerview.widget.ListAdapter<EventsItem, EventA
 
     class MyViewHolder(private val binding: ItemEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(event: EventsItem) {
+        fun bind(event: EventsItemUser) {
             binding.eventStatus.text = event.status
             if (event.status == "Open") {
                 binding.eventStatus.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, android.R.color.holo_green_dark))
@@ -50,26 +50,26 @@ class EventAdapter : androidx.recyclerview.widget.ListAdapter<EventsItem, EventA
 
             binding.tvItemLikes.text = event.likeCount.toString()
             Glide.with(itemView.context)
-                .load(event.profilePicture)
+                .load(event.profiePicture)
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.people_event).error(R.drawable.people_event)
                 ).into(binding.ivItemPhoto)
 
             binding.detailButton.setOnClickListener {
-                val intent = Intent(itemView.context, OrganizationDetailEventActivity::class.java)
-                intent.putExtra(OrganizationDetailEventActivity.EVENT_DATA, event)
+                val intent = Intent(itemView.context, UserDetailEventActivity::class.java)
+                intent.putExtra(UserDetailEventActivity.EVENT_DATA, event)
                 itemView.context.startActivity(intent)
             }
         }
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<EventsItem>() {
-            override fun areItemsTheSame(oldItem: EventsItem, newItem: EventsItem): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<EventsItemUser>() {
+            override fun areItemsTheSame(oldItem: EventsItemUser, newItem: EventsItemUser): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: EventsItem, newItem: EventsItem): Boolean {
+            override fun areContentsTheSame(oldItem: EventsItemUser, newItem: EventsItemUser): Boolean {
                 return oldItem == newItem
             }
         }
