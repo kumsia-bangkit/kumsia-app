@@ -32,6 +32,9 @@ class EventViewModel: ViewModel() {
     private val _eventUserData = MutableLiveData<EventUserResponseDTO>()
     val eventUserData: LiveData<EventUserResponseDTO> = _eventUserData
 
+    private val _joinedEventUserData = MutableLiveData<EventUserResponseDTO>()
+    val joinedEventUserData: LiveData<EventUserResponseDTO> = _joinedEventUserData
+
     private val _eventItemData = MutableLiveData<EventLiveData<EventsItem?>>()
     val eventItemData: LiveData<EventLiveData<EventsItem?>> = _eventItemData
 
@@ -179,7 +182,7 @@ class EventViewModel: ViewModel() {
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _eventUserData.value = response.body()
+                    _joinedEventUserData.value = response.body()
                 }
             }
             override fun onFailure(call: Call<EventUserResponseDTO>, t: Throwable) {

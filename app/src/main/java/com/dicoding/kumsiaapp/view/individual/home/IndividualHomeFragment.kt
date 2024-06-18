@@ -21,6 +21,7 @@ import com.dicoding.kumsiaapp.data.remote.response.FriendList
 import com.dicoding.kumsiaapp.data.remote.response.FriendsItem
 import com.dicoding.kumsiaapp.databinding.FragmentIndividualHomeBinding
 import com.dicoding.kumsiaapp.utils.DateFormatter
+import com.dicoding.kumsiaapp.utils.EventUserAdapter
 import com.dicoding.kumsiaapp.utils.FriendListAdapter
 import com.dicoding.kumsiaapp.view.individual.event.UserDetailEventActivity
 import com.dicoding.kumsiaapp.viewmodel.AuthViewModel
@@ -28,6 +29,7 @@ import com.dicoding.kumsiaapp.viewmodel.EventViewModel
 import com.dicoding.kumsiaapp.viewmodel.FriendsViewModel
 import com.dicoding.kumsiaapp.viewmodel.SessionViewModel
 import com.dicoding.kumsiaapp.viewmodel.SessionViewModelFactory
+import java.util.Collections
 
 class IndividualHomeFragment : Fragment() {
 
@@ -77,7 +79,7 @@ class IndividualHomeFragment : Fragment() {
             showEventLoading(it)
         }
 
-        eventViewModel.eventUserData.observe(viewLifecycleOwner) {
+        eventViewModel.joinedEventUserData.observe(viewLifecycleOwner) {
             if (it != null && it.events?.isNotEmpty()!!) {
                 showEmptyEventMessage(false)
                 provideEvents(it.events)
@@ -111,51 +113,17 @@ class IndividualHomeFragment : Fragment() {
         }
     }
 
-    private fun provideEvents(data: List<EventsItemUser?>) {
-        if (data.isEmpty()) {
-            showEmptyEventMessage(true)
-            binding.upcomingEvent.root.visibility = View.GONE
-        } else {
-            val upcomingEvent = data.first()
-            binding.upcomingEvent.apply {
-                eventStatus.text = upcomingEvent?.status
-                when (upcomingEvent?.status) {
-                    "Open" -> {
-                        eventStatus.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), android.R.color.holo_green_dark))
-                    }
-                    "Closed", "Cancelled" -> {
-                        eventStatus.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), android.R.color.holo_red_dark))
-                    }
-                    else -> {
-                        eventStatus.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.grey))
-                    }
-                }
-
-                tvItemDate.text = DateFormatter.formatDate(upcomingEvent?.eventStart!!)
-                eventTitle.text = upcomingEvent.name
-                eventType.text = upcomingEvent.type
-                if (upcomingEvent.type == "Offline") {
-                    eventType.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.grey))
-                } else {
-                    eventType.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), android.R.color.holo_green_dark))
-                }
-
-                tvItemLikes.text = upcomingEvent.likeCount.toString()
-                Glide.with(requireActivity())
-                    .load(upcomingEvent.profiePicture)
-                    .apply(
-                        RequestOptions.placeholderOf(R.drawable.people_event).error(R.drawable.people_event)
-                    ).into(ivItemPhoto)
-
-               detailButton.setOnClickListener {
-                    val intent = Intent(requireActivity(), UserDetailEventActivity::class.java)
-                    intent.putExtra(UserDetailEventActivity.EVENT_DATA, upcomingEvent)
-                    startActivity(intent)
-               }
-
-                root.visibility = View.VISIBLE
-            }
+    private fun provideEvents(events: List<EventsItemUser?>) {
+        val newData = events.filter {
+            it?.status == "Open"
         }
+
+        val layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvEvents.layoutManager = layoutManager
+
+        val adapter = EventUserAdapter()
+        adapter.submitList(Collections.singletonList(newData.first()))
+        binding.rvEvents.adapter = adapter
     }
 
     private fun provideFriends(data: List<FriendsItem?>) {

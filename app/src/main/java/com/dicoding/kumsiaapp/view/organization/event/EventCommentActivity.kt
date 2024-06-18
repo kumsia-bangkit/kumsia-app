@@ -40,12 +40,13 @@ class EventCommentActivity : AppCompatActivity() {
             insets
         }
         this.window.setSoftInputMode(SOFT_INPUT_ADJUST_PAN)
+        val isJoined = intent.getBooleanExtra(IS_JOINED, false)
 
         val pref = UserPreferences.getInstance(application.dataStore)
         val sessionViewModel = ViewModelProvider(this, SessionViewModelFactory(pref))[SessionViewModel::class.java]
 
         sessionViewModel.getUserRole().observe(this) {
-            if (it == "organization") {
+            if (it == "organization" || !isJoined) {
                 binding.apply {
                     edAddComment.visibility = View.GONE
                     addCommentButton.visibility = View.GONE
@@ -53,7 +54,7 @@ class EventCommentActivity : AppCompatActivity() {
             }
         }
 
-        val eventId = intent.getStringExtra(ORGANIZATION_ID)
+        val eventId = intent.getStringExtra(EVENT_ID)
         eventViewModel.getAllComments(eventId!!)
 
         eventViewModel.isLoading.observe(this) {
@@ -96,6 +97,7 @@ class EventCommentActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val ORGANIZATION_ID = "organization_id"
+        const val EVENT_ID = "event_id"
+        const val IS_JOINED = "is_joined"
     }
 }

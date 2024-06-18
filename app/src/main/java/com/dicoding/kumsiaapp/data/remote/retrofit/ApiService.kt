@@ -11,6 +11,8 @@ import com.dicoding.kumsiaapp.data.remote.response.LoginResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.OrganizationDTO
 import com.dicoding.kumsiaapp.data.remote.response.TokenResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.UserDTO
+import com.dicoding.kumsiaapp.data.remote.response.UserIndividual
+import com.dicoding.kumsiaapp.data.remote.response.UserOrganization
 import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -51,6 +53,18 @@ interface ApiService {
     ): Call<OrganizationDTO>
 
     // Profile
+    @GET("profile/user/{user_id}")
+    fun getUserProfile(
+        @Path(value = "user_id") userId: String,
+        @Header(value = "access-token") token: String
+    ): Call<UserIndividual>
+
+    @GET("profile/organization/{organization_id}")
+    fun getOrganizationProfile(
+        @Path(value = "organization_id") orgId: String,
+        @Header(value = "access-token") token: String
+    ): Call<UserOrganization>
+
     @Multipart
     @PATCH("profile/organization/update")
     fun updateOrganizationData(

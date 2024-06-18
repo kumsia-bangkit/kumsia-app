@@ -179,7 +179,7 @@ class OrganizationDetailEventActivity : AppCompatActivity() {
 
         binding.seeCommentsButton.setOnClickListener {
             val intent = Intent(this, EventCommentActivity::class.java)
-            intent.putExtra(EventCommentActivity.ORGANIZATION_ID, eventData?.eventId)
+            intent.putExtra(EventCommentActivity.EVENT_ID, eventData?.eventId)
             startActivity(intent)
         }
     }

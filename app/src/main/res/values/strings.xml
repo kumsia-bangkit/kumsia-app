@@ -195,6 +195,8 @@
     <string name="view_all">View All</string>
     <string name="no_friends">No Friends</string>
     <string name="no_available_events">No Available Events</string>
+    <string name="join">Join</string>
+    <string name="unjoin">Unjoin</string>
 
     <string-array name="interests_array">
         <item>Food</item>
