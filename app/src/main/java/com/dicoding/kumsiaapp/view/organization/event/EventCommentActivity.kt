@@ -36,6 +36,7 @@ class EventCommentActivity : AppCompatActivity() {
     private var commentData: CommentResponseDTO? = null
     private var profilePicture: String? = null
     private lateinit var name: String
+    private var isUpdated: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,7 +91,12 @@ class EventCommentActivity : AppCompatActivity() {
             if (it != null && it.comments?.isNotEmpty()!!) {
                 showEmptyMessage(false)
                 commentData = it
-                provideComments(it.comments!!)
+
+                if (!isUpdated) {
+                    provideComments(it.comments!!)
+                } else {
+                    reProvideComments(commentData?.comments!!, commentData?.comments?.size!!)
+                }
             } else {
                 showEmptyMessage(true)
             }
@@ -117,6 +123,7 @@ class EventCommentActivity : AppCompatActivity() {
                 reProvideComments(temporaryList, temporaryList.size)
 
                 binding.edAddComment.text.clear()
+                isUpdated = true
             }
         }
 

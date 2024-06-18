@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.dicoding.kumsiaapp.R
 import com.dicoding.kumsiaapp.data.remote.response.CommentsItem
 import com.dicoding.kumsiaapp.databinding.ItemCommentBinding
 
@@ -25,15 +27,16 @@ class CommentAdapter : androidx.recyclerview.widget.ListAdapter<CommentsItem, Co
     class MyViewHolder(private val binding: ItemCommentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(comment: CommentsItem) {
-            if (comment.userPicture != null) {
-                Glide.with(itemView.context)
-                    .load(comment.userPicture)
-                    .into(binding.circleImageView2)
+            Glide.with(itemView.context)
+                .load(comment.userPicture)
+                .apply(
+                    RequestOptions.placeholderOf(R.drawable.ic_profile).error(R.drawable.ic_profile)
+                )
+                .into(binding.circleImageView2)
 
-                binding.apply {
-                    userName.text = comment.userName
-                    tvComment.text = comment.commentText
-                }
+            binding.apply {
+                userName.text = comment.userName
+                tvComment.text = comment.commentText
             }
         }
     }
