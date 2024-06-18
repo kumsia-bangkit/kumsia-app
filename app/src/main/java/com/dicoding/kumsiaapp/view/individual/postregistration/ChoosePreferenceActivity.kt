@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
@@ -30,7 +29,6 @@ import com.dicoding.kumsiaapp.utils.JwtDecoder
 import com.dicoding.kumsiaapp.utils.reduceFileImage
 import com.dicoding.kumsiaapp.utils.uriToFile
 import com.dicoding.kumsiaapp.view.individual.IndividualActivity
-import com.dicoding.kumsiaapp.view.organization.OrganizationActivity
 import com.dicoding.kumsiaapp.viewmodel.ProfileViewModel
 import com.dicoding.kumsiaapp.viewmodel.SessionViewModel
 import com.dicoding.kumsiaapp.viewmodel.SessionViewModelFactory
@@ -52,7 +50,6 @@ class ChoosePreferenceActivity : AppCompatActivity() {
     private val listOfReligion = mutableListOf<String>()
     private val listOfInterests = mutableListOf<String>()
     private val listOfCity = mutableListOf<String>()
-    private lateinit var token: String
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,13 +65,10 @@ class ChoosePreferenceActivity : AppCompatActivity() {
 
         val userData = intent.getParcelableExtra<UpdateUserProfileDTO>(USER_DATA)
         val imageUri = intent.getParcelableExtra<Uri>(IMAGE_URI)
+        val token = intent.getStringExtra(TOKEN)
 
         val pref = UserPreferences.getInstance(application.dataStore)
         val sessionViewModel = ViewModelProvider(this, SessionViewModelFactory(pref))[SessionViewModel::class.java]
-
-        sessionViewModel.getUserToken().observe(this) {
-            token = it!!
-        }
 
         profileViewModel.isLoading.observe(this) {
             showLoading(it)
@@ -151,7 +145,7 @@ class ChoosePreferenceActivity : AppCompatActivity() {
             val jsonData = gson.toJson(userData)
             val requestBody = jsonData.toRequestBody("text/plain".toMediaType())
 
-            profileViewModel.updateUserProfile(token, requestBody, imageMultipart)
+            profileViewModel.updateUserProfile(token!!, requestBody, imageMultipart)
         }
 
         binding.skipButton.setOnClickListener {
@@ -164,8 +158,7 @@ class ChoosePreferenceActivity : AppCompatActivity() {
             val jsonData = gson.toJson(userData)
             val requestBody = jsonData.toRequestBody("text/plain".toMediaType())
 
-            Log.d("token", token)
-            profileViewModel.updateUserProfile(token, requestBody, null)
+            profileViewModel.updateUserProfile(token!!, requestBody, null)
         }
     }
 

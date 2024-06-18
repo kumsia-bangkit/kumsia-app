@@ -7,11 +7,19 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.dicoding.kumsiaapp.R
+import com.dicoding.kumsiaapp.data.local.UserPreferences
+import com.dicoding.kumsiaapp.data.local.dataStore
 import com.dicoding.kumsiaapp.data.remote.response.Event
+import com.dicoding.kumsiaapp.data.remote.response.EventUserResponseDTO
+import com.dicoding.kumsiaapp.data.remote.response.EventsItemUser
 import com.dicoding.kumsiaapp.databinding.ActivityEventHistoryBinding
 import com.dicoding.kumsiaapp.utils.EventPagerAdapter
 import com.dicoding.kumsiaapp.view.individual.IndividualActivity
+import com.dicoding.kumsiaapp.viewmodel.EventViewModel
+import com.dicoding.kumsiaapp.viewmodel.SessionViewModel
+import com.dicoding.kumsiaapp.viewmodel.SessionViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -19,6 +27,10 @@ import com.google.android.material.tabs.TabLayoutMediator
 class EventHistoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEventHistoryBinding
+    private val eventViewModel: EventViewModel by lazy {
+        ViewModelProvider(this)[EventViewModel::class.java]
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEventHistoryBinding.inflate(layoutInflater)
@@ -29,14 +41,24 @@ class EventHistoryActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val pref = UserPreferences.getInstance(application.dataStore)
+        val sessionViewModel = ViewModelProvider(this, SessionViewModelFactory(pref))[SessionViewModel::class.java]
 
-        val eventPagerAdapter = EventPagerAdapter(this, Event("ayam", "12 Januari 2022", "Online"))
+        sessionViewModel.getUserToken().observe(this) {
+           eventViewModel.getAllEventsForUser(it!!)
+        }
+
+        var eventPagerAdapter = EventPagerAdapter(this)
         binding.viewPager.adapter = eventPagerAdapter
         TabLayoutMediator(
             binding.tabs, binding.viewPager
         ) { tab: TabLayout.Tab, position: Int ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
+
+        eventViewModel.eventUserData.observe(this) {
+            eventPagerAdapter.updatePagerData(it)
+        }
 
         binding.backButton.setOnClickListener {
             val intent = Intent(

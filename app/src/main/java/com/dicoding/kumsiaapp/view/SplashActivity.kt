@@ -48,7 +48,6 @@ class SplashActivity : AppCompatActivity() {
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-
             if (isLogin) {
                 if (role == "organization") {
                     if (isNewUser!!) {

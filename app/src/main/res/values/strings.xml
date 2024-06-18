@@ -197,6 +197,15 @@
     <string name="no_available_events">No Available Events</string>
     <string name="join">Join</string>
     <string name="unjoin">Unjoin</string>
+    <string name="no_liked_events">No Liked Events</string>
+    <string name="no_joined_events">No Joined Events</string>
+    <string name="personal_contact_title">Personal Contact</string>
+    <string name="guardian_contact_title">Guardian Contact</string>
+    <string name="edit">Edit</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="old_password_confirmation">Old Password for Saving Changes</string>
+    <string name="edit_preferences">Edit Preferences</string>
+    <string name="new_password_optional">New Password (Optional)</string>
 
     <string-array name="interests_array">
         <item>Food</item>

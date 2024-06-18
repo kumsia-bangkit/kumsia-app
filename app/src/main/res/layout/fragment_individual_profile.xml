@@ -69,22 +69,38 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/circleImageView"
-                app:layout_constraintHorizontal_bias="0.491"
                 app:layout_constraintStart_toStartOf="@+id/circleImageView"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/edit_button"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/blue_button_style"
+                android:paddingHorizontal="0dp"
+                android:paddingVertical="0dp"
+                android:text="@string/edit"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:backgroundTint="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
 
             <TextView
                 android:id="@+id/username_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="sans-serif-black"
                 android:text="@string/username"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_button" />
 
             <TextView
                 android:id="@+id/username"
@@ -113,33 +129,98 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/date"
+                android:text="@string/email"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/email_title"
                 app:layout_constraintTop_toBottomOf="@+id/email_title" />
 
             <TextView
-                android:id="@+id/contact_title"
+                android:id="@+id/gender_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="sans-serif-black"
-                android:text="@string/contact"
+                android:text="@string/gender"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/email"
                 app:layout_constraintTop_toBottomOf="@+id/email" />
 
             <TextView
-                android:id="@+id/contact"
+                android:id="@+id/gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@string/contact_number"
+                android:text="@array/gender_array"
                 android:textSize="20sp"
-                android:textColor="@color/light_blue"
-                app:layout_constraintStart_toStartOf="@+id/contact_title"
-                app:layout_constraintTop_toBottomOf="@+id/contact_title" />
+                app:layout_constraintStart_toStartOf="@+id/gender_title"
+                app:layout_constraintTop_toBottomOf="@+id/gender_title" />
+
+            <TextView
+                android:id="@+id/dob_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/date_of_birth"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/gender"
+                app:layout_constraintTop_toBottomOf="@+id/gender" />
+
+            <TextView
+                android:id="@+id/dob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/date"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/dob_title"
+                app:layout_constraintTop_toBottomOf="@+id/dob_title" />
+
+            <TextView
+                android:id="@+id/religion_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/religion"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/dob"
+                app:layout_constraintTop_toBottomOf="@+id/dob" />
+
+            <TextView
+                android:id="@+id/religion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/religion"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/religion_title"
+                app:layout_constraintTop_toBottomOf="@+id/religion_title" />
+
+            <TextView
+                android:id="@+id/city_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/city"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/religion"
+                app:layout_constraintTop_toBottomOf="@+id/religion" />
+
+            <TextView
+                android:id="@+id/city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/city"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/city_title"
+                app:layout_constraintTop_toBottomOf="@+id/city_title" />
 
             <TextView
                 android:id="@+id/description_title"
@@ -150,8 +231,8 @@
                 android:text="@string/description"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/contact"
-                app:layout_constraintTop_toBottomOf="@+id/contact" />
+                app:layout_constraintStart_toStartOf="@+id/city"
+                app:layout_constraintTop_toBottomOf="@+id/city" />
 
             <TextView
                 android:id="@+id/description"
@@ -165,6 +246,53 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/description_title"
                 app:layout_constraintTop_toBottomOf="@+id/description_title" />
+
+            <TextView
+                android:id="@+id/personal_contact_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/personal_contact_title"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/description"
+                app:layout_constraintTop_toBottomOf="@+id/description" />
+
+            <TextView
+                android:id="@+id/personal_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/contact_number"
+                android:textSize="20sp"
+                android:textColor="@color/light_blue"
+                app:layout_constraintStart_toStartOf="@+id/personal_contact_title"
+                app:layout_constraintTop_toBottomOf="@+id/personal_contact_title" />
+
+            <TextView
+                android:id="@+id/guardian_contact_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/guardian_contact_title"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/personal_contact"
+                app:layout_constraintTop_toBottomOf="@+id/personal_contact" />
+
+            <TextView
+                android:id="@+id/guardian_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/contact_number"
+                android:textSize="20sp"
+                android:textColor="@color/light_blue"
+                app:layout_constraintStart_toStartOf="@+id/guardian_contact_title"
+                app:layout_constraintTop_toBottomOf="@+id/guardian_contact_title" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </FrameLayout>

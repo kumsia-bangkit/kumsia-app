@@ -74,7 +74,25 @@ class CompleteIndividualDataActivity : AppCompatActivity() {
         }
 
         binding.skipButton.setOnClickListener {
+            binding.errorMessage.visibility = View.GONE
+            val userDTO = UpdateUserProfileDTO(
+                username = userData?.user?.username,
+                name = userData?.user?.name,
+                email = userData?.user?.email,
+                contact = null,
+                guardianContact = null,
+                religion = null,
+                gender = userData?.user?.gender,
+                dob = userData?.user?.dob,
+                city = null,
+                newPassword = "",
+                password = ""
+            )
+
             val intent = Intent(this, ChoosePreferenceActivity::class.java)
+            intent.putExtra(ChoosePreferenceActivity.USER_DATA, userDTO)
+            intent.putExtra(ChoosePreferenceActivity.IMAGE_URI, currentImageUri)
+            intent.putExtra(ChoosePreferenceActivity.TOKEN, token)
             startActivity(intent)
         }
 

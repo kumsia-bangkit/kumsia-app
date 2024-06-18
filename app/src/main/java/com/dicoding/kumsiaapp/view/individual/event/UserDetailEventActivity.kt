@@ -222,6 +222,7 @@ class UserDetailEventActivity : AppCompatActivity() {
             }
         } else {
             binding.tvContact.text = data.contactVarchar
+            binding.tvContact.setTextColor(ContextCompat.getColor(this, R.color.black))
         }
 
         if (data.joined!!) {
