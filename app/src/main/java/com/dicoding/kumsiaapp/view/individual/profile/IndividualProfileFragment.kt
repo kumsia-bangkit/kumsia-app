@@ -83,11 +83,27 @@ class IndividualProfileFragment : Fragment() {
             username.text = data.user?.username
             email.text = data.user?.email
             gender.text = data.user?.gender
-            religion.text = data.user?.religion ?: "No data"
+            religion.text = if (data.user?.religion.isNullOrEmpty()) {
+                "No data"
+            } else {
+                data.user?.religion
+            }
             dob.text = DateFormatter.formatDOB(data.user?.dob!!)
-            city.text = data.user.city ?: "No data"
-            personalContact.text = data.user.contact ?: "No data"
-            guardianContact.text = data.user.guardianContact ?: "No data"
+            city.text = if (data.user.city.isNullOrEmpty()) {
+                "No data"
+            } else {
+                data.user.city
+            }
+            personalContact.text = if (data.user.contact.isNullOrEmpty()) {
+                "No data"
+            } else {
+                data.user.contact
+            }
+            guardianContact.text = if (data.user.guardianContact.isNullOrEmpty()) {
+                "No data"
+            } else {
+                data.user.guardianContact
+            }
         }
 
         data.user?.preferenceCity?.forEach {
@@ -107,9 +123,9 @@ class IndividualProfileFragment : Fragment() {
                 layoutInflater.inflate(R.layout.item_chip_preference, chipGroup, false) as Chip
             chip.text = interest
             chip.id = index
-            chip.isClickable = true
+            chip.isClickable = false
             chip.isCheckable = true
-            chip.isChecked = true
+            chip.isChecked = false
             chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
             chip.layoutParams = ChipGroup.LayoutParams(
                 ChipGroup.LayoutParams.WRAP_CONTENT,
@@ -127,7 +143,7 @@ class IndividualProfileFragment : Fragment() {
                 layoutInflater.inflate(R.layout.item_chip_preference, chipGroup, false) as Chip
             chip.text = interest
             chip.id = index
-            chip.isClickable = true
+            chip.isClickable = false
             chip.isCheckable = true
             chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
             chip.layoutParams = ChipGroup.LayoutParams(
@@ -135,7 +151,7 @@ class IndividualProfileFragment : Fragment() {
                 ChipGroup.LayoutParams.WRAP_CONTENT
             )
 
-            chip.isChecked = true
+            chip.isChecked = false
             chipGroup.addView(chip)
         }
     }
@@ -148,7 +164,7 @@ class IndividualProfileFragment : Fragment() {
                 layoutInflater.inflate(R.layout.item_chip_preference, chipGroup, false) as Chip
             chip.text = interest
             chip.id = index
-            chip.isClickable = true
+            chip.isClickable = false
             chip.isCheckable = true
             chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
             chip.layoutParams = ChipGroup.LayoutParams(
@@ -156,7 +172,7 @@ class IndividualProfileFragment : Fragment() {
                 ChipGroup.LayoutParams.WRAP_CONTENT
             )
 
-            chip.isChecked = true
+            chip.isChecked = false
             chipGroup.addView(chip)
         }
     }
@@ -169,17 +185,12 @@ class IndividualProfileFragment : Fragment() {
         chip.id = View.generateViewId()
         chip.isClickable = false
         chip.isCheckable = true
-        chip.isChecked = true
+        chip.isChecked = false
         chip.textAlignment = View.TEXT_ALIGNMENT_CENTER
         chip.layoutParams = ChipGroup.LayoutParams(
             ChipGroup.LayoutParams.WRAP_CONTENT,
             ChipGroup.LayoutParams.WRAP_CONTENT
         )
-        chip.isCloseIconVisible = true
-        chip.setCloseIconResource(R.drawable.baseline_close_24)
-        chip.setOnCloseIconClickListener {
-            chipGroup.removeView(chip)
-        }
 
         chipGroup.addView(chip, 0)
     }
