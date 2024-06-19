@@ -95,7 +95,7 @@
                 android:background="@drawable/blue_button_style"
                 android:paddingHorizontal="0dp"
                 android:paddingVertical="0dp"
-                android:text="@string/edit"
+                android:text="@string/update"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="16sp"

@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:fontFamily="sans-serif-black"
-            android:text="@string/edit_preferences"
+            android:text="@string/update_preferences"
             android:textColor="@color/black"
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
