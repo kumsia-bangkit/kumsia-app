@@ -30,5 +30,8 @@ data class CommentsItem(
 	val userName: String? = null,
 
 	@field:SerializedName("comment_id")
-	val commentId: String? = null
+	val commentId: String? = null,
+
+	@field:SerializedName("created_at")
+	val createdAt: String? = null
 ) : Parcelable

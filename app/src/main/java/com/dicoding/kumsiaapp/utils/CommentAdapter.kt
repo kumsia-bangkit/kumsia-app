@@ -39,6 +39,12 @@ class CommentAdapter : androidx.recyclerview.widget.ListAdapter<CommentsItem, Co
             binding.apply {
                 userName.text = comment.userName
                 tvComment.text = comment.commentText
+                commentTime.text =
+                    if (comment.createdAt == null) {
+                        DateFormatter.commentDateFormat(DateFormatter.getCurrentDate())
+                    } else {
+                        DateFormatter.commentDateFormat(comment.createdAt)
+                    }
             }
 
             binding.circleImageView2.setOnClickListener {
