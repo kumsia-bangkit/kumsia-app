@@ -216,6 +216,7 @@
     <string name="make_friend_request">Make Friend Request</string>
     <string name="requested_as_friend">Requested as Friend</string>
     <string name="send_friend_request">Send Friend Request</string>
+    <string name="no_friend_requests">No Friend Requests</string>
 
     <string-array name="interests_array">
         <item>Food</item>

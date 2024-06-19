@@ -128,13 +128,17 @@ class IndividualHomeFragment : Fragment() {
     }
 
     private fun provideFriends(data: List<FriendsItem?>) {
-        binding.viewAllFriends.visibility = View.VISIBLE
+        val adapter = FriendListAdapter()
+        if (data.size > 4) {
+            binding.viewAllFriends.visibility = View.VISIBLE
+            adapter.submitList(data.subList(0, 4))
+        } else {
+            binding.viewAllFriends.visibility = View.GONE
+            adapter.submitList(data)
+        }
 
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvFriends.layoutManager = layoutManager
-
-        val adapter = FriendListAdapter()
-        adapter.submitList(data)
         binding.rvFriends.adapter = adapter
     }
 

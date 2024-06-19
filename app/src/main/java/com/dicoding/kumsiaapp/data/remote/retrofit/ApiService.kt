@@ -183,7 +183,7 @@ interface ApiService {
         @Header(value = "access-token") token: String
     ): Call<JsonObject>
 
-    @PUT("friends/reject")
+    @DELETE("friends/reject")
     fun rejectFriendRequest(
         @Query("friend_id") friendId: String,
         @Header(value = "access-token") token: String

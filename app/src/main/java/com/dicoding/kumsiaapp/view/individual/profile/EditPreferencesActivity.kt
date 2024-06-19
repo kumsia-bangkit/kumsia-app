@@ -325,6 +325,7 @@ class EditPreferencesActivity : AppCompatActivity() {
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
     companion object {
         const val USER_DATA = "user_data"
         const val IMAGE_FILE = "image_file"

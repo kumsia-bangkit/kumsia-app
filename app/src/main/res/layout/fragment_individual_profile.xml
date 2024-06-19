@@ -383,6 +383,17 @@
                 app:singleLine="false">
             </com.google.android.material.chip.ChipGroup>
 
+            <View
+                android:id="@+id/view2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/darker_gray"
+                android:backgroundTint="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/event_type_title"
+                app:layout_constraintStart_toStartOf="@+id/event_type_title"
+                app:layout_constraintTop_toBottomOf="@+id/event_type_title" />
+
             <TextView
                 android:id="@+id/event_city_title"
                 android:layout_width="wrap_content"

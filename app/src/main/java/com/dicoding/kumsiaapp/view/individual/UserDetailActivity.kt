@@ -95,6 +95,7 @@ class UserDetailActivity : AppCompatActivity() {
 
         binding.friendRequestButton.setOnClickListener {
             friendsViewModel.sendFriendRequest(userId!!, token)
+            showLoading(false)
         }
 
         binding.backButton.setOnClickListener {
