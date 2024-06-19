@@ -62,13 +62,17 @@ class JoinedEventFragment : Fragment() {
             it?.joined == true
         }
 
-        showEmptyMessage(false)
-        val layoutManager = LinearLayoutManager(requireActivity())
-        binding.rvJoinedEvents.layoutManager = layoutManager
+        if (newData.isNullOrEmpty()) {
+            showEmptyMessage(true)
+        } else {
+            showEmptyMessage(false)
+            val layoutManager = LinearLayoutManager(requireActivity())
+            binding.rvJoinedEvents.layoutManager = layoutManager
 
-        val adapter = EventUserAdapter()
-        adapter.submitList(newData)
-        binding.rvJoinedEvents.adapter = adapter
+            val adapter = EventUserAdapter()
+            adapter.submitList(newData)
+            binding.rvJoinedEvents.adapter = adapter
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

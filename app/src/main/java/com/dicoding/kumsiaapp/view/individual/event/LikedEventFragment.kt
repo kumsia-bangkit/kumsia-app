@@ -63,13 +63,17 @@ class LikedEventFragment : Fragment() {
             it?.liked == true
         }
 
-        showEmptyMessage(false)
-        val layoutManager = LinearLayoutManager(requireActivity())
-        binding.rvLikedEvents.layoutManager = layoutManager
+        if (newData.isNullOrEmpty()) {
+            showEmptyMessage(true)
+        } else {
+            showEmptyMessage(false)
+            val layoutManager = LinearLayoutManager(requireActivity())
+            binding.rvLikedEvents.layoutManager = layoutManager
 
-        val adapter = EventUserAdapter()
-        adapter.submitList(newData)
-        binding.rvLikedEvents.adapter = adapter
+            val adapter = EventUserAdapter()
+            adapter.submitList(newData)
+            binding.rvLikedEvents.adapter = adapter
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
