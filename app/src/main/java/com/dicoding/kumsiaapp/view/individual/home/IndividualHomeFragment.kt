@@ -114,6 +114,9 @@ class IndividualHomeFragment : Fragment() {
         val newData = events.filter {
             it?.status == "Open"
         }
+            .sortedBy {
+                it?.eventStart
+            }
 
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvEvents.layoutManager = layoutManager

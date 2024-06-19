@@ -26,6 +26,7 @@ class IndividualProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentIndividualProfileBinding
     private val authViewModel: AuthViewModel by activityViewModels()
+    private var userData: UserDTO? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,12 +54,14 @@ class IndividualProfileFragment : Fragment() {
 
         authViewModel.userData.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { data ->
+                userData = data
                 setUserData(data)
             }
         }
 
         binding.editButton.setOnClickListener {
             val intent = Intent(requireActivity(), EditIndividualProfileActivity::class.java)
+            intent.putExtra(EditIndividualProfileActivity.USER_DATA, userData)
             startActivity(intent)
         }
 

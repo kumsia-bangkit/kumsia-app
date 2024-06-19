@@ -1,6 +1,7 @@
 package com.dicoding.kumsiaapp.view.organization.event
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
 import androidx.activity.enableEdgeToEdge
@@ -98,6 +99,7 @@ class EventCommentActivity : AppCompatActivity() {
                     reProvideComments(commentData?.comments!!, commentData?.comments?.size!!)
                 }
             } else {
+                commentData = it
                 showEmptyMessage(true)
             }
         }
@@ -117,13 +119,14 @@ class EventCommentActivity : AppCompatActivity() {
                     userName = name
                 )
 
+                isUpdated = true
+
                 eventViewModel.createComment(token, comment)
                 val temporaryList = (commentData?.comments ?: emptyList()) + listOf(commentsItem)
                 commentData?.comments = temporaryList
                 reProvideComments(temporaryList, temporaryList.size)
 
                 binding.edAddComment.text.clear()
-                isUpdated = true
             }
         }
 
@@ -141,6 +144,8 @@ class EventCommentActivity : AppCompatActivity() {
     }
 
     private fun provideComments(data: List<CommentsItem?>) {
+        showLoading(false)
+
         if (data.isEmpty()) {
             showEmptyMessage(true)
         }
@@ -158,6 +163,17 @@ class EventCommentActivity : AppCompatActivity() {
     }
 
     private fun reProvideComments(data: List<CommentsItem?>, position: Int) {
+        showLoading(false)
+
+        if (data.size == 1) {
+            showEmptyMessage(false)
+            val layoutManager = LinearLayoutManager(this)
+            binding.recyclerView.layoutManager = layoutManager
+
+            val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+            binding.recyclerView.addItemDecoration(itemDecoration)
+        }
+
         val adapter = CommentAdapter()
         binding.recyclerView.adapter = adapter
         adapter.submitList(data)
