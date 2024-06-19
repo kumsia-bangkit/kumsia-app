@@ -1,5 +1,6 @@
 package com.dicoding.kumsiaapp.utils
 
+import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.DiffUtil
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import com.dicoding.kumsiaapp.R
 import com.dicoding.kumsiaapp.data.remote.response.FriendList
 import com.dicoding.kumsiaapp.data.remote.response.FriendsItem
 import com.dicoding.kumsiaapp.databinding.ItemFriendBinding
+import com.dicoding.kumsiaapp.view.individual.UserDetailActivity
 
 
 class FriendListAdapter : androidx.recyclerview.widget.ListAdapter<FriendsItem, FriendListAdapter.MyViewHolder>(
@@ -22,8 +24,8 @@ class FriendListAdapter : androidx.recyclerview.widget.ListAdapter<FriendsItem, 
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val story = getItem(position)
-        holder.bind(story)
+        val friend = getItem(position)
+        holder.bind(friend)
     }
 
     class MyViewHolder(private val binding: ItemFriendBinding) :
@@ -37,6 +39,12 @@ class FriendListAdapter : androidx.recyclerview.widget.ListAdapter<FriendsItem, 
                 .into(binding.profileImage)
             binding.individualName.text = friendList.name
             binding.individualUsername.text = friendList.username
+
+            binding.profileImage.setOnClickListener {
+                val intent = Intent(itemView.context, UserDetailActivity::class.java)
+                intent.putExtra(UserDetailActivity.USER_ID, friendList.userId)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 

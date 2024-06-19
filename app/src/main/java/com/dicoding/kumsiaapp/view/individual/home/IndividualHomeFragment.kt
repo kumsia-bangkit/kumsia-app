@@ -101,7 +101,8 @@ class IndividualHomeFragment : Fragment() {
         }
 
         binding.viewAllFriends.setOnClickListener {
-            // Ke halaman all friends (copy activity comment)
+            val intent = Intent(requireActivity(), ViewAllFriendsActivity::class.java)
+            startActivity(intent)
         }
 
         binding.friendRequest.setOnClickListener {

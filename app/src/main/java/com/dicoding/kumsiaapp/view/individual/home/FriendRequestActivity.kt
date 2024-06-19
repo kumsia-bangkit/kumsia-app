@@ -41,7 +41,6 @@ class FriendRequestActivity : AppCompatActivity() {
             insets
         }
 
-
         val pref = UserPreferences.getInstance(application.dataStore)
         val sessionViewModel = ViewModelProvider(this, SessionViewModelFactory(pref))[SessionViewModel::class.java]
 
@@ -93,18 +92,15 @@ class FriendRequestActivity : AppCompatActivity() {
             val layoutManager = LinearLayoutManager(this)
             binding.rvFriendsReq.layoutManager = layoutManager
 
-            val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-            binding.rvFriendsReq.addItemDecoration(itemDecoration)
-
             adapter.submitList(data.friends)
             binding.rvFriendsReq.adapter = adapter
         }
     }
 
-    fun removeItemFromAdapter(position: Int) {
-        val currentList = adapter.currentList.toMutableList() // Create a mutable copy
-        currentList.removeAt(position) // Remove the item at the given position
-        adapter.submitList(currentList) // Update the adapter
+    private fun removeItemFromAdapter(position: Int) {
+        val currentList = adapter.currentList.toMutableList()
+        currentList.removeAt(position)
+        adapter.submitList(currentList)
     }
 
     fun acceptFriendRequest(friendId: String, position: Int) {
