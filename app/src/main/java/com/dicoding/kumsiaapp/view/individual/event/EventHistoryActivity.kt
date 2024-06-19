@@ -2,25 +2,15 @@ package com.dicoding.kumsiaapp.view.individual.event
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModelProvider
 import com.dicoding.kumsiaapp.R
-import com.dicoding.kumsiaapp.data.local.UserPreferences
-import com.dicoding.kumsiaapp.data.local.dataStore
-import com.dicoding.kumsiaapp.data.remote.response.Event
-import com.dicoding.kumsiaapp.data.remote.response.EventUserResponseDTO
-import com.dicoding.kumsiaapp.data.remote.response.EventsItemUser
 import com.dicoding.kumsiaapp.databinding.ActivityEventHistoryBinding
 import com.dicoding.kumsiaapp.utils.EventPagerAdapter
 import com.dicoding.kumsiaapp.view.individual.IndividualActivity
-import com.dicoding.kumsiaapp.viewmodel.EventViewModel
-import com.dicoding.kumsiaapp.viewmodel.SessionViewModel
-import com.dicoding.kumsiaapp.viewmodel.SessionViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 

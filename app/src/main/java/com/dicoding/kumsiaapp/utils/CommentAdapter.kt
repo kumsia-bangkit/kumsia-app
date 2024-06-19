@@ -1,5 +1,6 @@
 package com.dicoding.kumsiaapp.utils
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,6 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.kumsiaapp.R
 import com.dicoding.kumsiaapp.data.remote.response.CommentsItem
 import com.dicoding.kumsiaapp.databinding.ItemCommentBinding
+import com.dicoding.kumsiaapp.view.individual.UserDetailActivity
 
 class CommentAdapter : androidx.recyclerview.widget.ListAdapter<CommentsItem, CommentAdapter.MyViewHolder>(
     DIFF_CALLBACK
@@ -37,6 +39,12 @@ class CommentAdapter : androidx.recyclerview.widget.ListAdapter<CommentsItem, Co
             binding.apply {
                 userName.text = comment.userName
                 tvComment.text = comment.commentText
+            }
+
+            binding.circleImageView2.setOnClickListener {
+                val intent = Intent(itemView.context, UserDetailActivity::class.java)
+                intent.putExtra(UserDetailActivity.USER_ID, comment.userId)
+                itemView.context.startActivity(intent)
             }
         }
     }

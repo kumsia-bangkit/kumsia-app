@@ -17,9 +17,12 @@ data class FriendsItem(
 	@field:SerializedName("user_id")
 	val userId: String? = null,
 
+	@field:SerializedName("username")
+	val username: String? = null,
+
 	@field:SerializedName("name")
 	val name: String? = null,
 
-	@field:SerializedName("username")
-	val username: String? = null
+	@field:SerializedName("profile_picture")
+	val profilePicture: String? = null
 ) : Parcelable

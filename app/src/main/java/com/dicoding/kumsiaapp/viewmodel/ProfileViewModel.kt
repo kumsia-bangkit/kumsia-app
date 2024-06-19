@@ -3,11 +3,14 @@ package com.dicoding.kumsiaapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dicoding.kumsiaapp.data.remote.request.CommentRequestDTO
 import com.dicoding.kumsiaapp.data.remote.response.OrganizationDTO
 import com.dicoding.kumsiaapp.data.remote.response.TokenResponseDTO
+import com.dicoding.kumsiaapp.data.remote.response.UserDetailResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.UserOrganization
 import com.dicoding.kumsiaapp.data.remote.retrofit.ApiConfig
 import com.dicoding.kumsiaapp.utils.EventLiveData
+import com.google.gson.JsonObject
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -20,6 +23,9 @@ class ProfileViewModel: ViewModel() {
 
     private val _tokenData = MutableLiveData<EventLiveData<TokenResponseDTO?>>()
     val tokenData: LiveData<EventLiveData<TokenResponseDTO?>> = _tokenData
+
+    private val _userData = MutableLiveData<EventLiveData<UserDetailResponseDTO?>>()
+    val userData: LiveData<EventLiveData<UserDetailResponseDTO?>> = _userData
 
     private val _organizationData = MutableLiveData<EventLiveData<UserOrganization>>()
     val organizationData : LiveData<EventLiveData<UserOrganization>> = _organizationData
@@ -80,6 +86,26 @@ class ProfileViewModel: ViewModel() {
                 }
             }
             override fun onFailure(call: Call<UserOrganization>, t: Throwable) {
+                _isLoading.value = false
+            }
+        })
+    }
+
+    fun getUserProfile(userId: String, token: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getUserProfile(userId, token)
+        client.enqueue(object : retrofit2.Callback<UserDetailResponseDTO> {
+            override fun onResponse(
+                call: Call<UserDetailResponseDTO>,
+                response: Response<UserDetailResponseDTO>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _userData.value = EventLiveData(response.body()!!)
+                }
+            }
+            override fun onFailure(call: Call<UserDetailResponseDTO>, t: Throwable) {
+                _userData.value = EventLiveData(null)
                 _isLoading.value = false
             }
         })

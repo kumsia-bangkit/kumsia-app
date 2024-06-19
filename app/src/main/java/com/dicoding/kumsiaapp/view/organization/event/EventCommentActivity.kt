@@ -19,6 +19,7 @@ import com.dicoding.kumsiaapp.data.remote.response.CommentResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.CommentsItem
 import com.dicoding.kumsiaapp.databinding.ActivityEventCommentBinding
 import com.dicoding.kumsiaapp.utils.CommentAdapter
+import com.dicoding.kumsiaapp.utils.JwtDecoder
 import com.dicoding.kumsiaapp.viewmodel.AuthViewModel
 import com.dicoding.kumsiaapp.viewmodel.EventViewModel
 import com.dicoding.kumsiaapp.viewmodel.SessionViewModel
@@ -37,6 +38,7 @@ class EventCommentActivity : AppCompatActivity() {
     private var commentData: CommentResponseDTO? = null
     private var profilePicture: String? = null
     private lateinit var name: String
+    private lateinit var userIdFromJwt: String
     private var isUpdated: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +61,7 @@ class EventCommentActivity : AppCompatActivity() {
 
         sessionViewModel.getUserToken().observe(this) {
             token = it!!
+            userIdFromJwt = JwtDecoder.decode(it).getClaim("sub").asString()!!
             authViewModel.getUserData(token)
         }
 
@@ -116,7 +119,8 @@ class EventCommentActivity : AppCompatActivity() {
                 val commentsItem = CommentsItem(
                    userPicture = profilePicture,
                     commentText = binding.edAddComment.text.toString().trim(),
-                    userName = name
+                    userName = name,
+                    userId = userIdFromJwt
                 )
 
                 isUpdated = true

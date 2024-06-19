@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.dicoding.kumsiaapp.data.remote.response.Event
 import com.dicoding.kumsiaapp.data.remote.response.EventUserResponseDTO
 import com.dicoding.kumsiaapp.view.individual.event.JoinedEventFragment
 import com.dicoding.kumsiaapp.view.individual.event.LikedEventFragment

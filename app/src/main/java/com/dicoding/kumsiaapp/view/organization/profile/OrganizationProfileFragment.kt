@@ -82,16 +82,16 @@ class OrganizationProfileFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.apply {
-                circleImageView.visibility = View.GONE
-                name.visibility = View.GONE
-                usernameTitle.visibility = View.GONE
-                username.visibility = View.GONE
-                emailTitle.visibility = View.GONE
-                email.visibility = View.GONE
-                contactTitle.visibility = View.GONE
-                contact.visibility = View.GONE
-                descriptionTitle.visibility = View.GONE
-                description.visibility = View.GONE
+                circleImageView.visibility = View.INVISIBLE
+                name.visibility = View.INVISIBLE
+                usernameTitle.visibility = View.INVISIBLE
+                username.visibility = View.INVISIBLE
+                emailTitle.visibility = View.INVISIBLE
+                email.visibility = View.INVISIBLE
+                contactTitle.visibility = View.INVISIBLE
+                contact.visibility = View.INVISIBLE
+                descriptionTitle.visibility = View.INVISIBLE
+                description.visibility = View.INVISIBLE
                 progressBar.visibility = View.VISIBLE
             }
         } else {

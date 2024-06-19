@@ -201,34 +201,34 @@ class IndividualProfileFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.apply {
-                circleImageView.visibility = View.GONE
-                name.visibility = View.GONE
-                usernameTitle.visibility = View.GONE
-                username.visibility = View.GONE
-                emailTitle.visibility = View.GONE
-                email.visibility = View.GONE
-                personalContactTitle.visibility = View.GONE
-                personalContact.visibility = View.GONE
-                guardianContact.visibility = View.GONE
-                guardianContactTitle.visibility = View.GONE
-                genderTitle.visibility = View.GONE
-                gender.visibility = View.GONE
-                dob.visibility = View.GONE
-                dobTitle.visibility = View.GONE
-                religion.visibility = View.GONE
-                religionTitle.visibility = View.GONE
-                cityTitle.visibility = View.GONE
-                city.visibility = View.GONE
-                eventGenderTitle.visibility = View.GONE
-                eventGenderGroup.visibility = View.GONE
-                eventCityTitle.visibility = View.GONE
-                eventCityGroup.visibility = View.GONE
-                eventReligionTitle.visibility = View.GONE
-                eventReligionGroup.visibility = View.GONE
-                eventInterestTitle.visibility = View.GONE
-                eventInterestGroup.visibility = View.GONE
-                editButton.visibility = View.GONE
-                eventTypeTitle.visibility = View.GONE
+                circleImageView.visibility = View.INVISIBLE
+                name.visibility = View.INVISIBLE
+                usernameTitle.visibility = View.INVISIBLE
+                username.visibility = View.INVISIBLE
+                emailTitle.visibility = View.INVISIBLE
+                email.visibility = View.INVISIBLE
+                personalContactTitle.visibility = View.INVISIBLE
+                personalContact.visibility = View.INVISIBLE
+                guardianContact.visibility = View.INVISIBLE
+                guardianContactTitle.visibility = View.INVISIBLE
+                genderTitle.visibility = View.INVISIBLE
+                gender.visibility = View.INVISIBLE
+                dob.visibility = View.INVISIBLE
+                dobTitle.visibility = View.INVISIBLE
+                religion.visibility = View.INVISIBLE
+                religionTitle.visibility = View.INVISIBLE
+                cityTitle.visibility = View.INVISIBLE
+                city.visibility = View.INVISIBLE
+                eventGenderTitle.visibility = View.INVISIBLE
+                eventGenderGroup.visibility = View.INVISIBLE
+                eventCityTitle.visibility = View.INVISIBLE
+                eventCityGroup.visibility = View.INVISIBLE
+                eventReligionTitle.visibility = View.INVISIBLE
+                eventReligionGroup.visibility = View.INVISIBLE
+                eventInterestTitle.visibility = View.INVISIBLE
+                eventInterestGroup.visibility = View.INVISIBLE
+                editButton.visibility = View.INVISIBLE
+                eventTypeTitle.visibility = View.INVISIBLE
                 progressBar.visibility = View.VISIBLE
             }
         } else {

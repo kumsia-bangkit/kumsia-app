@@ -13,6 +13,7 @@ import com.dicoding.kumsiaapp.data.remote.response.LoginResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.OrganizationDTO
 import com.dicoding.kumsiaapp.data.remote.response.TokenResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.UserDTO
+import com.dicoding.kumsiaapp.data.remote.response.UserDetailResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.UserIndividual
 import com.dicoding.kumsiaapp.data.remote.response.UserOrganization
 import com.google.gson.JsonObject
@@ -59,7 +60,7 @@ interface ApiService {
     fun getUserProfile(
         @Path(value = "user_id") userId: String,
         @Header(value = "access-token") token: String
-    ): Call<UserIndividual>
+    ): Call<UserDetailResponseDTO>
 
     @GET("profile/organization/{organization_id}")
     fun getOrganizationProfile(
@@ -164,6 +165,29 @@ interface ApiService {
     fun getAllFriends(
         @Header(value = "access-token") token: String
     ): Call<FriendsListResponseDTO>
+
+    @GET("friends/request")
+    fun getAllFriendRequests(
+        @Header(value = "access-token") token: String
+    ): Call<FriendsListResponseDTO>
+
+    @POST("friends/send")
+    fun sendFriendRequest(
+        @Query("friend_id") friendId: String,
+        @Header(value = "access-token") token: String
+    ): Call<JsonObject>
+
+    @PUT("friends/accept")
+    fun acceptFriendRequest(
+        @Query("friend_id") friendId: String,
+        @Header(value = "access-token") token: String
+    ): Call<JsonObject>
+
+    @PUT("friends/reject")
+    fun rejectFriendRequest(
+        @Query("friend_id") friendId: String,
+        @Header(value = "access-token") token: String
+    ): Call<JsonObject>
 
     // Like Event
     @POST("like/create")

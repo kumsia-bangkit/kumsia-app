@@ -29,7 +29,7 @@
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="@id/main"
                 app:layout_constraintTop_toTopOf="@id/main"
-                app:layout_constraintVertical_bias="0.554"
+                app:layout_constraintVertical_bias="0.324"
                 tools:visibility="visible" />
 
             <TextView

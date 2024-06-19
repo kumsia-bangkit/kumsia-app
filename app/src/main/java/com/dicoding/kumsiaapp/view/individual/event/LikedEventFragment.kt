@@ -7,14 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.kumsiaapp.R
 import com.dicoding.kumsiaapp.data.local.UserPreferences
 import com.dicoding.kumsiaapp.data.local.dataStore
-import com.dicoding.kumsiaapp.data.remote.response.Event
-import com.dicoding.kumsiaapp.data.remote.response.EventUserResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventsItemUser
 import com.dicoding.kumsiaapp.databinding.FragmentLikedEventBinding
-import com.dicoding.kumsiaapp.utils.EventAdapter
 import com.dicoding.kumsiaapp.utils.EventUserAdapter
 import com.dicoding.kumsiaapp.viewmodel.EventViewModel
 import com.dicoding.kumsiaapp.viewmodel.SessionViewModel
