@@ -61,6 +61,9 @@ class JoinedEventFragment : Fragment() {
         val newData = events?.filter {
             it?.joined == true
         }
+            ?.sortedBy {
+                it?.eventStart
+            }
 
         if (newData.isNullOrEmpty()) {
             showEmptyMessage(true)

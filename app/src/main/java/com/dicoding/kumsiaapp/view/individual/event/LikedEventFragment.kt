@@ -62,6 +62,9 @@ class LikedEventFragment : Fragment() {
         val newData = events?.filter {
             it?.liked == true
         }
+            ?.sortedBy {
+                it?.eventStart
+            }
 
         if (newData.isNullOrEmpty()) {
             showEmptyMessage(true)
