@@ -2,6 +2,7 @@ package com.dicoding.kumsiaapp.view.individual.event
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -27,9 +28,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 class EventHistoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEventHistoryBinding
-    private val eventViewModel: EventViewModel by lazy {
-        ViewModelProvider(this)[EventViewModel::class.java]
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,24 +39,14 @@ class EventHistoryActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val pref = UserPreferences.getInstance(application.dataStore)
-        val sessionViewModel = ViewModelProvider(this, SessionViewModelFactory(pref))[SessionViewModel::class.java]
 
-        sessionViewModel.getUserToken().observe(this) {
-           eventViewModel.getAllEventsForUser(it!!)
-        }
-
-        var eventPagerAdapter = EventPagerAdapter(this)
+        val eventPagerAdapter = EventPagerAdapter(this)
         binding.viewPager.adapter = eventPagerAdapter
         TabLayoutMediator(
             binding.tabs, binding.viewPager
         ) { tab: TabLayout.Tab, position: Int ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
-
-        eventViewModel.eventUserData.observe(this) {
-            eventPagerAdapter.updatePagerData(it)
-        }
 
         binding.backButton.setOnClickListener {
             val intent = Intent(

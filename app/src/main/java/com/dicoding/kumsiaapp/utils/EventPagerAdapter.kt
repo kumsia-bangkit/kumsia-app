@@ -12,16 +12,16 @@ import com.dicoding.kumsiaapp.view.individual.event.LikedEventFragment
 class EventPagerAdapter internal constructor(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
 
     private var eventData: EventUserResponseDTO? = null
+
     override fun createFragment(position: Int): Fragment {
         val bundle = Bundle()
+        bundle.putParcelable("event", eventData)
         if (position == 0) {
             val fragmentJoined = JoinedEventFragment()
-            bundle.putParcelable("event", eventData)
             fragmentJoined.arguments = bundle
             return fragmentJoined
         } else {
             val fragmentLiked = LikedEventFragment()
-            bundle.putParcelable("event", eventData)
             fragmentLiked.arguments = bundle
             return fragmentLiked
         }
