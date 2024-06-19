@@ -25,4 +25,23 @@ object DateFormatter {
         }
         return targetDate
     }
+
+    fun formatDOB(dob: String): String? {
+        val currentFormat = "yyyy-MM-dd"
+        val targetFormat = "dd MMMM yyyy"
+        val timezone = "GMT"
+        val currentDf: DateFormat = SimpleDateFormat(currentFormat, Locale.getDefault())
+        currentDf.timeZone = TimeZone.getTimeZone(timezone)
+        val targetDf: DateFormat = SimpleDateFormat(targetFormat, Locale.getDefault())
+        var targetDate: String? = null
+        try {
+            val date = currentDf.parse(dob)
+            if (date != null) {
+                targetDate = targetDf.format(date)
+            }
+        } catch (ex: ParseException) {
+            ex.printStackTrace()
+        }
+        return targetDate
+    }
 }

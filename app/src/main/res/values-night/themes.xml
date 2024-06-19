@@ -4,6 +4,8 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="colorPrimary">@color/dark_blue</item> -->
+        <item name="android:statusBarColor">@color/dark_blue</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="main_card_view_style" parent="Widget.MaterialComponents.CardView">

@@ -1,8 +1,10 @@
 package com.dicoding.kumsiaapp.view.individual
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -27,6 +29,7 @@ class IndividualActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
 
         val intentData = intent?.extras?.getInt(OrganizationActivity.FRAGMENT_POSITION, 0)
         if (intentData != null) {

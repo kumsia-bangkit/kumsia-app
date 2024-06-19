@@ -101,12 +101,14 @@ class AuthViewModel: ViewModel() {
     }
 
     fun getUserData(token: String) {
+        _isLoading.value = true
         val client = ApiConfig.getApiService().getLoggedInUser(token)
         client.enqueue(object : retrofit2.Callback<UserDTO> {
             override fun onResponse(
                 call: Call<UserDTO>,
                 response: Response<UserDTO>
             ) {
+                _isLoading.value = false
                 if (response.isSuccessful) {
                     _userData.value = EventLiveData(response.body()!!)
                 }

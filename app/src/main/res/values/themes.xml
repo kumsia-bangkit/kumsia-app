@@ -4,6 +4,8 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/dark_blue</item> -->
+        <item name="android:statusBarColor">@color/dark_blue</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="Theme.KumsiaApp" parent="Base.Theme.KumsiaApp" />
