@@ -217,6 +217,10 @@
     <string name="requested_as_friend">Requested as Friend</string>
     <string name="send_friend_request">Send Friend Request</string>
     <string name="no_friend_requests">No Friend Requests</string>
+    <string name="no_gender">Gender: -</string>
+    <string name="no_religion">Religion: -</string>
+    <string name="no_city">City: -</string>
+    <string name="no_interests">Hobbies and Interests: -</string>
 
     <string-array name="interests_array">
         <item>Food</item>

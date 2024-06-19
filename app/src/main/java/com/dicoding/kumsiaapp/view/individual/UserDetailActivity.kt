@@ -81,11 +81,6 @@ class UserDetailActivity : AppCompatActivity() {
                         isEnabled = false
                         isClickable = false
                     }
-                    binding.guardianContact.visibility = View.INVISIBLE
-                    binding.guardianContactTitle.visibility = View.INVISIBLE
-                    binding.personalContact.visibility = View.INVISIBLE
-                    binding.personalContactTitle.visibility = View.INVISIBLE
-
                     showToast("Successfully sent friend request")
                 } else {
                     showToast("Failed to send friend request")
@@ -104,7 +99,6 @@ class UserDetailActivity : AppCompatActivity() {
     }
 
     private fun setUserData(data: UserDetailResponseDTO) {
-
         if (data.isFriends!! == 2) {
             binding.friendRequestButton.visibility = View.GONE
             binding.guardianContact.visibility = View.VISIBLE
@@ -120,16 +114,8 @@ class UserDetailActivity : AppCompatActivity() {
                 isEnabled = false
                 isClickable = false
             }
-            binding.guardianContact.visibility = View.INVISIBLE
-            binding.guardianContactTitle.visibility = View.INVISIBLE
-            binding.personalContact.visibility = View.INVISIBLE
-            binding.personalContactTitle.visibility = View.INVISIBLE
         } else if (data.isFriends == 0){
             binding.friendRequestButton.visibility = View.VISIBLE
-            binding.guardianContact.visibility = View.INVISIBLE
-            binding.guardianContactTitle.visibility = View.INVISIBLE
-            binding.personalContact.visibility = View.INVISIBLE
-            binding.personalContactTitle.visibility = View.INVISIBLE
         }
 
         if (data.profilePicture != null) {
@@ -154,25 +140,51 @@ class UserDetailActivity : AppCompatActivity() {
             } else {
                 data.city
             }
-            personalContact.text = if (data.contact.isNullOrEmpty()) {
-                "No data"
-            } else {
-                data.contact
-            }
-            guardianContact.text = if (data.guardianContact.isNullOrEmpty()) {
-                "No data"
-            } else {
-                data.guardianContact
+            personalContact.text =
+                if (data.contact.isNullOrEmpty() && (data.isFriends == 0 || data.isFriends == 1)) {
+                    personalContact.setTextColor(resources.getColor(R.color.gold, null))
+                    "Contact information is hidden. Become friends to view."
+                } else if (data.contact.isNullOrEmpty()) {
+                    "No data"
+                }  else {
+                    data.contact
+                }
+            guardianContact.text =
+                if (data.guardianContact.isNullOrEmpty() && (data.isFriends == 0 || data.isFriends == 1)) {
+                    guardianContact.setTextColor(resources.getColor(R.color.gold, null))
+                    "Contact information is hidden. Become friends to view."
+                } else if (data.guardianContact.isNullOrEmpty()) {
+                    "No data"
+                }  else {
+                    data.guardianContact
+                }
+        }
+
+        if (data.preferenceCity?.isEmpty()!!) {
+            binding.eventCityTitle.text = getString(R.string.no_city)
+        } else {
+            data.preferenceCity.forEach {
+                addNewChip(it!!)
             }
         }
 
-        data.preferenceCity?.forEach {
-            addNewChip(it!!)
+        if (data.preferenceReligion?.isEmpty()!!) {
+            binding.eventReligionTitle.text = getString(R.string.no_religion)
+        } else {
+            addReligionChips(data.preferenceReligion)
         }
 
-        addGenderChips(data.preferenceGender)
-        addReligionChips(data.preferenceReligion)
-        addInterestsChips(data.preferenceHobby)
+        if (data.preferenceGender?.isEmpty()!!) {
+            binding.eventGenderTitle.text = getString(R.string.no_gender)
+        } else {
+            addGenderChips(data.preferenceGender)
+        }
+
+        if (data.preferenceHobby?.isEmpty()!!) {
+            binding.eventInterestTitle.text = getString(R.string.no_interests)
+        } else {
+            addInterestsChips(data.preferenceHobby)
+        }
     }
 
     private fun addGenderChips(list: List<String?>?) {
@@ -286,6 +298,7 @@ class UserDetailActivity : AppCompatActivity() {
                 eventInterestGroup.visibility = View.INVISIBLE
                 eventTypeTitle.visibility = View.INVISIBLE
                 friendRequestButton.visibility = View.INVISIBLE
+                view2.visibility = View.INVISIBLE
                 progressBar.visibility = View.VISIBLE
             }
         } else {
@@ -318,6 +331,7 @@ class UserDetailActivity : AppCompatActivity() {
                 eventInterestGroup.visibility = View.VISIBLE
                 eventTypeTitle.visibility = View.VISIBLE
                 friendRequestButton.visibility = View.VISIBLE
+                view2.visibility = View.VISIBLE
                 progressBar.visibility = View.GONE
             }
         }
