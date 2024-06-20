@@ -44,11 +44,17 @@ class FriendRequestAdapter(private val activity: FriendRequestActivity) : androi
             }
 
             binding.acceptButton.setOnClickListener {
-                activity.acceptFriendRequest(friendRequest.userId!!, position)
+                val positionItem = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    activity.acceptFriendRequest(friendRequest.userId!!, positionItem)
+                }
             }
 
             binding.rejectButton.setOnClickListener {
-                activity.rejectFriendRequest(friendRequest.userId!!, position)
+                val positionItem = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    activity.rejectFriendRequest(friendRequest.userId!!, positionItem)
+                }
             }
         }
     }

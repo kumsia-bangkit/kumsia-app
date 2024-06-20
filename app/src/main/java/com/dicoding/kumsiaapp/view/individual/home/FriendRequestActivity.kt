@@ -1,5 +1,6 @@
 package com.dicoding.kumsiaapp.view.individual.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.kumsiaapp.R
 import com.dicoding.kumsiaapp.data.local.UserPreferences
@@ -99,8 +99,15 @@ class FriendRequestActivity : AppCompatActivity() {
 
     private fun removeItemFromAdapter(position: Int) {
         val currentList = adapter.currentList.toMutableList()
-        currentList.removeAt(position)
-        adapter.submitList(currentList)
+        if (position >= 0 && position < currentList.size) {
+            currentList.removeAt(position)
+            adapter.submitList(currentList)
+            adapter.notifyItemRemoved(position)
+
+            if (currentList.isEmpty()) {
+                showEmptyMessage(true)
+            }
+        }
     }
 
     fun acceptFriendRequest(friendId: String, position: Int) {
