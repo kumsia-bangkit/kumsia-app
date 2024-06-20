@@ -99,6 +99,10 @@ class EditPreferencesActivity : AppCompatActivity() {
             }
         }
 
+        binding.backButton.setOnClickListener {
+            finish()
+        }
+
         binding.eventGenderGroup.setOnCheckedStateChangeListener{ chipGroup, checkedIds ->
             listOfGender.clear()
             checkedIds.forEach {

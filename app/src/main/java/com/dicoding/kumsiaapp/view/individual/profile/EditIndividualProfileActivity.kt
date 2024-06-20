@@ -63,16 +63,16 @@ class EditIndividualProfileActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.citySpinner.setOnClickListener {
-            showCityDialog()
-        }
-
         binding.dobButton.setOnClickListener {
             pickDate()
         }
 
         binding.religionSpinner.setOnClickListener {
             showDialog("Religion")
+        }
+
+        binding.genderSpinner.setOnClickListener {
+            showGenderDialog()
         }
 
         binding.citySpinner.setOnClickListener {
@@ -165,6 +165,13 @@ class EditIndividualProfileActivity : AppCompatActivity() {
         // Initialize and assign variable
         val editText: EditText = dialog.findViewById(R.id.edit_text)
         val listView: ListView = dialog.findViewById(R.id.list_view)
+        val textView: TextView = dialog.findViewById(R.id.text_view)
+
+        if (content == "Religion") {
+            textView.text = getString(R.string.choose_religion)
+            editText.hint = getString(R.string.search_the_religion)
+        }
+
         val adapter: ArrayAdapter<Any?> = if (content == "City") {
             ArrayAdapter<Any?>(
                 this,
@@ -209,7 +216,7 @@ class EditIndividualProfileActivity : AppCompatActivity() {
             }
     }
 
-    private fun showCityDialog() {
+    private fun showGenderDialog() {
         val dialog = Dialog(this)
         dialog.setContentView(
             R.layout.dialog_searchable_spinner)
@@ -218,15 +225,19 @@ class EditIndividualProfileActivity : AppCompatActivity() {
         dialog.show()
 
         // Initialize and assign variable
+        val textView: TextView = dialog.findViewById(R.id.text_view)
+        textView.text = getString(R.string.choose_the_gender)
+
         val editText: EditText = dialog.findViewById(R.id.edit_text)
+        editText.hint = getString(R.string.search_the_gender)
+
         val listView: ListView = dialog.findViewById(R.id.list_view)
 
         val adapter: ArrayAdapter<Any?> = ArrayAdapter<Any?>(
             this,
             android.R.layout.simple_list_item_1,
-            resources.getStringArray(R.array.city_array)
+            resources.getStringArray(R.array.gender_array)
         )
-
 
         listView.adapter = adapter
         editText.addTextChangedListener(object : TextWatcher {
@@ -247,8 +258,8 @@ class EditIndividualProfileActivity : AppCompatActivity() {
         })
 
         listView.onItemClickListener =
-            OnItemClickListener { _, _, position, _ -> // when item selected from list
-                binding.citySpinner.text = adapter.getItem(position).toString()
+            OnItemClickListener { _, _, position, _ ->
+                binding.genderSpinner.text = adapter.getItem(position).toString()
                 dialog.dismiss()
             }
     }

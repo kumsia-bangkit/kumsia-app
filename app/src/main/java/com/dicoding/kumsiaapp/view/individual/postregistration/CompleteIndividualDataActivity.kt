@@ -14,6 +14,7 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
@@ -175,7 +176,14 @@ class CompleteIndividualDataActivity : AppCompatActivity() {
 
         // Initialize and assign variable
         val editText: EditText = dialog.findViewById(R.id.edit_text)
+        val textView: TextView = dialog.findViewById(R.id.text_view)
         val listView: ListView = dialog.findViewById(R.id.list_view)
+
+        if (content == "Religion") {
+            textView.text = getString(R.string.choose_religion)
+            editText.hint = getString(R.string.search_the_religion)
+        }
+
         val adapter: ArrayAdapter<Any?> = if (content == "City") {
             ArrayAdapter<Any?>(
                 this,
