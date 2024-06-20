@@ -59,9 +59,7 @@ class IndividualRegisterActivity : AppCompatActivity() {
         }
 
         binding.signInLink.setOnClickListener {
-            val intent = Intent(this@IndividualRegisterActivity, IndividualActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            val intent = Intent(this@IndividualRegisterActivity, LoginActivity::class.java)
             startActivity(intent)
         }
 
