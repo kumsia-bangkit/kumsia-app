@@ -155,6 +155,7 @@ class IndividualHomeFragment : Fragment() {
     private fun showFriendsLoading(isLoading: Boolean) {
         binding.rvFriends.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
         binding.progressBarFriends.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.viewAllFriends.visibility =  if (isLoading) View.GONE else View.VISIBLE
     }
 
     private fun showEmptyFriendsMessage(isEmpty: Boolean) {
