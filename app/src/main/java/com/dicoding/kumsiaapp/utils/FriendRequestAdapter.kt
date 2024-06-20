@@ -23,6 +23,12 @@ class FriendRequestAdapter(private val activity: FriendRequestActivity) : androi
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val friend = getItem(position)
         holder.bind(friend, position)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, UserDetailActivity::class.java)
+            intent.putExtra(UserDetailActivity.USER_ID, friend.userId)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     class MyViewHolder(private val binding: ItemFriendReqBinding, private val activity: FriendRequestActivity) :
@@ -36,12 +42,6 @@ class FriendRequestAdapter(private val activity: FriendRequestActivity) : androi
                 .into(binding.profileImage)
             binding.individualName.text = friendRequest.name
             binding.individualUsername.text = friendRequest.username
-
-            binding.profileImage.setOnClickListener {
-                val intent = Intent(itemView.context, UserDetailActivity::class.java)
-                intent.putExtra(UserDetailActivity.USER_ID, friendRequest.userId)
-                itemView.context.startActivity(intent)
-            }
 
             binding.acceptButton.setOnClickListener {
                 val positionItem = adapterPosition

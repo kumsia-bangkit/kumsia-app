@@ -25,6 +25,12 @@ class FriendListAdapter : androidx.recyclerview.widget.ListAdapter<FriendsItem, 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val friend = getItem(position)
         holder.bind(friend)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, UserDetailActivity::class.java)
+            intent.putExtra(UserDetailActivity.USER_ID, friend.userId)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     class MyViewHolder(private val binding: ItemFriendBinding) :
@@ -38,12 +44,6 @@ class FriendListAdapter : androidx.recyclerview.widget.ListAdapter<FriendsItem, 
                 .into(binding.profileImage)
             binding.individualName.text = friendList.name
             binding.individualUsername.text = friendList.username
-
-            binding.profileImage.setOnClickListener {
-                val intent = Intent(itemView.context, UserDetailActivity::class.java)
-                intent.putExtra(UserDetailActivity.USER_ID, friendList.userId)
-                itemView.context.startActivity(intent)
-            }
         }
     }
 

@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dicoding.kumsiaapp.data.local.UserPreferences
 import com.dicoding.kumsiaapp.data.local.dataStore
-import com.dicoding.kumsiaapp.data.remote.response.FriendsRec
 import com.dicoding.kumsiaapp.data.remote.response.FriendsRecommendationDTO
 import com.dicoding.kumsiaapp.databinding.FragmentFriendsBinding
 import com.dicoding.kumsiaapp.utils.FriendsRecAdapter
