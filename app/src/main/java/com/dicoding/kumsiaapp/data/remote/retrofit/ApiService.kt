@@ -9,6 +9,7 @@ import com.dicoding.kumsiaapp.data.remote.response.EventUserResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.EventsItem
 import com.dicoding.kumsiaapp.data.remote.response.EventsItemUser
 import com.dicoding.kumsiaapp.data.remote.response.FriendsListResponseDTO
+import com.dicoding.kumsiaapp.data.remote.response.FriendsRecommendationDTO
 import com.dicoding.kumsiaapp.data.remote.response.LoginResponseDTO
 import com.dicoding.kumsiaapp.data.remote.response.OrganizationDTO
 import com.dicoding.kumsiaapp.data.remote.response.TokenResponseDTO
@@ -201,5 +202,16 @@ interface ApiService {
         @Query("event_id") eventId: String,
         @Header(value = "access-token") token: String
     ): Call<JsonObject>
+
+    // Recommendation
+    @GET("recommend/account")
+    fun getFriendsRecommendation(
+        @Header(value = "access-token") token: String
+    ): Call<FriendsRecommendationDTO>
+
+    @GET("recommend/event")
+    fun getEventsRecommendation(
+        @Header(value = "access-token") token: String
+    ): Call<EventUserResponseDTO>
 
 }

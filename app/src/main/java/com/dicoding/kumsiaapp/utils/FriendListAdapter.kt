@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.kumsiaapp.R
-import com.dicoding.kumsiaapp.data.remote.response.FriendList
 import com.dicoding.kumsiaapp.data.remote.response.FriendsItem
 import com.dicoding.kumsiaapp.databinding.ItemFriendBinding
 import com.dicoding.kumsiaapp.view.individual.UserDetailActivity

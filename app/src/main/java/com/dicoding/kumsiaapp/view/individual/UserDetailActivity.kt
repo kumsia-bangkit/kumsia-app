@@ -160,7 +160,7 @@ class UserDetailActivity : AppCompatActivity() {
                 }
         }
 
-        if (data.preferenceCity?.isEmpty()!!) {
+        if (data.preferenceCity.isNullOrEmpty()) {
             binding.eventCityTitle.text = getString(R.string.no_city)
         } else {
             data.preferenceCity.forEach {
@@ -168,19 +168,19 @@ class UserDetailActivity : AppCompatActivity() {
             }
         }
 
-        if (data.preferenceReligion?.isEmpty()!!) {
+        if (data.preferenceReligion.isNullOrEmpty()) {
             binding.eventReligionTitle.text = getString(R.string.no_religion)
         } else {
             addReligionChips(data.preferenceReligion)
         }
 
-        if (data.preferenceGender?.isEmpty()!!) {
+        if (data.preferenceGender.isNullOrEmpty()) {
             binding.eventGenderTitle.text = getString(R.string.no_gender)
         } else {
             addGenderChips(data.preferenceGender)
         }
 
-        if (data.preferenceHobby?.isEmpty()!!) {
+        if (data.preferenceHobby.isNullOrEmpty()) {
             binding.eventInterestTitle.text = getString(R.string.no_interests)
         } else {
             addInterestsChips(data.preferenceHobby)

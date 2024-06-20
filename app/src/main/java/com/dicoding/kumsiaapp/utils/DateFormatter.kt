@@ -4,6 +4,7 @@ import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
@@ -76,5 +77,23 @@ object DateFormatter {
         val currentFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.getDefault())
         val now = Calendar.getInstance().time
         return currentFormat.format(now)
+    }
+
+    fun getAgeFromDate(date: String): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val birthDate = dateFormat.parse(date)
+
+        val today = Calendar.getInstance()
+        today.time = Date()
+
+        val birthCalendar = Calendar.getInstance()
+        birthCalendar.time = birthDate!!
+
+        var age = today.get(Calendar.YEAR) - birthCalendar.get(Calendar.YEAR)
+        if (today.get(Calendar.DAY_OF_YEAR) < birthCalendar.get(Calendar.DAY_OF_YEAR)) {
+            age--
+        }
+
+        return "$age years old"
     }
 }

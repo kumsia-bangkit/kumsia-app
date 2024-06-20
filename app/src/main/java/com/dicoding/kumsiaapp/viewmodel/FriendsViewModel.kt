@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.kumsiaapp.data.remote.response.FriendsListResponseDTO
+import com.dicoding.kumsiaapp.data.remote.response.FriendsRecommendationDTO
 import com.dicoding.kumsiaapp.data.remote.retrofit.ApiConfig
 import com.dicoding.kumsiaapp.utils.EventLiveData
 import com.google.gson.JsonObject
@@ -27,6 +28,9 @@ class FriendsViewModel: ViewModel() {
     private val _friendsData = MutableLiveData<FriendsListResponseDTO>()
     val friendsData: LiveData<FriendsListResponseDTO> = _friendsData
 
+    private val _recommendedFriendsData = MutableLiveData<FriendsRecommendationDTO>()
+    val recommendedFriendsData: LiveData<FriendsRecommendationDTO> = _recommendedFriendsData
+
     private val _friendRequestsData = MutableLiveData<FriendsListResponseDTO>()
     val friendRequestsData: LiveData<FriendsListResponseDTO> = _friendRequestsData
 
@@ -44,6 +48,25 @@ class FriendsViewModel: ViewModel() {
                 }
             }
             override fun onFailure(call: Call<FriendsListResponseDTO>, t: Throwable) {
+                _isLoading.value = false
+            }
+        })
+    }
+
+    fun getFriendsRecommendation(token: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getFriendsRecommendation(token)
+        client.enqueue(object : retrofit2.Callback<FriendsRecommendationDTO> {
+            override fun onResponse(
+                call: Call<FriendsRecommendationDTO>,
+                response: Response<FriendsRecommendationDTO>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _recommendedFriendsData.value = response.body()
+                }
+            }
+            override fun onFailure(call: Call<FriendsRecommendationDTO>, t: Throwable) {
                 _isLoading.value = false
             }
         })
