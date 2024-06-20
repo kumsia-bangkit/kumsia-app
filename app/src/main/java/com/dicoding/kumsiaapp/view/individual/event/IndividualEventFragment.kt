@@ -39,7 +39,7 @@ class IndividualEventFragment : Fragment() {
 
         sessionViewModel.getUserToken().observe(viewLifecycleOwner) {
             if (it != null) {
-                eventViewModel.getAllEventsForUser(it)
+                eventViewModel.getRecommendedEvent(it)
             }
         }
 
@@ -48,7 +48,7 @@ class IndividualEventFragment : Fragment() {
             showLoading(it)
         }
 
-        eventViewModel.eventUserData.observe(viewLifecycleOwner) {
+        eventViewModel.recommendedEventData.observe(viewLifecycleOwner) {
             if (it != null && it.events?.isNotEmpty()!!) {
                 showEmptyMessage(false)
                 provideEvents(it.events)

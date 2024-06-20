@@ -37,6 +37,9 @@ class EventViewModel: ViewModel() {
     private val _eventUserData = MutableLiveData<EventUserResponseDTO>()
     val eventUserData: LiveData<EventUserResponseDTO> = _eventUserData
 
+    private val _recommendedEventData = MutableLiveData<EventUserResponseDTO>()
+    val recommendedEventData: LiveData<EventUserResponseDTO> = _recommendedEventData
+
     private val _joinedEventUserData = MutableLiveData<EventLiveData<EventUserResponseDTO?>>()
     val joinedEventUserData: LiveData<EventLiveData<EventUserResponseDTO?>> = _joinedEventUserData
 
@@ -205,6 +208,25 @@ class EventViewModel: ViewModel() {
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     _eventUserData.value = response.body()
+                }
+            }
+            override fun onFailure(call: Call<EventUserResponseDTO>, t: Throwable) {
+                _isLoading.value = false
+            }
+        })
+    }
+
+    fun getRecommendedEvent(token: String) {
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().getEventsRecommendation(token)
+        client.enqueue(object : retrofit2.Callback<EventUserResponseDTO> {
+            override fun onResponse(
+                call: Call<EventUserResponseDTO>,
+                response: Response<EventUserResponseDTO>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _recommendedEventData.value = response.body()
                 }
             }
             override fun onFailure(call: Call<EventUserResponseDTO>, t: Throwable) {
