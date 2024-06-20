@@ -123,6 +123,8 @@ class UserDetailEventActivity : AppCompatActivity() {
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                                 startActivity(intent)
                                 finish()
+                            } ?: run {
+                                showToast("Failed to unjoin the event")
                             }
                         }
                     }
@@ -142,6 +144,8 @@ class UserDetailEventActivity : AppCompatActivity() {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                         startActivity(intent)
                         finish()
+                    } ?: run {
+                        showToast("Failed to join the event")
                     }
                 }
             }
