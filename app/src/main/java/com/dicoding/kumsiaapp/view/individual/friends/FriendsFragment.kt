@@ -35,10 +35,7 @@ class FriendsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val layoutManager = GridLayoutManager(requireActivity(), 2)
-        binding.rvFriendsRec.layoutManager = layoutManager
-        binding.rvFriendsRec.addItemDecoration(GridSpacingItemDecoration(2, 40, true))
+        setLayoutManager()
 
         val pref = UserPreferences.getInstance(requireContext().dataStore)
         val sessionViewModel = ViewModelProvider(requireActivity(), SessionViewModelFactory(pref))[SessionViewModel::class.java]
@@ -59,6 +56,12 @@ class FriendsFragment : Fragment() {
                 provideRecommendations(it)
             }
         }
+    }
+
+    private fun setLayoutManager() {
+        val layoutManager = GridLayoutManager(requireActivity(), 2)
+        binding.rvFriendsRec.layoutManager = layoutManager
+        binding.rvFriendsRec.addItemDecoration(GridSpacingItemDecoration(2, 40, true))
     }
 
     private fun provideRecommendations(friendsRec: FriendsRecommendationDTO) {

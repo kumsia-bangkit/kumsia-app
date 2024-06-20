@@ -47,7 +47,7 @@
             android:fontFamily="sans-serif-black"
             android:text="@string/friends_recommendation"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

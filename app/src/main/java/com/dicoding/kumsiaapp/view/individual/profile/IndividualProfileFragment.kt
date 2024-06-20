@@ -109,13 +109,31 @@ class IndividualProfileFragment : Fragment() {
             }
         }
 
-        data.user?.preferenceCity?.forEach {
-            addNewChip(it)
+        if (data.user?.preferenceCity.isNullOrEmpty()) {
+            binding.eventCityTitle.text = getString(R.string.no_city)
+        } else {
+            data.user?.preferenceCity?.forEach {
+                addNewChip(it)
+            }
         }
 
-        addGenderChips(data.user?.preferenceGender)
-        addReligionChips(data.user?.preferenceReligion)
-        addInterestsChips(data.user?.preferenceHobby)
+        if (data.user?.preferenceReligion.isNullOrEmpty()) {
+            binding.eventReligionTitle.text = getString(R.string.no_religion)
+        } else {
+            addReligionChips(data.user?.preferenceReligion)
+        }
+
+        if (data.user?.preferenceGender.isNullOrEmpty()) {
+            binding.eventGenderTitle.text = getString(R.string.no_gender)
+        } else {
+            addGenderChips(data.user?.preferenceGender)
+        }
+
+        if (data.user?.preferenceHobby.isNullOrEmpty()) {
+            binding.eventInterestTitle.text = getString(R.string.no_interests)
+        } else {
+            addInterestsChips(data.user?.preferenceHobby)
+        }
     }
 
     private fun addGenderChips(list: List<String?>?) {
@@ -229,6 +247,7 @@ class IndividualProfileFragment : Fragment() {
                 eventInterestGroup.visibility = View.INVISIBLE
                 editButton.visibility = View.INVISIBLE
                 eventTypeTitle.visibility = View.INVISIBLE
+                view2.visibility = View.INVISIBLE
                 progressBar.visibility = View.VISIBLE
             }
         } else {
@@ -261,6 +280,7 @@ class IndividualProfileFragment : Fragment() {
                 eventInterestGroup.visibility = View.VISIBLE
                 editButton.visibility = View.VISIBLE
                 eventTypeTitle.visibility = View.VISIBLE
+                view2.visibility = View.VISIBLE
                 progressBar.visibility = View.GONE
             }
         }
